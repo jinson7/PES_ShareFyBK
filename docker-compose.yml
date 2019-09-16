@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  laravel-app:
+    build:
+      context: '.'
+      args:
+        uid: ${UID}
+    container_name: softwareseleccion-app
+    environment:
+      - APACHE_RUN_USER=#${UID}
+      - APACHE_RUN_GROUP=#${UID}
+    volumes:
+      - .:/var/www/html
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    ports:
+      - 8000:80
+    networks:
+      backend:
+        aliases:
+          - softwareseleccion-app
+
+networks:
+  backend:
+    name: backend
