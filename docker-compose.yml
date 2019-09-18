@@ -1,12 +1,12 @@
 version: '3.5'
 
 services:
-  laravel-app:
+  sharefy-app:
     build:
       context: '.'
       args:
         uid: ${UID}
-    container_name: softwareseleccion-app
+    container_name: sharefy-app
     environment:
       - APACHE_RUN_USER=#${UID}
       - APACHE_RUN_GROUP=#${UID}
@@ -18,8 +18,31 @@ services:
     networks:
       backend:
         aliases:
-          - softwareseleccion-app
+          - sharefy-app
+
+  #MySQL Service
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db_sharefy
+      MYSQL_ROOT_PASSWORD: Vg(28}Pvhc779N:t
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    networks:
+      - backend
 
 networks:
   backend:
     name: backend
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
