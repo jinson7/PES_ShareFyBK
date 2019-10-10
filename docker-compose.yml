@@ -14,7 +14,7 @@ services:
       - .:/var/www/html
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     ports:
-      - 8000:80
+      - 80:80
     networks:
       backend:
         aliases:
@@ -23,7 +23,7 @@ services:
   #MySQL Service
   db:
     image: mysql:5.7
-    container_name: db
+    container_name: sharefy-db
     restart: unless-stopped
     tty: true
     ports:
