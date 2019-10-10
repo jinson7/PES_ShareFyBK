@@ -6,6 +6,7 @@
   <title>{{config('l5-swagger.api.title')}}</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ l5_swagger_asset('swagger-ui.css') }}" >
+  <link rel="stylesheet" type="text/css" href="/css/swagger.css" >
   <link rel="icon" type="image/png" href="{{ l5_swagger_asset('favicon-32x32.png') }}" sizes="32x32" />
   <link rel="icon" type="image/png" href="{{ l5_swagger_asset('favicon-16x16.png') }}" sizes="16x16" />
   <style>
@@ -99,8 +100,16 @@ window.onload = function() {
   })
 
   window.ui = ui
+
+  //Custom
+  var link_img = document.querySelector('.topbar-wrapper a');
+  link_img.href = window.location.protocol+"//"+window.location.hostname;
+  var img_doc = document.querySelector('.topbar-wrapper a img');
+  img_doc.src = '/images/logojusto.png';
+
 }
 </script>
+<script src="/js/swagger.js" ></script>
 </body>
 
 </html>
