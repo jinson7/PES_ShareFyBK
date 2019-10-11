@@ -2,36 +2,92 @@
     "openapi": "3.0.0",
     "info": {
         "title": "API Sharefy",
-        "version": "1.0"
+        "description": "",
+        "contact": {
+            "email": "equip@sharefy.com"
+        },
+        "version": "1.0.0"
     },
     "paths": {
         "/api/users": {
             "get": {
-                "summary": "Mostrar usuarios",
+                "tags": [
+                    "user"
+                ],
+                "summary": "Return list all users",
+                "description": "Returns an array with all the users",
                 "operationId": "App\\Http\\Controllers\\Api\\UserController::index",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status values that needed to be considered for filter",
+                        "required": true,
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "available",
+                                    "pending",
+                                    "sold"
+                                ]
+                            },
+                            "default": "available"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Mostrar todos los usuarios."
-                    },
-                    "default": {
-                        "description": "Ha ocurrido un error."
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
             }
-        },
-        "/api/register": {
-            "post": {
-                "summary": "Registrar Usuario",
-                "operationId": "App\\Http\\Controllers\\AuthController::register",
-                "responses": {
-                    "200": {
-                        "description": "Usuario creado correctamente."
-                    },
-                    "default": {
-                        "description": "Ha ocurrido un error."
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "title": "Pet model",
+                "description": "Pet model",
+                "required": [
+                    "name",
+                    "photoUrls"
+                ],
+                "properties": {
+                    "": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64"
                     }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Pet"
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operations about user",
+            "externalDocs": {
+                "description": "Find out more about store",
+                "url": "http://swagger.io"
+            }
+        }
+    ]
 }

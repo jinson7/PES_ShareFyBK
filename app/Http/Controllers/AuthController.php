@@ -5,27 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
-/**
-* @OA\Info(title="API Sharefy", version="1.0")
-*/
+include('swaggetOA.php');
 
 class AuthController extends Controller
 {
-
-    /**
-    * @OA\Post(
-    *     path="/api/register",
-    *     summary="Registrar Usuario",
-    *     @OA\Response(
-    *         response=200,
-    *         description="Usuario creado correctamente."
-    *     ),
-    *     @OA\Response(
-    *         response="default",
-    *         description="Ha ocurrido un error."
-    *     )
-    * )
-    */
 
     public function register(Request $request){
       $user = User::create([
