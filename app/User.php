@@ -8,31 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-/**
- * Class User
- *
- * @OA\Schema(
- *     description="Pet model",
- *     title="Pet model",
- *     required={"name", "photoUrls"},
- *     @OA\Xml(
- *         name="Pet"
- *     )
- * )
-*/
-
 class User extends Authenticatable implements JWTSubject
 {
-
-    /**
-     * @OA\Property(
-     *     format="int64",
-     *     description="ID",
-     *     title="ID",
-     * )
-     *
-     * @var integer
-     */  
 
     use Notifiable;
 
@@ -42,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password', 'first_name', 'last_name',
     ];
 
     /**

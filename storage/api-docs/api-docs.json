@@ -11,71 +11,71 @@
     "paths": {
         "/api/users": {
             "get": {
+                "summary": "Mostrar usuarios",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::index",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los usuarios."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
                 "tags": [
                     "user"
                 ],
                 "summary": "Return list all users",
                 "description": "Returns an array with all the users",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::index",
+                "operationId": "App\\Http\\Controllers\\AuthController::register",
                 "parameters": [
                     {
-                        "name": "status",
+                        "name": "username",
                         "in": "query",
                         "description": "Status values that needed to be considered for filter",
-                        "required": true,
-                        "explode": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string",
-                                "enum": [
-                                    "available",
-                                    "pending",
-                                    "sold"
-                                ]
-                            },
-                            "default": "available"
-                        }
+                        "required": true
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "Status2 values that needed to be considered for filter",
+                        "required": true
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "Status2 values that needed to be considered for filter",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Status2 values that needed to be considered for filter",
+                        "required": true
+                    },
+                    {
+                        "name": "photo",
+                        "in": "query",
+                        "description": "Status2 values that needed to be considered for filter",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Status2 values that needed to be considered for filter",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "error operation"
                     }
-                },
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ]
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "User": {
-                "title": "Pet model",
-                "description": "Pet model",
-                "required": [
-                    "name",
-                    "photoUrls"
-                ],
-                "properties": {
-                    "": {
-                        "title": "ID",
-                        "description": "ID",
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                },
-                "type": "object",
-                "xml": {
-                    "name": "Pet"
                 }
             }
         }
