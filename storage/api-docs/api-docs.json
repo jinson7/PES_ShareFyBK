@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API Usuarios",
+        "title": "API Sharefy",
         "version": "1.0"
     },
     "paths": {
@@ -12,6 +12,20 @@
                 "responses": {
                     "200": {
                         "description": "Mostrar todos los usuarios."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "summary": "Registrar Usuario",
+                "operationId": "App\\Http\\Controllers\\AuthController::register",
+                "responses": {
+                    "200": {
+                        "description": "Usuario creado correctamente."
                     },
                     "default": {
                         "description": "Ha ocurrido un error."

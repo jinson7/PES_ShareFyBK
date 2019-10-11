@@ -106,7 +106,9 @@ window.onload = function() {
   link_img.href = window.location.protocol+"//"+window.location.hostname;
   var img_doc = document.querySelector('.topbar-wrapper a img');
   img_doc.src = '/images/logojusto.png';
-
+  var icons = document.querySelectorAll('link[rel="icon"]');
+  icons.forEach( (icon) => icon.href='/images/logojusto.png' );
+  
 }
 </script>
 <script src="/js/swagger.js" ></script>

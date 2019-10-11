@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-/**
-* @OA\Info(title="API Usuarios", version="1.0")
-*/
-
 class UserController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth:api')->except(['index']);
+    }
 
     /**
     * @OA\Get(
