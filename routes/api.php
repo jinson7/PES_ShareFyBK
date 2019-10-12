@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 
+// Login and Register
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
-Route::get('users','Api\UserController@index');
+// User
+Route::post('user/username','Api\UserController@check_username');

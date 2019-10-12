@@ -9,16 +9,25 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/users": {
-            "get": {
-                "summary": "Mostrar usuarios",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::index",
+        "/api/user/username": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Return if username is used",
+                "description": "Return if username is used",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::check_username",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "string amb el valor del username",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Mostrar todos los usuarios."
-                    },
-                    "default": {
-                        "description": "Ha ocurrido un error."
+                        "description": "true -> username disponible; false -> username no disponible"
                     }
                 }
             }
@@ -35,37 +44,31 @@
                     {
                         "name": "username",
                         "in": "query",
-                        "description": "Status values that needed to be considered for filter",
+                        "description": "string amb el valor del username",
                         "required": true
                     },
                     {
                         "name": "first_name",
                         "in": "query",
-                        "description": "Status2 values that needed to be considered for filter",
+                        "description": "string amb el valor del first_name",
                         "required": true
                     },
                     {
                         "name": "last_name",
                         "in": "query",
-                        "description": "Status2 values that needed to be considered for filter",
+                        "description": "string amb el valor del last_name",
                         "required": true
                     },
                     {
                         "name": "email",
                         "in": "query",
-                        "description": "Status2 values that needed to be considered for filter",
-                        "required": true
-                    },
-                    {
-                        "name": "photo",
-                        "in": "query",
-                        "description": "Status2 values that needed to be considered for filter",
+                        "description": "string amb el valor del mail",
                         "required": true
                     },
                     {
                         "name": "password",
                         "in": "query",
-                        "description": "Status2 values that needed to be considered for filter",
+                        "description": "string amb el valor del password",
                         "required": true
                     }
                 ],

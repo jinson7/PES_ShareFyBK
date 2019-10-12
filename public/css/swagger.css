@@ -11,3 +11,7 @@
     background-color: #64C995;
     border-bottom: 1px solid #000000;
 }
+
+.swagger-ui .parameters-col_description input[type=text]{
+    display: none !important;
+}

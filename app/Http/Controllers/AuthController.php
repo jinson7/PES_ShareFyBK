@@ -25,37 +25,31 @@ class AuthController extends Controller
      *     @OA\Parameter(
      *         name="username",
      *         in="query",
-     *         description="Status values that needed to be considered for filter",
+     *         description="string amb el valor del username",
      *         required=true
      *     ),
      *     @OA\Parameter(
      *         name="first_name",
      *         in="query",
-     *         description="Status2 values that needed to be considered for filter",
+     *         description="string amb el valor del first_name",
      *         required=true
      *     ),
      *     @OA\Parameter(
      *         name="last_name",
      *         in="query",
-     *         description="Status2 values that needed to be considered for filter",
+     *         description="string amb el valor del last_name",
      *         required=true
      *     ),
      *     @OA\Parameter(
      *         name="email",
      *         in="query",
-     *         description="Status2 values that needed to be considered for filter",
-     *         required=true
-     *     ),
-     *     @OA\Parameter(
-     *         name="photo",
-     *         in="query",
-     *         description="Status2 values that needed to be considered for filter",
+     *         description="string amb el valor del mail",
      *         required=true
      *     ),
      *     @OA\Parameter(
      *         name="password",
      *         in="query",
-     *         description="Status2 values that needed to be considered for filter",
+     *         description="string amb el valor del password",
      *         required=true
      *     )
      * )
@@ -75,6 +69,9 @@ class AuthController extends Controller
         
         $user->token_password = $token;
         $user->save();
+
+        //TODO
+        // Enviar mail al user
 
         return $this->respondWithToken($token);
     }
