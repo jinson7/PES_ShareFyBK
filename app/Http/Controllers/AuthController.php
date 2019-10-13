@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
+use App\Http\Controllers\MailController;
+
 class AuthController extends Controller
 {
 
@@ -12,8 +14,8 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/register",
      *     tags={"user"},
-     *     summary="Return list all users",
-     *     description="Returns an array with all the users",
+     *     summary="Return token",
+     *     description="Returns token",
      *     @OA\Response(
      *         response=200,
      *         description="successful operation"
@@ -70,8 +72,8 @@ class AuthController extends Controller
         $user->token_password = $token;
         $user->save();
 
-        //TODO
         // Enviar mail al user
+        MailController::send_mail_user_registered($request->username, $request->email);
 
         return $this->respondWithToken($token);
     }

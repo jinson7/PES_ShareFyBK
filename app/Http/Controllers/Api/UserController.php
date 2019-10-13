@@ -28,10 +28,32 @@ class UserController extends Controller
      * )
     */
     public function check_username(Request $request){
-        //( User::where('username', $request->username)->get()->count() != 0 ? "false" : "true" )
         return response()->json([
             'value' => ( User::where('username', $request->username)->get()->count() != 0 ? "false" : "true" )
           ], 200);
-        //return ( User::where('username', $request->username)->get()->count() != 0 ? false : true );
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/user/email",
+     *     tags={"user"},
+     *     summary="Return if email is used",
+     *     description="Return if email is used",
+     *     @OA\Response(
+     *         response=200,
+     *         description="true -> email disponible; false -> email no disponible"
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="string amb el valor del email",
+     *         required=true
+     *     )
+     * )
+    */
+    public function check_email(Request $request){
+        return response()->json([
+            'value' => ( User::where('email', $request->email)->get()->count() != 0 ? "false" : "true" )
+          ], 200);
     }
 }

@@ -32,13 +32,36 @@
                 }
             }
         },
+        "/api/user/email": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Return if email is used",
+                "description": "Return if email is used",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::check_email",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "string amb el valor del email",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "true -> email disponible; false -> email no disponible"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
                     "user"
                 ],
-                "summary": "Return list all users",
-                "description": "Returns an array with all the users",
+                "summary": "Return token",
+                "description": "Returns token",
                 "operationId": "App\\Http\\Controllers\\AuthController::register",
                 "parameters": [
                     {
