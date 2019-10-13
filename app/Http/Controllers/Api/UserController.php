@@ -13,8 +13,8 @@ class UserController extends Controller
      * @OA\Post(
      *     path="/api/user/username",
      *     tags={"user"},
-     *     summary="Return if username is used",
-     *     description="Return if username is used",
+     *     summary="Retorna si username es troba disponible",
+     *     description="Retorna si username es troba disponible",
      *     @OA\Response(
      *         response=200,
      *         description="true -> username disponible; false -> username no disponible"
@@ -37,8 +37,8 @@ class UserController extends Controller
      * @OA\Post(
      *     path="/api/user/email",
      *     tags={"user"},
-     *     summary="Return if email is used",
-     *     description="Return if email is used",
+     *     summary="Retorna si email es troba disponible",
+     *     description="Retorna si email es troba disponible",
      *     @OA\Response(
      *         response=200,
      *         description="true -> email disponible; false -> email no disponible"

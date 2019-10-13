@@ -14,8 +14,8 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Return if username is used",
-                "description": "Return if username is used",
+                "summary": "Retorna si username es troba disponible",
+                "description": "Retorna si username es troba disponible",
                 "operationId": "App\\Http\\Controllers\\Api\\UserController::check_username",
                 "parameters": [
                     {
@@ -37,8 +37,8 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Return if email is used",
-                "description": "Return if email is used",
+                "summary": "Retorna si email es troba disponible",
+                "description": "Retorna si email es troba disponible",
                 "operationId": "App\\Http\\Controllers\\Api\\UserController::check_email",
                 "parameters": [
                     {
@@ -60,8 +60,8 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Return token",
-                "description": "Returns token",
+                "summary": "Torna un access_token si l'usuari es registra",
+                "description": "Torna un access_token si l'usuari es registra correctament, és dona per fet que l'username i email es troben disponibles.",
                 "operationId": "App\\Http\\Controllers\\AuthController::register",
                 "parameters": [
                     {
@@ -97,10 +97,71 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "operació correcta"
                     },
                     "400": {
-                        "description": "error operation"
+                        "description": "operació incorrecta"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Torna un access_token si l'usuari fa login correctament",
+                "description": "Torna un access_token si l'usuari fa login correctament",
+                "operationId": "App\\Http\\Controllers\\AuthController::login",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "string amb el valor del mail",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "string amb el valor del password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "operació correcta"
+                    },
+                    "400": {
+                        "description": "operació incorrecta"
+                    },
+                    "401": {
+                        "description": "Dades no valides (contrasenya o username)"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "access_token a una llista negra i no es pot tornar a utilitzar més",
+                "description": "posa l'access_token a una llista negra i no es pot tornar a utilitzar més, per tenir un altre token haurà de fer login un altre cop.",
+                "operationId": "App\\Http\\Controllers\\AuthController::logout",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "string amb el valor del access_token",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "operació correcta"
+                    },
+                    "400": {
+                        "description": "token no vàlid"
                     }
                 }
             }
