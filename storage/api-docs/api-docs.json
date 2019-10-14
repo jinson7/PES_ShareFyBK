@@ -81,6 +81,35 @@
                 }
             }
         },
+        "/api/user/{username}?token=valor": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Dado un username existente, devuelve su información.",
+                "description": "Dado un username existente, devuelve su información.",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::get_info_user",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "string amb el valor del username",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información del usuario."
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [

@@ -13,6 +13,12 @@ use App\User;
 class UserController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('jwt', ['except' => ['check_username',
+                                               'check_email',
+                                               'reset_password']]);
+    }
+
     /**
      * @OA\Post(
      *     path="/api/user/username",
@@ -110,4 +116,36 @@ class UserController extends Controller
     
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/user/{username}?token=valor",
+     *     tags={"user"},
+     *     summary="Dado un username existente, devuelve su información.",
+     *     description="Dado un username existente, devuelve su información.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con la información del usuario."
+     *     ),
+     *     @OA\Parameter(
+     *         name="username",
+     *         in="query",
+     *         description="string amb el valor del username",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * 
+     * )
+    */
+    public function get_info_user($username){
+        $user = User::select('id','username', 'email', 'password', 'first_name', 'last_name')
+        ->where('username', $username)->get();
+        return response()->json([
+            'value' => $user
+          ], 200);
+    }
 }
