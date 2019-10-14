@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 
 // mails
 use App\Mail\UserRegistered;
+use App\Mail\UserPasswordReset;
 
 class MailController extends Controller
 {
@@ -15,6 +16,13 @@ class MailController extends Controller
         Mail::to($email)
                 ->send(
                     new UserRegistered($username, $email)
+                );
+    }
+
+    static function send_mail_user_reset_password($username, $password, $email){
+        Mail::to($email)
+                ->send(
+                    new UserPasswordReset($username, $password, $email)
                 );
     }
 

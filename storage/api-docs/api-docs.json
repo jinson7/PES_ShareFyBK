@@ -55,6 +55,32 @@
                 }
             }
         },
+        "/api/user/reset": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Envia la password a l'usuari per mail",
+                "description": "Envia la password a l'usuari per mail",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::reset_password",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "string amb el valor del email",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operació correcta i mail enviat"
+                    },
+                    "400": {
+                        "description": "Operació incorrecta, no existeix l'usuari amb el mail indicat"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
