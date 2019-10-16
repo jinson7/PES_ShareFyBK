@@ -148,4 +148,63 @@ class UserController extends Controller
             'value' => $user
           ], 200);
     }
+
+    /**
+     * @OA\Put(
+     *     path="/api/user/update/{username}?token=valor",
+     *     tags={"user"},
+     *     summary="Se actualiza la informacion del usuario enviada a esta ruta",
+     *     description="Dado un username existente, devuelve su información.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Retorna un json amb el missatge 'Dades actualitzades correctament' "
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Retorna un json amb el missatge 'No s'han pogut actualitzar les dades' "
+     *     ),
+     *     @OA\Parameter(
+     *         name="username",
+     *         in="query",
+     *         description="string amb el valor del username",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="first_name",
+     *         in="query",
+     *         description="string amb el valor del first_name",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="last_name",
+     *         in="query",
+     *         description="string amb el valor del last_name",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="string amb el valor del mail",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         description="string amb el valor del password",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    */
+
+    public function update(Request $request){
+        UserDB::update([
+            ''
+        ]);
+    }
 }
