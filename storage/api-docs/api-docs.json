@@ -288,6 +288,41 @@
                     }
                 }
             }
+        },
+        "/api/upload_photo": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Subir/Cambiar su foto de perfil",
+                "description": "Un usuario puede subir/cambiar su foto de perfil",
+                "operationId": "App\\Http\\Controllers\\FileController::upload_photo",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "String amb el valor del username",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json 'message : foto subida correctamente.'"
+                    },
+                    "400": {
+                        "description": "Retorna un json 'error : usuari no trobat a la base de dades.'"
+                    },
+                    "401": {
+                        "description": "Retorna un json 'error : no pots modificar dades d\\'un altre usuari.'"
+                    }
+                }
+            }
         }
     },
     "tags": [
