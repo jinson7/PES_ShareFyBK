@@ -16,7 +16,9 @@ class UserController extends Controller
     public function __construct(){
         $this->middleware('jwt', ['except' => ['check_username',
                                                'check_email',
-                                               'reset_password']]);
+                                               'reset_password',
+                                               'list_all_users'
+                                               ]]);
     }
 
     /**
@@ -146,6 +148,24 @@ class UserController extends Controller
         ->where('username', $username)->get();
         return response()->json([
             'value' => $user
+          ], 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/users",
+     *     tags={"user"},
+     *     summary="Dado un username existente, devuelve su información.",
+     *     description="Dado un username existente, devuelve su información.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con la información del usuario."
+     *     )
+     * )
+    */
+    public function list_all_users(){
+        return response()->json([
+            'list' => User::select('username')->get()
           ], 200);
     }
 }

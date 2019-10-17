@@ -110,6 +110,21 @@
                 }
             }
         },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Dado un username existente, devuelve su información.",
+                "description": "Dado un username existente, devuelve su información.",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_users",
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información del usuario."
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [

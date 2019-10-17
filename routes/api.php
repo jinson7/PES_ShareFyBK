@@ -8,6 +8,7 @@ Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');
 
 // User
+Route::get('users','Api\UserController@list_all_users');
 Route::post('user/username','Api\UserController@check_username');
 Route::post('user/email','Api\UserController@check_email');
 Route::post('user/reset', 'Api\UserController@reset_password');
