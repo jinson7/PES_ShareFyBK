@@ -13,5 +13,9 @@ Route::post('user/email','Api\UserController@check_email');
 Route::post('user/reset', 'Api\UserController@reset_password');
 
 Route::get('user/{username}', 'Api\UserController@get_info_user');
-
-Route::get('user/update/{username}', 'Api\UserController@update');
+Route::put('user/update/{username}', 'Api\UserController@update_info_user');
+/*
+Route::put('user/update/{username}', function(Request $request, $username){
+    return App::make('App\Http\Controllers\Api\UserController')->update_info_user($request, $username);
+})->middleware('jwt');
+*/

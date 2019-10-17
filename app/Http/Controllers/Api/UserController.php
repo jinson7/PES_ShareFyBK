@@ -16,7 +16,8 @@ class UserController extends Controller
     public function __construct(){
         $this->middleware('jwt', ['except' => ['check_username',
                                                'check_email',
-                                               'reset_password']]);
+                                               'reset_password'
+                                               ]]);
     }
 
     /**
@@ -153,21 +154,19 @@ class UserController extends Controller
      * @OA\Put(
      *     path="/api/user/update/{username}?token=valor",
      *     tags={"user"},
-     *     summary="Se actualiza la informacion del usuario enviada a esta ruta",
-     *     description="Dado un username existente, devuelve su información.",
+     *     summary="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
+     *     description="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
      *     @OA\Response(
      *         response=200,
-     *         description="Retorna un json amb el missatge 'Dades actualitzades correctament' "
+     *         description="Retorna un json amb el missatge 'operació correcta' "
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Retorna un json amb el missatge 'No s'han pogut actualitzar les dades' "
+     *         description="Retorna un json amb el missatge 'usuari no trobat a la base de dades' "
      *     ),
-     *     @OA\Parameter(
-     *         name="username",
-     *         in="query",
-     *         description="string amb el valor del username",
-     *         required=true
+     *     @OA\Response(
+     *         response=401,
+     *         description="Retorna un json amb el missatge 'no pots modificar dades d'un altre usuari' "
      *     ),
      *     @OA\Parameter(
      *         name="first_name",
@@ -202,9 +201,24 @@ class UserController extends Controller
      * )
     */
 
-    public function update(Request $request){
-        UserDB::update([
-            ''
-        ]);
+    public function update_info_user(Request $request, $username){
+        
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['message' => 'usuari no trobat a la base de dades'], 400);
+        if($user->token_password !== $request->token) return response()->json(['error' => 'no pots modificar dades d\'un altre usuari'], 401);
+        
+        $user->username = $request->username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        if( $request->password !== null ){
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+        return response()->json([
+            'message' => 'operació correcta'
+        ], 200);
+        
+        
     }
 }

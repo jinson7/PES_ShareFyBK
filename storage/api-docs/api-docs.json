@@ -115,16 +115,10 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Se actualiza la informacion del usuario enviada a esta ruta",
-                "description": "Dado un username existente, devuelve su información.",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::update",
+                "summary": "S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
+                "description": "S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::update_info_user",
                 "parameters": [
-                    {
-                        "name": "username",
-                        "in": "query",
-                        "description": "string amb el valor del username",
-                        "required": true
-                    },
                     {
                         "name": "first_name",
                         "in": "query",
@@ -158,10 +152,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Retorna un json amb el missatge 'Dades actualitzades correctament' "
+                        "description": "Retorna un json amb el missatge 'operació correcta' "
                     },
                     "400": {
-                        "description": "Retorna un json amb el missatge 'No s'han pogut actualitzar les dades' "
+                        "description": "Retorna un json amb el missatge 'usuari no trobat a la base de dades' "
+                    },
+                    "401": {
+                        "description": "Retorna un json amb el missatge 'no pots modificar dades d'un altre usuari' "
                     }
                 }
             }
