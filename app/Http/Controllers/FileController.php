@@ -13,18 +13,26 @@ class FileController extends Controller
     }
     /**
      * @OA\Get(
-     *     path="/api/user/{username}?token=valor",
+     *     path="/api/upload_photo",
      *     tags={"user"},
-     *     summary="Dado un username existente, devuelve su información.",
-     *     description="Dado un username existente, devuelve su información.",
+     *     summary="Subir/Cambiar su foto de perfil",
+     *     description="Un usuario puede subir/cambiar su foto de perfil",
      *     @OA\Response(
      *         response=200,
-     *         description="Devuelve un json con la información del usuario."
+     *         description="Retorna un json 'message : foto subida correctamente.'"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Retorna un json 'error : usuari no trobat a la base de dades.'"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Retorna un json 'error : no pots modificar dades d\'un altre usuari.'"
      *     ),
      *     @OA\Parameter(
      *         name="username",
      *         in="query",
-     *         description="string amb el valor del username",
+     *         description="String amb el valor del username",
      *         required=true
      *     ),
      *     @OA\Parameter(
@@ -33,7 +41,6 @@ class FileController extends Controller
      *         description="Valor del token_access",
      *         required=true
      *     )
-     * 
      * )
     */
     public function upload_photo(Request $request){ // /profile/{username.png}
