@@ -222,12 +222,12 @@
             }
         },
         "/api/upload_photo": {
-            "get": {
+            "post": {
                 "tags": [
                     "user"
                 ],
-                "summary": "Subir/Cambiar su foto de perfil",
-                "description": "Un usuario puede subir/cambiar su foto de perfil",
+                "summary": "Subir foto de perfil",
+                "description": "Un usuario logeado puede subir una foto de perfil.",
                 "operationId": "App\\Http\\Controllers\\FileController::upload_photo",
                 "parameters": [
                     {
@@ -245,13 +245,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Retorna un json 'message : foto subida correctamente.'"
+                        "description": "Retorna json 'message' : 'foto subida correctamente.'"
                     },
                     "400": {
-                        "description": "Retorna un json 'error : usuari no trobat a la base de dades.'"
+                        "description": "Retorna json 'error' : usuari no trobat a la base de dades.'"
                     },
                     "401": {
-                        "description": "Retorna un json 'error : no pots modificar dades d\\'un altre usuari.'"
+                        "description": "Retorna json 'error' : 'no pot subir la foto, token no valido.'"
                     }
                 }
             }

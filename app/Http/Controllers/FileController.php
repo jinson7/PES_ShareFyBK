@@ -12,22 +12,22 @@ class FileController extends Controller
         $this->middleware('jwt');
     }
     /**
-     * @OA\Get(
+     * @OA\Post(
      *     path="/api/upload_photo",
      *     tags={"user"},
-     *     summary="Subir/Cambiar su foto de perfil",
-     *     description="Un usuario puede subir/cambiar su foto de perfil",
+     *     summary="Subir foto de perfil",
+     *     description="Un usuario logeado puede subir una foto de perfil.",
      *     @OA\Response(
      *         response=200,
-     *         description="Retorna un json 'message : foto subida correctamente.'"
+     *         description="Retorna json 'message' : 'foto subida correctamente.'"
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Retorna un json 'error : usuari no trobat a la base de dades.'"
+     *         description="Retorna json 'error' : usuari no trobat a la base de dades.'"
      *     ),
      *     @OA\Response(
      *         response=401,
-     *         description="Retorna un json 'error : no pots modificar dades d\'un altre usuari.'"
+     *         description="Retorna json 'error' : 'no pot subir la foto, token no valido.'"
      *     ),
      *     @OA\Parameter(
      *         name="username",
@@ -47,7 +47,7 @@ class FileController extends Controller
         $username = $request->username;
         $user = User::where('username', $username)->first();
         if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
-        if($user->token_password !== $request->token) return response()->json(['error' => 'no pots modificar dades d\'un altre usuari.'], 401);
+        if($user->token_password !== $request->token) return response()->json(['error' => 'no pot subir la foto, token no valido.'], 401);
         $path = public_path('/media/profiles');
         $file = $request->file('photo');
         $ext = $file->getClientOriginalExtension();
