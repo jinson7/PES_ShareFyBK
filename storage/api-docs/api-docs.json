@@ -115,12 +115,12 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Dado un username existente, devuelve su información.",
-                "description": "Dado un username existente, devuelve su información.",
+                "summary": "Retrona un llistat dels usernames existents a la base de dades",
+                "description": "Retrona un llistat dels usernames existents a la base de dades",
                 "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_users",
                 "responses": {
                     "200": {
-                        "description": "Devuelve un json con la información del usuario."
+                        "description": "Retrona un json amb la llista de usernames dels usuaris"
                     }
                 }
             }
@@ -174,6 +174,53 @@
                     },
                     "401": {
                         "description": "Retorna un json amb el missatge 'no pots modificar dades d'un altre usuari' "
+                    }
+                }
+            }
+        },
+        "/api/user/privacy_notification": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Configuració de privacitat i notificacions",
+                "description": "Configuració de privacitat i notificacions",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::privacy_notification",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "String amb el valor del username",
+                        "required": true
+                    },
+                    {
+                        "name": "privacy",
+                        "in": "query",
+                        "description": "String amb el valor true o false, on {true} vol dir que l'usuari es privat i {false} que es públic.",
+                        "required": true
+                    },
+                    {
+                        "name": "token_notification",
+                        "in": "query",
+                        "description": "String amb el valor del token de notificació, si aquest string és (buit) vol dir que les notificacions estan desactivades",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna json 'message' : 'Configuració guardada conrrectament.'"
+                    },
+                    "400": {
+                        "description": "Retorna json 'error' : usuari no trobat a la base de dades.'"
+                    },
+                    "401": {
+                        "description": "Retorna json 'error' : token no valido.'"
                     }
                 }
             }

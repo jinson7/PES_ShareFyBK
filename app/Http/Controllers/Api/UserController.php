@@ -238,4 +238,65 @@ class UserController extends Controller
             'message' => 'operació correcta'
         ], 200);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/user/privacy_notification",
+     *     tags={"user"},
+     *     summary="Configuració de privacitat i notificacions",
+     *     description="Configuració de privacitat i notificacions",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Retorna json 'message' : 'Configuració guardada conrrectament.'"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Retorna json 'error' : usuari no trobat a la base de dades.'"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Retorna json 'error' : token no valido.'"
+     *     ),
+     *     @OA\Parameter(
+     *         name="username",
+     *         in="query",
+     *         description="String amb el valor del username",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="privacy",
+     *         in="query",
+     *         description="String amb el valor true o false, on {true} vol dir que l'usuari es privat i {false} que es públic.",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token_notification",
+     *         in="query",
+     *         description="String amb el valor del token de notificació, si aquest string és (buit) vol dir que les notificacions estan desactivades",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    */
+    public function privacy_notification(Request $request){
+        $username = $request->username;
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
+        if($user->token_password !== $request->token) return response()->json(['error' => 'token no valido.'], 401);
+        $privacy = $request->privacy;
+        if ($privacy !== "true" && $privacy !== "false") return response()->json(['error' => 'el valor de privacy és {true} o {false}.'], 400);
+        $notification = $request->token_notification;
+        ($privacy === "false" ? $user->public = true : $user->public = false);
+        ($notification === "" ? $user->token_notification = NULL : 
+                                $user->token_notification = $notification);
+        $user->save();
+        return response()->json([
+            'message' => 'Configuració guardada conrrectament.'
+        ], 200);
+    }
 }
