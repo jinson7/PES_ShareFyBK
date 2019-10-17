@@ -13,5 +13,6 @@ Route::post('user/username','Api\UserController@check_username');
 Route::post('user/email','Api\UserController@check_email');
 Route::post('user/reset', 'Api\UserController@reset_password');
 
-Route::get('user/{username}', 'Api\UserController@get_info_user');
 Route::put('user/update/{username}', 'Api\UserController@update_info_user');
+Route::post('upload_photo', 'FileController@upload_photo');
+Route::get('user/{username}', 'Api\UserController@get_info_user');
