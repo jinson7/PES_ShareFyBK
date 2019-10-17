@@ -155,11 +155,11 @@ class UserController extends Controller
      * @OA\Get(
      *     path="/api/users",
      *     tags={"user"},
-     *     summary="Dado un username existente, devuelve su información.",
-     *     description="Dado un username existente, devuelve su información.",
+     *     summary="Retrona un llistat dels usernames existents a la base de dades",
+     *     description="Retrona un llistat dels usernames existents a la base de dades",
      *     @OA\Response(
      *         response=200,
-     *         description="Devuelve un json con la información del usuario."
+     *         description="Retrona un json amb la llista de usernames dels usuaris"
      *     )
      * )
     */
@@ -167,5 +167,75 @@ class UserController extends Controller
         return response()->json([
             'list' => User::select('username')->get()
           ], 200);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/api/user/update/{username}?token=valor",
+     *     tags={"user"},
+     *     summary="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
+     *     description="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Retorna un json amb el missatge 'operació correcta' "
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Retorna un json amb el missatge 'usuari no trobat a la base de dades' "
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Retorna un json amb el missatge 'no pots modificar dades d'un altre usuari' "
+     *     ),
+     *     @OA\Parameter(
+     *         name="first_name",
+     *         in="query",
+     *         description="string amb el valor del first_name",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="last_name",
+     *         in="query",
+     *         description="string amb el valor del last_name",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="string amb el valor del mail",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         description="string amb el valor del password",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    */
+
+    public function update_info_user(Request $request, $username){
+        
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['message' => 'usuari no trobat a la base de dades'], 400);
+        if($user->token_password !== $request->token) return response()->json(['error' => 'no pots modificar dades d\'un altre usuari'], 401);
+        
+        $user->username = $request->username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        if( $request->password !== null ){
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+        return response()->json([
+            'message' => 'operació correcta'
+        ], 200);
     }
 }
