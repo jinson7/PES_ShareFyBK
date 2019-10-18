@@ -12,7 +12,6 @@ use App\User;
 
 class UserController extends Controller
 {
-
     public function __construct(){
         $this->middleware('jwt', ['except' => ['check_username',
                                                'check_email',
@@ -219,7 +218,6 @@ class UserController extends Controller
      *     )
      * )
     */
-
     public function update_info_user(Request $request, $username){
         
         $user = User::where('username', $username)->first();
