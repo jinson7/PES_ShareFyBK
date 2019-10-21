@@ -15,5 +15,5 @@ Route::post('user/reset', 'Api\UserController@reset_password');
 
 Route::put('user/update/{username}', 'Api\UserController@update_info_user');
 Route::post('upload_photo', 'FileController@upload_photo');
-Route::post('privacy_notification', 'Api\UserController@privacy_notification');
+Route::post('user/{username}/set_configurations', 'Api\UserController@set_configurations');
 Route::get('user/{username}', 'Api\UserController@get_info_user');

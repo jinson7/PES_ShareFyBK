@@ -178,37 +178,37 @@
                 }
             }
         },
-        "/api/user/privacy_notification": {
+        "/api/user/{username}/set_configurations": {
             "post": {
                 "tags": [
                     "user"
                 ],
-                "summary": "Configuració de privacitat i notificacions",
-                "description": "Configuració de privacitat i notificacions",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::privacy_notification",
+                "summary": "Configuracions de privacitat, notificació i idioma.",
+                "description": "Configuracions de privacitat, notificació i idioma.",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_configurations",
                 "parameters": [
-                    {
-                        "name": "username",
-                        "in": "query",
-                        "description": "String amb el valor del username",
-                        "required": true
-                    },
                     {
                         "name": "privacy",
                         "in": "query",
-                        "description": "String amb el valor true o false, on {true} vol dir que l'usuari es privat i {false} que es públic.",
+                        "description": "String amb el valor true o false, on (true) vol dir que l'usuari es privat i (false) que és públic.",
                         "required": true
                     },
                     {
-                        "name": "token_notification",
+                        "name": "notification",
                         "in": "query",
-                        "description": "String amb el valor del token de notificació, si aquest string és (buit) vol dir que les notificacions estan desactivades",
+                        "description": "String amb el valor true o false, on (true) vol dir que l'usuari vol rebre notificacions i (false) que NO.",
+                        "required": true
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "String amb la abreviatura de l'idioma que vol utilizar l'usuari en la aplicació. p. ex. {'cat','es','en}",
                         "required": true
                     },
                     {
                         "name": "token",
                         "in": "query",
-                        "description": "Valor del token_access",
+                        "description": "Valor del token access.",
                         "required": true
                     }
                 ],
