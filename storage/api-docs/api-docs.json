@@ -193,6 +193,53 @@
                 }
             }
         },
+        "/api/user/{username}/set_configurations": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Configuracions de privacitat, notificació i idioma.",
+                "description": "Configuracions de privacitat, notificació i idioma.",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_configurations",
+                "parameters": [
+                    {
+                        "name": "privacy",
+                        "in": "query",
+                        "description": "String amb el valor true o false, on (true) vol dir que l'usuari es privat i (false) que és públic.",
+                        "required": true
+                    },
+                    {
+                        "name": "notification",
+                        "in": "query",
+                        "description": "String amb el valor true o false, on (true) vol dir que l'usuari vol rebre notificacions i (false) que NO.",
+                        "required": true
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "String amb la abreviatura de l'idioma que vol utilizar l'usuari en la aplicació. p. ex. {'cat','es','en}",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token access.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna json 'message' : 'Configuració guardada conrrectament.'"
+                    },
+                    "400": {
+                        "description": "Retorna json 'error' : usuari no trobat a la base de dades.'"
+                    },
+                    "401": {
+                        "description": "Retorna json 'error' : token no valido.'"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -306,6 +353,41 @@
                     },
                     "400": {
                         "description": "token no vàlid"
+                    }
+                }
+            }
+        },
+        "/api/upload_photo": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Subir foto de perfil",
+                "description": "Un usuario logeado puede subir una foto de perfil.",
+                "operationId": "App\\Http\\Controllers\\FileController::upload_photo",
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "description": "String amb el valor del username",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna json 'message' : 'foto subida correctamente.'"
+                    },
+                    "400": {
+                        "description": "Retorna json 'error' : usuari no trobat a la base de dades.'"
+                    },
+                    "401": {
+                        "description": "Retorna json 'error' : 'no pot subir la foto, token no valido.'"
                     }
                 }
             }

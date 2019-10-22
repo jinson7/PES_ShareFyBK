@@ -12,7 +12,6 @@ use App\User;
 
 class UserController extends Controller
 {
-
     public function __construct(){
         $this->middleware('jwt', ['except' => ['check_username',
                                                'check_email',
@@ -238,7 +237,6 @@ class UserController extends Controller
      *     )
      * )
     */
-
     public function update_info_user(Request $request, $username){
         
         $user = User::where('username', $username)->first();
@@ -257,6 +255,65 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'operació correcta'
+        ], 200);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/user/{username}/set_configurations",
+     *     tags={"user"},
+     *     summary="Configuracions de privacitat, notificació i idioma.",
+     *     description="Configuracions de privacitat, notificació i idioma.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Retorna json 'message' : 'Configuració guardada conrrectament.'"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Retorna json 'error' : usuari no trobat a la base de dades.'"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Retorna json 'error' : token no valido.'"
+     *     ),
+     *     @OA\Parameter(
+     *         name="privacy",
+     *         in="query",
+     *         description="String amb el valor true o false, on (true) vol dir que l'usuari es privat i (false) que és públic.",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="notification",
+     *         in="query",
+     *         description="String amb el valor true o false, on (true) vol dir que l'usuari vol rebre notificacions i (false) que NO.",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="language",
+     *         in="query",
+     *         description="String amb la abreviatura de l'idioma que vol utilizar l'usuari en la aplicació. p. ex. {'cat','es','en}",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token access.",
+     *         required=true
+     *     )
+     * )
+    */
+    public function set_configurations(Request $request, $username){
+        $user = User::where('username', $username)->first();
+        if($user === null ) 
+            return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
+        if($user->token_password !== $request->token) 
+            return response()->json(['error' => 'token no valido.'], 401);
+        $request->privacy === 'true' ? $user->public = false : $user->public = true;
+        $request->notification === 'true' ? $user->notification = true : $user->notification = false;
+        $user->language = $request->language;
+        $user->save();
+        return response()->json([
+            'message' => 'Configuració guardada conrrectament.'
         ], 200);
     }
 }
