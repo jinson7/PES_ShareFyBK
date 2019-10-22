@@ -243,7 +243,7 @@
         "/api/register": {
             "post": {
                 "tags": [
-                    "user"
+                    "auth"
                 ],
                 "summary": "Torna un access_token si l'usuari es registra",
                 "description": "Torna un access_token si l'usuari es registra correctament, és dona per fet que l'username i email es troben disponibles.",
@@ -299,7 +299,7 @@
         "/api/login": {
             "post": {
                 "tags": [
-                    "user"
+                    "auth"
                 ],
                 "summary": "Torna un access_token si l'usuari fa login correctament",
                 "description": "Torna un access_token si l'usuari fa login correctament",
@@ -334,7 +334,7 @@
         "/api/logout": {
             "post": {
                 "tags": [
-                    "user"
+                    "auth"
                 ],
                 "summary": "access_token a una llista negra i no es pot tornar a utilitzar més",
                 "description": "posa l'access_token a una llista negra i no es pot tornar a utilitzar més, per tenir un altre token haurà de fer login un altre cop.",
@@ -395,12 +395,12 @@
     },
     "tags": [
         {
+            "name": "auth",
+            "description": "Operations about authentication"
+        },
+        {
             "name": "user",
-            "description": "Operations about user",
-            "externalDocs": {
-                "description": "Find out more about store",
-                "url": "http://swagger.io"
-            }
+            "description": "Operations about user"
         }
     ]
 }

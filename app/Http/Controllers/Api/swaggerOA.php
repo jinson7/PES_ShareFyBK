@@ -14,11 +14,13 @@ namespace App\Http\Controllers;
  */
 /**
  * @OA\Tag(
+ *     name="auth",
+ *     description="Operations about authentication"
+ * )
+ */
+/**
+ * @OA\Tag(
  *     name="user",
- *     description="Operations about user",
- *     @OA\ExternalDocumentation(
- *         description="Find out more about store",
- *         url="http://swagger.io"
- *     )
+ *     description="Operations about user"
  * )
  */

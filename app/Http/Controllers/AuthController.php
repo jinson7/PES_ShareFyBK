@@ -17,7 +17,7 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/register",
-     *     tags={"user"},
+     *     tags={"auth"},
      *     summary="Torna un access_token si l'usuari es registra",
      *     description="Torna un access_token si l'usuari es registra correctament, és dona per fet que l'username i email es troben disponibles.",
      *     @OA\Response(
@@ -92,7 +92,7 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/login",
-     *     tags={"user"},
+     *     tags={"auth"},
      *     summary="Torna un access_token si l'usuari fa login correctament",
      *     description="Torna un access_token si l'usuari fa login correctament",
      *     @OA\Response(
@@ -147,7 +147,7 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/logout",
-     *     tags={"user"},
+     *     tags={"auth"},
      *     summary="access_token a una llista negra i no es pot tornar a utilitzar més",
      *     description="posa l'access_token a una llista negra i no es pot tornar a utilitzar més, per tenir un altre token haurà de fer login un altre cop.",
      *     @OA\Response(
