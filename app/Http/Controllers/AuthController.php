@@ -47,6 +47,12 @@ class AuthController extends Controller
      *         required=true
      *     ),
      *     @OA\Parameter(
+     *         name="birth_date",
+     *         in="query",
+     *         description="string amb el valor de birth_date amb el format 1997-12-26",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
      *         name="email",
      *         in="query",
      *         description="string amb el valor del mail",
@@ -67,6 +73,7 @@ class AuthController extends Controller
             'username' => $request->username,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'birth_date' => $request->birth_date,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -101,9 +108,9 @@ class AuthController extends Controller
      *         description="Dades no valides (contrasenya o username)"
      *     ),
      *     @OA\Parameter(
-     *         name="email",
+     *         name="login",
      *         in="query",
-     *         description="string amb el valor del mail",
+     *         description="string amb el valor del email o username",
      *         required=true
      *     ),
      *     @OA\Parameter(
@@ -116,16 +123,24 @@ class AuthController extends Controller
     */
 
     public function login(Request $request){
-        $credentials = $request->only(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
+        $loginField = request()->input('login');
+        $credentials = null;
+
+        if ($loginField !== null) {
+            $loginType = filter_var($loginField, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+            request()->merge([ $loginType => $loginField ]);
+
+            $credentials = request([ $loginType, 'password' ]);
+        } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = User::where('email', $request->email)->first();
-        $user->token_password = $token;
-        $user->save();
-        
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         return $this->respondWithToken($token);
     }
 

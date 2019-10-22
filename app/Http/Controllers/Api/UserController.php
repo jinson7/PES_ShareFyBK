@@ -17,7 +17,8 @@ class UserController extends Controller
         $this->middleware('jwt', ['except' => ['check_username',
                                                'check_email',
                                                'reset_password',
-                                               'list_all_users'
+                                               'list_all_users',
+                                               'list_all_emails'
                                                ]]);
     }
 
@@ -170,8 +171,26 @@ class UserController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/emails",
+     *     tags={"user"},
+     *     summary="Retrona un llistat dels emails existents a la base de dades",
+     *     description="Retrona un llistat dels emails existents a la base de dades",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Retrona un json amb la llista de usernames dels usuaris"
+     *     )
+     * )
+    */
+    public function list_all_emails(){
+        return response()->json([
+            'list' => User::select('email')->get()
+          ], 200);
+    }
+
+    /**
      * @OA\Put(
-     *     path="/api/user/update/{username}?token=valor",
+     *     path="/api/user/{username}/update?token=valor",
      *     tags={"user"},
      *     summary="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
      *     description="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
@@ -229,11 +248,13 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
+        $user->birth_date = $request->birth_date;
         $user->email = $request->email;
         if( $request->password !== null ){
             $user->password = bcrypt($request->password);
         }
         $user->save();
+
         return response()->json([
             'message' => 'operació correcta'
         ], 200);

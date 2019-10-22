@@ -115,17 +115,32 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Dado un username existente, devuelve su información.",
-                "description": "Dado un username existente, devuelve su información.",
+                "summary": "Retrona un llistat dels usernames existents a la base de dades",
+                "description": "Retrona un llistat dels usernames existents a la base de dades",
                 "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_users",
                 "responses": {
                     "200": {
-                        "description": "Devuelve un json con la información del usuario."
+                        "description": "Retrona un json amb la llista de usernames dels usuaris"
                     }
                 }
             }
         },
-        "/api/user/update/{username}?token=valor": {
+        "/api/emails": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Retrona un llistat dels emails existents a la base de dades",
+                "description": "Retrona un llistat dels emails existents a la base de dades",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_emails",
+                "responses": {
+                    "200": {
+                        "description": "Retrona un json amb la llista de usernames dels usuaris"
+                    }
+                }
+            }
+        },
+        "/api/user/{username}/update?token=valor": {
             "put": {
                 "tags": [
                     "user"
@@ -206,6 +221,12 @@
                         "required": true
                     },
                     {
+                        "name": "birth_date",
+                        "in": "query",
+                        "description": "string amb el valor de birth_date amb el format 1997-12-26",
+                        "required": true
+                    },
+                    {
                         "name": "email",
                         "in": "query",
                         "description": "string amb el valor del mail",
@@ -238,9 +259,9 @@
                 "operationId": "App\\Http\\Controllers\\AuthController::login",
                 "parameters": [
                     {
-                        "name": "email",
+                        "name": "login",
                         "in": "query",
-                        "description": "string amb el valor del mail",
+                        "description": "string amb el valor del email o username",
                         "required": true
                     },
                     {
