@@ -144,7 +144,7 @@ class UserController extends Controller
      * )
     */
     public function get_info_user($username){
-        $user = User::select('username', 'email', 'photo_path', 'birth_date', 'first_name', 'last_name', 'notification', 'public')
+        $user = User::select('username', 'email', 'photo_path', 'birth_date', 'first_name', 'last_name', 'notification', 'public', 'language')
         ->where('username', $username)->get();
         return response()->json([
             'value' => $user
@@ -314,9 +314,10 @@ class UserController extends Controller
             return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
         if($user->token_password !== $request->token) 
             return response()->json(['error' => 'token no valido.'], 401);
-        $request->privacy === 'true' ? $user->public = false : $user->public = true;
-        $request->notification === 'true' ? $user->notification = true : $user->notification = false;
-        $user->language = $request->language;
+
+        ($request->privacy !== null && $request->privacy === 'true') ? $user->public = false : $user->public = true;
+        ($request->notification !== null && $request->notification === 'true') ? $user->notification = true : $user->notification = false;
+        if ($request->language !== null)  $user->language = $request->language;
         $user->save();
         return response()->json([
             'message' => 'Configuració guardada conrrectament.'
