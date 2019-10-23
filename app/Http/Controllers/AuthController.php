@@ -173,6 +173,11 @@ class AuthController extends Controller
     }
 
     protected function respondWithToken($token){
+
+        $user = User::where('username', auth()->user()->username)->first();
+        $user->token_password = $token;
+        $user->save();
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',

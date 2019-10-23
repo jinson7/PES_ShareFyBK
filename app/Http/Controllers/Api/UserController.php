@@ -206,6 +206,12 @@ class UserController extends Controller
      *         description="Retorna un json amb el missatge 'no pots modificar dades d'un altre usuari' "
      *     ),
      *     @OA\Parameter(
+     *         name="username",
+     *         in="query",
+     *         description="string amb el valor del username",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
      *         name="first_name",
      *         in="query",
      *         description="string amb el valor del first_name",
