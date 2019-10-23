@@ -144,7 +144,7 @@ class UserController extends Controller
      * )
     */
     public function get_info_user($username){
-        $user = User::select('id','username', 'email', 'password', 'first_name', 'last_name')
+        $user = User::select('username', 'email', 'photo_path', 'birth_date', 'first_name', 'last_name', 'notification', 'public')
         ->where('username', $username)->get();
         return response()->json([
             'value' => $user
