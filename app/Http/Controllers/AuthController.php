@@ -18,8 +18,8 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/register",
      *     tags={"auth"},
-     *     summary="Torna un access_token si l'usuari es registra",
-     *     description="Torna un access_token si l'usuari es registra correctament, és dona per fet que l'username i email es troben disponibles.",
+     *     summary="Torna un access_token i el username si l'usuari es registra",
+     *     description="Torna un access_token i el username si l'usuari es registra correctament, és dona per fet que l'username i email es troben disponibles.",
      *     @OA\Response(
      *         response=200,
      *         description="operació correcta"
@@ -93,8 +93,8 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/login",
      *     tags={"auth"},
-     *     summary="Torna un access_token si l'usuari fa login correctament",
-     *     description="Torna un access_token si l'usuari fa login correctament",
+     *     summary="Torna un access_token i el username si l'usuari fa login correctament",
+     *     description="Torna un access_token i el username si l'usuari fa login correctament",
      *     @OA\Response(
      *         response=200,
      *         description="operació correcta"
@@ -177,6 +177,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
+            'username'  => auth()->user()->username,
         ]);
     }
 }
