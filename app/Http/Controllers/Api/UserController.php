@@ -314,10 +314,15 @@ class UserController extends Controller
             return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
         if($user->token_password !== $request->token) 
             return response()->json(['error' => 'token no valido.'], 401);
-
-        ($request->privacy !== null && $request->privacy === 'true') ? $user->public = false : $user->public = true;
-        ($request->notification !== null && $request->notification === 'true') ? $user->notification = true : $user->notification = false;
-        if ($request->language !== null)  $user->language = $request->language;
+        if ($request->privacy !== null ) {
+            if ($request->privacy === 'true') $user->public = false;
+            if ($request->privacy === 'false') $user->public = true;
+        }
+        if ($request->notification !== null) {
+            if ($request->notification === 'true') $user->notification = true;
+            if ($request->notification === 'false') $user->notification = false;
+        }
+        $user->language = $request->language;
         $user->save();
         return response()->json([
             'message' => 'Configuració guardada conrrectament.'
