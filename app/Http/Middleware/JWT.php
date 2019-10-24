@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 
 use JWTAuth;
-
+use App\Http\Controllers\FirebaseController;
 
 class JWT
 {
@@ -18,7 +18,9 @@ class JWT
      */
     public function handle($request, Closure $next)
     {
-        JWTAuth::parseToken()->authenticate();
+        $firebase = new FirebaseController();
+        $firebase->index();
+        //JWTAuth::parseToken()->authenticate();
         return $next($request);
     }
 }
