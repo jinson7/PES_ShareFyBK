@@ -144,7 +144,8 @@ class UserController extends Controller
      * )
     */
     public function get_info_user($username){
-        $user = User::select('username', 'email', 'photo_path', 'birth_date', 'first_name', 'last_name', 'notification', 'public', 'language')
+        $user = User::select('id', 'username', 'email', 'photo_path', 'birth_date', 
+                            'first_name', 'last_name', 'notification', 'public')
         ->where('username', $username)->get();
         return response()->json([
             'value' => $user
@@ -244,7 +245,6 @@ class UserController extends Controller
      * )
     */
     public function update_info_user(Request $request, $username){
-        
         $user = User::where('username', $username)->first();
         if($user === null ) return response()->json(['message' => 'usuari no trobat a la base de dades'], 400);
         if($user->token_password !== $request->token) return response()->json(['error' => 'no pots modificar dades d\'un altre usuari'], 401);
