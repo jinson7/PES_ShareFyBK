@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Publication;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
 
 class PublicationController extends Controller
 {
-
+    
     public function __construct(){
-        $this->middleware('jwt', ['except' => ['show']]);
+        //$this->middleware('jwt');
     }
 
     /**
@@ -43,21 +44,24 @@ class PublicationController extends Controller
         //
     }
 
-    
-    public function show($id){
-        $publication = Publication::select('*')->where('id', $id)->get();
-        return response()->json([
-            'value' => $user
-        ], 200);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Publication  $publication
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Publication $publication)
+    public function edit($id)
     {
         //
     }
@@ -66,10 +70,10 @@ class PublicationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Publication  $publication
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Publication $publication)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -77,10 +81,10 @@ class PublicationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Publication  $publication
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publication $publication)
+    public function destroy($id)
     {
         //
     }

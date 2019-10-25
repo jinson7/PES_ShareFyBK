@@ -245,7 +245,6 @@ class UserController extends Controller
      * )
     */
     public function update_info_user(Request $request, $username){
-        
         $user = User::where('username', $username)->first();
         if($user === null ) return response()->json(['message' => 'usuari no trobat a la base de dades'], 400);
         if($user->token_password !== $request->token) return response()->json(['error' => 'no pots modificar dades d\'un altre usuari'], 401);
@@ -315,8 +314,14 @@ class UserController extends Controller
             return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
         if($user->token_password !== $request->token) 
             return response()->json(['error' => 'token no valido.'], 401);
-        $request->privacy === 'true' ? $user->public = false : $user->public = true;
-        $request->notification === 'true' ? $user->notification = true : $user->notification = false;
+        if ($request->privacy !== null ) {
+            if ($request->privacy === 'true') $user->public = false;
+            if ($request->privacy === 'false') $user->public = true;
+        }
+        if ($request->notification !== null) {
+            if ($request->notification === 'true') $user->notification = true;
+            if ($request->notification === 'false') $user->notification = false;
+        }
         $user->language = $request->language;
         $user->save();
         return response()->json([
