@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
+use App\Publication;
+
 class PublicationController extends Controller
 {
     
     public function __construct(){
-        //$this->middleware('jwt');
+        $this->middleware('jwt');
     }
 
     /**
@@ -45,14 +47,28 @@ class PublicationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+     * @OA\Get(
+     *     path="/api/publication/{id}",
+     *     tags={"publication"},
+     *     summary="Dado un id de publicación existente, devuelve su información.",
+     *     description="Dado un id de publicación existente, devuelve su información.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con la información de la publicación."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+      */
+    public function show($id) {
+        $publication = Publication::select('*')->where('id', $id)->first();
+        return response()->json([
+            'value' => $publication
+        ], 200);
     }
 
     /**

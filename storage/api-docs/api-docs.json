@@ -9,6 +9,29 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/publication/{id}": {
+            "get": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de publicación existente, devuelve su información.",
+                "description": "Dado un id de publicación existente, devuelve su información.",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::show",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información de la publicación."
+                    }
+                }
+            }
+        },
         "/api/user/username": {
             "post": {
                 "tags": [
@@ -407,6 +430,10 @@
         {
             "name": "user",
             "description": "Operations about user"
+        },
+        {
+            "name": "publication",
+            "description": "Operations about publications"
         }
     ]
 }
