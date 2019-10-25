@@ -24,3 +24,9 @@ namespace App\Http\Controllers;
  *     description="Operations about user"
  * )
  */
+/**
+ * @OA\Tag(
+ *     name="publication",
+ *     description="Operations about publications"
+ * )
+ */
