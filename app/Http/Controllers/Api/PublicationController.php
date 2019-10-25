@@ -71,15 +71,50 @@ class PublicationController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /** @OA\GET(
+    *     path="/api/publication/{id}/edit",
+    *     tags={"publication"},
+    *     summary="Dado un id de publicación existente, edita dicha publicación.",
+    *     description="Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Devuelve un json con el mensaje: 'Publicació editada correctament'."
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Devuelve un json con el error: 'No existe la publicación a editar'."
+    *     ),
+    *     @OA\Parameter(
+    *         name="game",
+    *         in="query",
+    *         description="Nombre del juego",
+    *     ),
+    *     @OA\Parameter(
+    *         name="text",
+    *         in="query",
+    *         description="Texto descriptivo de la publicación",
+    *     ),
+    *     @OA\Parameter(
+    *         name="token",
+    *         in="query",
+    *         description="Valor del token_access",
+    *         required=true
+    *     )
+    * )
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Request $request, $id) {
+        $publication = Publication::find($id);
+        if ($publication !== null) {
+            if ($request->game !== null) $publication->game = $request->game;
+            if ($request->text !== null) $publication->text = $request->text;
+            $publication->save();
+            return response()->json([
+                'message' => 'Publicació editada correctament.'
+            ], 200);
+        }
+        return response()->json([
+            'error' => 'No existe la publicación a editar.'
+        ], 400);
     }
 
     /**

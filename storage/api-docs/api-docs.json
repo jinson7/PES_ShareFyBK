@@ -32,6 +32,42 @@
                 }
             }
         },
+        "/api/publication/{id}/edit": {
+            "get": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de publicación existente, edita dicha publicación.",
+                "description": "Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::edit",
+                "parameters": [
+                    {
+                        "name": "game",
+                        "in": "query",
+                        "description": "Nombre del juego"
+                    },
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "Texto descriptivo de la publicación"
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el mensaje: 'Publicació editada correctament'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'No existe la publicación a editar'."
+                    }
+                }
+            }
+        },
         "/api/user/username": {
             "post": {
                 "tags": [
