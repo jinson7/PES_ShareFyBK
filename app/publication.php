@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class publication extends Model
+class Publication extends Model
 {
     //
 }
