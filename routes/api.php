@@ -22,3 +22,4 @@ Route::put('user/{username}/update', 'Api\UserController@update_info_user');
 
 // Publication
 Route::resource('publication', 'Api\PublicationController');
+Route::get('user/{id_user}/publications','Api\PublicationController@list_publication_user');
