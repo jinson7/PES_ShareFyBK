@@ -11,7 +11,7 @@ class PublicationController extends Controller
 {
     
     public function __construct(){
-        $this->middleware('jwt');
+        //$this->middleware('jwt');
     }
 
     /**
@@ -22,6 +22,31 @@ class PublicationController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/user/{id_user}/publications",
+     *     tags={"publication"},
+     *     summary="Dado un id de usuario existente, devuelve todas sus publicaciones",
+     *     description="Dado un id de usuario existente, devuelve todas sus publicaciones",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con la información de la publicación."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+      */
+    public function list_publication_user($id_user){
+        $publications = Publication::where('id_user', $id_user)->get();
+        return response()->json([
+            'value' => $publications
+        ], 200);
     }
 
     /**
@@ -36,7 +61,7 @@ class PublicationController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/publication?token=valor",
+     *     path="/api/publication",
      *     tags={"publication"},
      *     summary="Es crea la publicació amb la informació enviada.",
      *     description="Es crea la publicació amb la informació enviada.",
@@ -116,14 +141,28 @@ class PublicationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+     * @OA\Get(
+     *     path="/api/publication/{id}",
+     *     tags={"publication"},
+     *     summary="Dado un id de publicación existente, devuelve su información.",
+     *     description="Dado un id de publicación existente, devuelve su información.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con la información de la publicación."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+      */
+    public function show($id) {
+        $publication = Publication::select('*')->where('id', $id)->first();
+        return response()->json([
+            'value' => $publication
+        ], 200);
     }
 
     /**

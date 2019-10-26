@@ -9,7 +9,30 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/publication?token=valor": {
+        "/api/user/{id_user}/publications": {
+            "get": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de usuario existente, devuelve todas sus publicaciones",
+                "description": "Dado un id de usuario existente, devuelve todas sus publicaciones",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::list_publication_user",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información de la publicación."
+                    }
+                }
+            }
+        },
+        "/api/publication": {
             "post": {
                 "tags": [
                     "publication"
@@ -55,6 +78,29 @@
                     },
                     "401": {
                         "description": "El vídeo no té un format vàlid, format suportat .mp4"
+                    }
+                }
+            }
+        },
+        "/api/publication/{id}": {
+            "get": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de publicación existente, devuelve su información.",
+                "description": "Dado un id de publicación existente, devuelve su información.",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::show",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información de la publicación."
                     }
                 }
             }
