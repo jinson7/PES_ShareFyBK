@@ -141,6 +141,32 @@
                 }
             }
         },
+        "/api/publication/{publication_id}": {
+            "delete": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de publicación existente, elimina dicha publicación.",
+                "description": "Dado un id de publicación existente, elimina dicha publicación.",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::destroy",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el mensaje: 'Publicació eliminada correctament'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'No existeix la publicació a eliminar'."
+                    }
+                }
+            }
+        },
         "/api/user/username": {
             "post": {
                 "tags": [
