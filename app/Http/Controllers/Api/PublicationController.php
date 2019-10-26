@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Publication;
@@ -123,11 +124,10 @@ class PublicationController extends Controller
             // crear ruta per el clip
             $id_publication = str_pad($publication->id, 3, "0", STR_PAD_LEFT);
             $path = '/media/clips/'.$id_publication[0].'/'.$id_publication[1].'/'.$id_publication[2].'/';
-        
             $date = now()->timestamp;
             $name_file = $date . '.' . $ext;
-            $file->move(public_path($path), $name_file);
-            $publication->video_path = $path.$name_file;
+            Storage::disk('public')->putFileAs($path, $file, $name_file);
+            $publication->video_path = '/storage'.$path.$name_file;
             $publication->save();
             return response()->json([
                 'message' => 'Publicació creada correctament.'
@@ -248,7 +248,16 @@ class PublicationController extends Controller
     {
         $publication = Publication::find($id);
         if ($publication !== null) {
+            
+            $video_path = $publication->video_path;
+            // quitamos el /storage de el video_path
+            $video_path = substr($publication->video_path, 8);
+            
+            if(Storage::disk('public')->exists($video_path)){
+                Storage::disk('public')->delete($video_path);
+            }
             $publication->delete();
+
             return response()->json([
                 'message' => 'Publicació eliminada correctament.'
             ], 200);
