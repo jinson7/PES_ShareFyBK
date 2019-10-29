@@ -9,6 +9,21 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/games": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Retrona un llistat amb tots els games existents a la base de dades",
+                "description": "Retrona un llistat amb tots els games existents a la base de dades",
+                "operationId": "App\\Http\\Controllers\\Api\\GameController::index",
+                "responses": {
+                    "200": {
+                        "description": "Retrona un json amb la llista de games"
+                    }
+                }
+            }
+        },
         "/api/user/{id_user}/publications": {
             "get": {
                 "tags": [
@@ -50,7 +65,7 @@
                     {
                         "name": "game",
                         "in": "query",
-                        "description": "string amb el valor del game",
+                        "description": "id del game",
                         "required": true
                     },
                     {
@@ -507,6 +522,10 @@
         {
             "name": "publication",
             "description": "Operations about publications"
+        },
+        {
+            "name": "game",
+            "description": "Operations about games"
         }
     ]
 }
