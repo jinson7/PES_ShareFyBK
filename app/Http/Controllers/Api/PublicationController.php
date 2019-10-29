@@ -83,7 +83,7 @@ class PublicationController extends Controller
      *     @OA\Parameter(
      *         name="game",
      *         in="query",
-     *         description="string amb el valor del game",
+     *         description="id del game",
      *         required=true
      *     ),
      *     @OA\Parameter(
@@ -108,19 +108,16 @@ class PublicationController extends Controller
     */
     public function store(Request $request)
     {
-
         // agafar el video
         $file = $request->file('video');
         $ext = $file->getClientOriginalExtension();
-
         if ( $ext === 'mp4' ) {
             // crear publicació
             $publication = Publication::create([
                 'id_user' => $request->id_user,
-                'game' => $request->game,
+                'id_game' => $request->game,
                 'text' => $request->text
             ]);
-
             // crear ruta per el clip
             $id_publication = str_pad($publication->id, 3, "0", STR_PAD_LEFT);
             $path = '/media/clips/'.$id_publication[0].'/'.$id_publication[1].'/'.$id_publication[2].'/';

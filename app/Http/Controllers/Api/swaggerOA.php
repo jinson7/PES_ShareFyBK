@@ -30,3 +30,9 @@ namespace App\Http\Controllers;
  *     description="Operations about publications"
  * )
  */
+/**
+ * @OA\Tag(
+ *     name="game",
+ *     description="Operations about games"
+ * )
+ */

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Publication extends Model
 {
     protected $fillable = [
-        'id_user', 'game', 'text', 'video_path',
+        'id_user', 'id_game', 'text', 'video_path',
     ];
 }
