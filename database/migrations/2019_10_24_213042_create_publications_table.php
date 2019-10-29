@@ -16,10 +16,12 @@ class CreatePublicationsTable extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user')->anullable();
-            $table->string('video_path')->anullable();
-            $table->string('name_game')->anullable();
+            $table->string('video_path')->nullable();
+            $table->unsignedBigInteger('id_game')->anullable();
             $table->text('text');
             $table->timestamps();
+            $table->foreign('id_game')
+            ->references('id')->on('games');
             $table->foreign('id_user')
             ->references('id')->on('users')
             ->onDelete('cascade');
