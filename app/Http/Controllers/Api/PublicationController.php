@@ -156,7 +156,7 @@ class PublicationController extends Controller
      * )
       */
     public function show($id) {
-        $publication = Publication::select('*')->where('id', $id)->first();
+        $publication = Publication::with('game')->select('*')->where('id', $id)->first();
         return response()->json([
             'value' => $publication
         ], 200);
