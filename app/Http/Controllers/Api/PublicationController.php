@@ -185,14 +185,46 @@ class PublicationController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+    /** @OA\DELETE(
+    *     path="/api/publication/{publication_id}",
+    *     tags={"publication"},
+    *     summary="Dado un id de publicación existente, elimina dicha publicación.",
+    *     description="Dado un id de publicación existente, elimina dicha publicación.",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Devuelve un json con el mensaje: 'Publicació eliminada correctament'."
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Devuelve un json con el error: 'No existeix la publicació a eliminar'."
+    *     ),
+    *     @OA\Parameter(
+    *         name="token",
+    *         in="query",
+    *         description="Valor del token_access",
+    *         required=true
+    *     )
+    * )
      */
     public function destroy($id)
     {
-        //
+        $publication = Publication::find($id);
+        if ($publication !== null) {
+            
+            $video_path = $publication->video_path;
+            // quitamos el /storage de el video_path
+            $video_path = substr($publication->video_path, 8);
+            
+            if(Storage::disk('public')->exists($video_path)){
+                Storage::disk('public')->delete($video_path);
+            }
+            $publication->delete();
+            return response()->json([
+                'message' => 'Publicació eliminada correctament.'
+            ], 200);
+        }
+        return response()->json([
+            'error' => 'No existeix la publicació a eliminar.'
+        ], 400);
     }
 }
