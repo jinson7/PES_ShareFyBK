@@ -12,8 +12,8 @@ class FirebaseController extends Controller
     protected $firebase;
 
     public function __construct(){
-        $this->firebase = (new Factory())
-            ->withServiceAccount(__DIR__.'/FirebaseKey.json');
+        //$this->firebase = (new Factory())
+            //->withServiceAccount(__DIR__.'/FirebaseKey.json');
     }
 
     public function verifyIdToken($token){

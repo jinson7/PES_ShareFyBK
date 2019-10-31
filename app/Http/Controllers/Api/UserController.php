@@ -328,4 +328,39 @@ class UserController extends Controller
             'message' => 'Configuració guardada conrrectament.'
         ], 200);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/user/{username}/token_password",
+     *     tags={"user"},
+     *     summary="set token_password per als usuaris que han fet login amb google",
+     *     description="set token_password per als usuaris que han fet login amb google",
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="string amb el valor del token a ficar a l'usuari",
+     *         required=true
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="'error' => 'usuari no trobat a la base de dades'"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description=""
+     *     )
+     * )
+    */
+    public function set_token(Request $request, $username){
+        
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 400);
+        $user->token_password = $request->token;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Configuració guardada conrrectament.'
+        ], 200);
+
+    }
 }
