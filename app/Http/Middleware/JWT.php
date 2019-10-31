@@ -20,20 +20,25 @@ class JWT
      */
     public function handle($request, Closure $next)
     {
-        /*
-        $user = User::where('token_password', $request->token)->first();
-        dd($user);
-        if( $user !== null ){
-            if($user->password === "" || $user->password === null ){
-                $firebase = new FirebaseController();
-                $firebase->verifyIdToken('');
+        $user = \App\User::where('token_password', $request->token)->first();
+        if($user !== null){
+            if($user->password===null || $user->password===""){
+                $client = new \Google_Client();
+                if ($client->verifyIdToken($request->token)) {
+                    return $next($request);
+                } else {
+                    return response()->json([
+                        'error' => 'token is invalid'
+                    ], 200);
+                }
             }else{
                 JWTAuth::parseToken()->authenticate();
+                return $next($request);
             }
+        }else{
+            return response()->json([
+                'error' => 'token is invalid'
+            ], 200);
         }
-        */
-        
-        JWTAuth::parseToken()->authenticate();
-        return $next($request);
     }
 }

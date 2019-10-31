@@ -20,6 +20,19 @@ class FirebaseController extends Controller
         $auth = $this->firebase->createAuth();
         try {
             $verifiedIdToken = $auth->verifyIdToken($token);
+            //return $verifiedIdToken;
+        } catch (InvalidToken $e) {
+            echo $e->getMessage();
+        }
+        $uid = $verifiedIdToken->getClaim('sub');
+        $user = $auth->getUser($uid);
+        return $user;
+    }
+
+    public function getUser($uid){
+        $auth = $this->firebase->createAuth();
+        try {
+            $verifiedIdToken = $auth->getUser($uid);
             return $verifiedIdToken;
         } catch (InvalidToken $e) {
             echo $e->getMessage();
