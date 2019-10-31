@@ -19,6 +19,7 @@ Route::post('upload_photo', 'FileController@upload_photo');
 Route::post('user/{username}/set_configurations', 'Api\UserController@set_configurations');
 Route::get('user/{username}', 'Api\UserController@get_info_user');
 Route::put('user/{username}/update', 'Api\UserController@update_info_user');
+Route::post('user/{username}/token_password', 'Api\UserController@set_token');
 
 // Publication
 Route::resource('publication', 'Api\PublicationController');

@@ -17,7 +17,8 @@ class UserController extends Controller
                                                'check_email',
                                                'reset_password',
                                                'list_all_users',
-                                               'list_all_emails'
+                                               'list_all_emails',
+                                               'set_token'
                                                ]]);
     }
 
@@ -347,7 +348,7 @@ class UserController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description=""
+     *         description="'message' => 'Configuració guardada conrrectament.'"
      *     )
      * )
     */
