@@ -419,6 +419,32 @@
                 }
             }
         },
+        "/api/user/{username}/token_password": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "set token_password per als usuaris que han fet login amb google",
+                "description": "set token_password per als usuaris que han fet login amb google",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_token",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "string amb el valor del token a ficar a l'usuari",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "'error' => 'usuari no trobat a la base de dades'"
+                    },
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
