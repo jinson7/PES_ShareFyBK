@@ -11,8 +11,11 @@
         "php": "^7.2",
         "darkaonline/l5-swagger": "^6.0",
         "fideloper/proxy": "^4.0",
+        "google/apiclient": "^2.4",
+        "kreait/firebase-php": "^4.35",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "lcobucci/jwt": "^3.3",
         "tymon/jwt-auth": "1.0.*",
         "zircote/swagger-php": "^3.0"
     },

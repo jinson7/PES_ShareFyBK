@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sharefy-loginextra",
+  "private_key_id": "9658a71a6063d3a281f3cd639743d20b835e5765",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCoDc3F8j8Jvm5S\njplcKK7KzgfONtmDvpMvrBH7gmExNLcNIUOY2AsaHFM8hKSwU4skwg6Gse3om+rQ\nohIb3jPoryL6iD/X63dWkzp8qZWqcAkXZnERDPDjkAfazX64Ua639xD87sVgOXQE\nvYJ03JcSyF0ofPfOVouHZlpMdsUbmN5bXZEH/kB/+AFzhtDRRWqdv98cwa0E4j2w\n2M3aROIzNz+RAednaqMRR/qXEbn96BB4hba9sa33XSqOagzxLvsGCppmBlfg1ph+\nCS/b9CGjOCe4gX7WD+NAAXdQkXgdJP5sz9kL8e+i3fh2liLkYMW+Nk/utVXmIgfJ\n+UCFqiFbAgMBAAECggEATCGwwkd7olToUrMyK6tsgAi1RYjYolPgBv07Skbm8+0v\nLh4PKvtYkDQbyzNGDnFSfE0DWqbZogKcbna1oHVZ68QHoxq9XXpZHlnlaZtD56oI\nnFa2yyQjLtxNiqSEj0jFz6Z4RjV/KhftBMa7hmh2cjZd6Z0vgAT6AdVu++vkYJrz\ndlKaoDgZVMXF2p6mniWczk3Ij2iYUg2B78aS26kmGfCYNmfaMlu9Kzgaf7bLmtZR\nZOe2uBTidezecD7RVJefXDwJa3Q653B7U8Yz9kjBiwDdsYa27fXk5t9fobZaukX6\njRhMApQBqOjI30G40RLd7HKENFLpdELI1+59SGqbIQKBgQDqFQHHSSCOi+wanX7b\nc4l4J4fnkjn/erlre5eMgxE9pBPWtneSqya7P85kKXV2p0x8lmf7ddQjVJv2NGCd\nntYF4ImUBfzfHtkYfGt/w09aMoR2L6St6H7xJnvu2WvQAUtUn99bzVJeugsmBa4h\n+guoxlMPA8JjxtsyYV4mC68b4QKBgQC3yhbisBoqMj2AgjB9u+QGd4YwFhow1IAf\n83gHbNGHT4K45Iq/kTwefo/tRIjCpSxJ04sFi1/9/YALe+iPhObtwhhfESo9HSuw\nWdQ4JdAR+Lg0qdPU75x74KdBhKMiB+rZfuXUsQpayC7oopw8gfwaMYWDDedoCNAV\nJRRgzHlEuwKBgQCHva7OVcWfY9yCgpoxwAoTtzjEPLONRymG/qCfRtIUoLUwaZdl\nYgKPyyxwQOpw6AsepEmgNG/UHRhj6XOtc5JAzjh5sg81g7n4zQ25hRTbBThzIKWq\ng4w5Y0uy8jnm4RlB9YOcxK/jZpdYcSrNYSaptHgt2Mw89+/cg0IJZfUhgQKBgQCA\nbmtBq/gMxqDtvYxvQK5eyoVt8vQIbWa/bR7SaXueB7T8yVAgADi3wo+HKV48Tro9\nOOOsUzIYRl6FJ+hi6meJfBoVzOPsYwcVrCA9wEa/WEQ5IPgTlAGRG3MluK9a55d4\nt1GaKMFooP0OuhtduSPXlgWLiFrN+2KVdBzia+DOYwKBgQC+rKnwL4Uu528AjEpV\nH9iSYAhUY1uAc+VJnkjZ1zlDYE2tW6sg5/LgXXUn26xxcRumQwkyNh2sUW3BT8y1\naqJzZVhtLpIpZ67h7RCznw2fl/R9gLoICqnxxApuLRBXQeJ08PcWrA6k9OdVuIyt\nBfaqTUoNHEHFXlpGarY2GNFFMQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-96pqq@sharefy-loginextra.iam.gserviceaccount.com",
+  "client_id": "102676044812659015776",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-96pqq%40sharefy-loginextra.iam.gserviceaccount.com"
+}
