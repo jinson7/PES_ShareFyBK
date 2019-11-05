@@ -118,16 +118,14 @@
                         "description": "Devuelve un json con la información de la publicación."
                     }
                 }
-            }
-        },
-        "/api/publication/{id}/edit": {
-            "get": {
+            },
+            "put": {
                 "tags": [
                     "publication"
                 ],
                 "summary": "Dado un id de publicación existente, edita dicha publicación.",
                 "description": "Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::edit",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::update",
                 "parameters": [
                     {
                         "name": "game",
@@ -281,39 +279,7 @@
                         "description": "Devuelve un json con la información del usuario."
                     }
                 }
-            }
-        },
-        "/api/users": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Retrona un llistat dels usernames existents a la base de dades",
-                "description": "Retrona un llistat dels usernames existents a la base de dades",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_users",
-                "responses": {
-                    "200": {
-                        "description": "Retrona un json amb la llista de usernames dels usuaris"
-                    }
-                }
-            }
-        },
-        "/api/emails": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "summary": "Retrona un llistat dels emails existents a la base de dades",
-                "description": "Retrona un llistat dels emails existents a la base de dades",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_emails",
-                "responses": {
-                    "200": {
-                        "description": "Retrona un json amb la llista de usernames dels usuaris"
-                    }
-                }
-            }
-        },
-        "/api/user/{username}/update?token=valor": {
+            },
             "put": {
                 "tags": [
                     "user"
@@ -372,7 +338,37 @@
                 }
             }
         },
-        "/api/user/{username}/set_configurations": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Retrona un llistat dels usernames existents a la base de dades",
+                "description": "Retrona un llistat dels usernames existents a la base de dades",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_users",
+                "responses": {
+                    "200": {
+                        "description": "Retrona un json amb la llista de usernames dels usuaris"
+                    }
+                }
+            }
+        },
+        "/api/emails": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Retrona un llistat dels emails existents a la base de dades",
+                "description": "Retrona un llistat dels emails existents a la base de dades",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_emails",
+                "responses": {
+                    "200": {
+                        "description": "Retrona un json amb la llista de usernames dels usuaris"
+                    }
+                }
+            }
+        },
+        "/api/user/{username}/configuration": {
             "post": {
                 "tags": [
                     "user"
@@ -440,7 +436,7 @@
                         "description": "'error' => 'usuari no trobat a la base de dades'"
                     },
                     "200": {
-                        "description": ""
+                        "description": "'message' => 'Configuració guardada conrrectament.'"
                     }
                 }
             }
@@ -562,7 +558,7 @@
                 }
             }
         },
-        "/api/upload_photo": {
+        "/user/{username}/photo": {
             "post": {
                 "tags": [
                     "user"

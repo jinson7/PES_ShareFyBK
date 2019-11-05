@@ -12,9 +12,17 @@ class Publication extends Model
 
     /**
      * Get the game of the publication.
-     */
+    */
     public function game()
     {
         return $this->belongsTo('App\Game', 'id_game', 'id');
+    }
+
+    /**
+     * Get the user of the publication.
+    */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'id_user', 'id');
     }
 }

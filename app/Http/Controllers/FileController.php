@@ -14,7 +14,7 @@ class FileController extends Controller
     
     /**
      * @OA\Post(
-     *     path="/api/upload_photo",
+     *     path="/user/{username}/photo",
      *     tags={"user"},
      *     summary="Subir foto de perfil",
      *     description="Un usuario logeado puede subir una foto de perfil.",
@@ -44,8 +44,8 @@ class FileController extends Controller
      *     )
      * )
     */
-    public function upload_photo(Request $request){
-        $username = $request->username;
+    public function upload_photo(Request $request, $username){
+        //$username = $request->username;
         $path = '/media/profiles/';
         $user = User::where('username', $username)->first();
         if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);

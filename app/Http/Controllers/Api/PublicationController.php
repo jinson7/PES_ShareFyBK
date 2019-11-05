@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Publication;
+use App\User;
 
 class PublicationController extends Controller
 {
@@ -156,14 +157,18 @@ class PublicationController extends Controller
      * )
       */
     public function show($id) {
-        $publication = Publication::with('game')->select('*')->where('id', $id)->first();
+        $publication = Publication::with('game')->where('id', $id)->first();
+        $publication->user = User::select('username', 'photo_path')->where('id', $publication->id_user)->first();
         return response()->json([
             'value' => $publication
         ], 200);
     }
 
-    /** @OA\GET(
-    *     path="/api/publication/{id}/edit",
+    public function edit(Request $request, $id) {
+    }
+
+    /** @OA\Put(
+    *     path="/api/publication/{id}",
     *     tags={"publication"},
     *     summary="Dado un id de publicación existente, edita dicha publicación.",
     *     description="Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
@@ -193,7 +198,8 @@ class PublicationController extends Controller
     *     )
     * )
      */
-    public function edit(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $publication = Publication::find($id);
         if ($publication !== null) {
             if ($request->game !== null) $publication->game = $request->game;
@@ -206,18 +212,6 @@ class PublicationController extends Controller
         return response()->json([
             'error' => 'No existe la publicación a editar.'
         ], 400);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /** @OA\DELETE(

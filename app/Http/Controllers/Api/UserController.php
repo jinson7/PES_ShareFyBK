@@ -191,7 +191,7 @@ class UserController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/user/{username}/update?token=valor",
+     *     path="/api/user/{username}?token=valor",
      *     tags={"user"},
      *     summary="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
      *     description="S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
@@ -267,7 +267,7 @@ class UserController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/user/{username}/set_configurations",
+     *     path="/api/user/{username}/configuration",
      *     tags={"user"},
      *     summary="Configuracions de privacitat, notificació i idioma.",
      *     description="Configuracions de privacitat, notificació i idioma.",
