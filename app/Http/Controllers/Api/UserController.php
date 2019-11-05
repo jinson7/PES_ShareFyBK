@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Http\Controllers\MailController;
 
@@ -232,6 +232,12 @@ class UserController extends Controller
      *         required=true
      *     ),
      *     @OA\Parameter(
+     *         name="old_password",
+     *         in="query",
+     *         description="string amb el valor del old_password",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
      *         name="password",
      *         in="query",
      *         description="string amb el valor del password",
@@ -256,7 +262,13 @@ class UserController extends Controller
         $user->birth_date = $request->birth_date;
         $user->email = $request->email;
         if( $request->password !== null ){
-            $user->password = bcrypt($request->password);
+            if( Hash::check($request->old_password, $user->password) ){
+                $user->password = bcrypt($request->password);
+            }else{
+                return response()->json([
+                    'error' => 'old_password no coincideix'
+                ], 401);
+            }    
         }
         $user->save();
 
