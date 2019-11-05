@@ -313,6 +313,12 @@
                         "required": true
                     },
                     {
+                        "name": "old_password",
+                        "in": "query",
+                        "description": "string amb el valor del old_password",
+                        "required": true
+                    },
+                    {
                         "name": "password",
                         "in": "query",
                         "description": "string amb el valor del password",
