@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Publication;
 use App\User;
+use App\Like;
 
 class PublicationController extends Controller
 {
@@ -157,8 +158,12 @@ class PublicationController extends Controller
      * )
       */
     public function show($id) {
-        $publication = Publication::with('game')->where('id', $id)->first();
-        $publication->user = User::select('username', 'photo_path')->where('id', $publication->id_user)->first();
+        $publication = Publication::with('game', 'user:id,username,photo_path')->where('id', $id)->first();
+        //$publication->user = User::select('username', 'photo_path')->where('id', $publication->id_user)->first();
+        $likes = Like::with('user:id,username')->where('id_publication', $publication->id)->get();
+        $list_usernames_like = $likes->implode('user.username', ',');
+        $publication->num_likes = $likes->count();
+        $publication->likes = explode(',', $list_usernames_like);
         return response()->json([
             'value' => $publication
         ], 200);
