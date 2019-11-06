@@ -24,6 +24,32 @@
                 }
             }
         },
+        "/api/like/user/{username}/publication/{id_publication}": {
+            "post": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "dado un username se crea la relacion like con la publicacion id_publicacion",
+                "description": "dado un username se crea la relacion like con la publicacion id_publicacion",
+                "operationId": "App\\Http\\Controllers\\Api\\LikeDataController::set_like",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el mensaje: 'relació creada correctament'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    }
+                }
+            }
+        },
         "/api/user/{id_user}/publications": {
             "get": {
                 "tags": [

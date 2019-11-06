@@ -14,6 +14,27 @@ class LikeDataController extends Controller
         //$this->middleware('jwt');
     }
 
+    /** @OA\Post(
+    *     path="/api/like/user/{username}/publication/{id_publication}",
+    *     tags={"publication"},
+    *     summary="dado un username se crea la relacion like con la publicacion id_publicacion",
+    *     description="dado un username se crea la relacion like con la publicacion id_publicacion",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Devuelve un json con el mensaje: 'relació creada correctament'."
+    *     ),
+    *     @OA\Response(
+    *         response=400,
+    *         description="Devuelve un json con el error: 'error en els paràmetres'."
+    *     ),
+    *     @OA\Parameter(
+    *         name="token",
+    *         in="query",
+    *         description="Valor del token_access",
+    *         required=true
+    *     )
+    * )
+     */
     public function set_like($username, $id_publication){
         $user = User::where('username', $username)->first();
         Like::create([
@@ -22,7 +43,7 @@ class LikeDataController extends Controller
         ]);
         return response()->json([
             'message' => 'relació creada correctament'
-        ], 400);
+        ], 200);
     }
 
     public function unset_like($username, $id_publication){
