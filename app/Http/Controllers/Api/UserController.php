@@ -81,7 +81,7 @@ class UserController extends Controller
      *         description="Operació correcta i mail enviat"
      *     ),
      *     @OA\Response(
-     *         response=400,
+     *         response=404,
      *         description="Operació incorrecta, no existeix l'usuari amb el mail indicat"
      *     ),
      *     @OA\Parameter(
@@ -113,7 +113,7 @@ class UserController extends Controller
 
             return response()->json([
                 'message' => 'Operació incorrecta, no existeix l\'usuari amb el mail indicat'
-            ], 400);
+            ], 404);
 
         }
     
@@ -288,7 +288,7 @@ class UserController extends Controller
      *         description="Retorna json 'message' : 'Configuració guardada conrrectament.'"
      *     ),
      *     @OA\Response(
-     *         response=400,
+     *         response=404,
      *         description="Retorna json 'error' : usuari no trobat a la base de dades.'"
      *     ),
      *     @OA\Response(
@@ -324,7 +324,7 @@ class UserController extends Controller
     public function set_configurations(Request $request, $username){
         $user = User::where('username', $username)->first();
         if($user === null ) 
-            return response()->json(['error' => 'usuari no trobat a la base de dades.'], 400);
+            return response()->json(['error' => 'usuari no trobat a la base de dades.'], 404);
         if($user->token_password !== $request->token) 
             return response()->json(['error' => 'token no valido.'], 401);
         if ($request->privacy !== null ) {
@@ -355,7 +355,7 @@ class UserController extends Controller
      *         required=true
      *     ),
      *     @OA\Response(
-     *         response=400,
+     *         response=404,
      *         description="'error' => 'usuari no trobat a la base de dades'"
      *     ),
      *     @OA\Response(
@@ -367,7 +367,7 @@ class UserController extends Controller
     public function set_token(Request $request, $username){
         
         $user = User::where('username', $username)->first();
-        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 400);
+        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 404);
         $user->token_password = $request->token;
         $user->save();
 

@@ -14,28 +14,62 @@ class LikeDataController extends Controller
     public function __construct(){
         //$this->middleware('jwt');
     }
+    /** @OA\Get(
+     *     path="/api/like/user/{username}/publication/{id_publication}",
+     *     tags={"like"},
+     *     summary="Comproba si un usuario ha dado like a una publicación",
+     *     description="Dado un username y un id publicación retorna: 'true' o 'false', si el usuario ha dado like a esta publicación o no, respectivamente.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con el value: 'true' o 'false'."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Devuelve un json con el error: 'usuari no trobat a la base de dades'.'"
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    **/
+    public function is_like($username, $id_publication){
+        $user = User::where('username', $username)->first();
+        if($user === null ) 
+            return response()->json(['error' => 'usuari no trobat a la base de dades.'], 404);
+        $res = DB::table('likes')->where([['id_user', $user->id],['id_publication', $id_publication]])->first();
+        return response()->json([
+            'value' => ($res !== null ? 'true' : 'false')
+        ], 200);
+    }
 
     /** @OA\Post(
-    *     path="/api/like/user/{username}/publication/{id_publication}",
-    *     tags={"publication"},
-    *     summary="dado un username se crea la relacion like con la publicacion id_publicacion",
-    *     description="dado un username se crea la relacion like con la publicacion id_publicacion",
-    *     @OA\Response(
-    *         response=200,
-    *         description="Devuelve un json con el mensaje: 'relació creada correctament'."
-    *     ),
-    *     @OA\Response(
-    *         response=400,
-    *         description="Devuelve un json con el error: 'error en els paràmetres'."
-    *     ),
-    *     @OA\Parameter(
-    *         name="token",
-    *         in="query",
-    *         description="Valor del token_access",
-    *         required=true
-    *     )
-    * )
-     */
+     *     path="/api/like/user/{username}/publication/{id_publication}",
+     *     tags={"like"},
+     *     summary="dado un username se crea la relacion like con la publicacion id_publicacion",
+     *     description="dado un username se crea la relacion like con la publicacion id_publicacion",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con el mensaje: 'relació creada correctament'."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    **/
     public function set_like($username, $id_publication){
         $user = User::where('username', $username)->first();
         Like::create([
@@ -48,26 +82,26 @@ class LikeDataController extends Controller
     }
 
     /** @OA\Delete(
-    *     path="/api/like/user/{username}/publication/{id_publication}",
-    *     tags={"publication"},
-    *     summary="dado un username se elimina la relacion like con la publicacion id_publicacion",
-    *     description="dado un username se elimina la relacion like con la publicacion id_publicacion",
-    *     @OA\Response(
-    *         response=200,
-    *         description="Devuelve un json con el mensaje: 'relació eliminada correctament'."
-    *     ),
-    *     @OA\Response(
-    *         response=400,
-    *         description="Devuelve un json con el error: 'error en els paràmetres'."
-    *     ),
-    *     @OA\Parameter(
-    *         name="token",
-    *         in="query",
-    *         description="Valor del token_access",
-    *         required=true
-    *     )
-    * )
-     */
+     *     path="/api/like/user/{username}/publication/{id_publication}",
+     *     tags={"like"},
+     *     summary="dado un username se elimina la relacion like con la publicacion id_publicacion",
+     *     description="dado un username se elimina la relacion like con la publicacion id_publicacion",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con el mensaje: 'relació eliminada correctament'."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    **/
     public function unset_like($username, $id_publication){
         $user = User::where('username', $username)->first();
         //$like = Like::where([['id_user', $user->id],['id_publication', $id_publication]])->first();
