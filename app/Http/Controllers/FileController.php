@@ -37,6 +37,12 @@ class FileController extends Controller
      *         required=true
      *     ),
      *     @OA\Parameter(
+     *         name="photo",
+     *         in="query",
+     *         description="String amb el valor de photo",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
      *         name="token",
      *         in="query",
      *         description="Valor del token_access",

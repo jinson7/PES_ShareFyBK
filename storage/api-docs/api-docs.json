@@ -630,6 +630,12 @@
                         "required": true
                     },
                     {
+                        "name": "photo",
+                        "in": "query",
+                        "description": "String amb el valor de photo",
+                        "required": true
+                    },
+                    {
                         "name": "token",
                         "in": "query",
                         "description": "Valor del token_access",

@@ -46,7 +46,9 @@ class PublicationController extends Controller
      * )
       */
     public function list_publication_user($id_user){
-        $publications = Publication::where('id_user', $id_user)->get();
+        $publications = Publication::with('game', 'user:id,username,photo_path')
+                        ->withCount('like AS num_likes')
+                        ->where('id_user', $id_user)->get();
         return response()->json([
             'value' => $publications
         ], 200);

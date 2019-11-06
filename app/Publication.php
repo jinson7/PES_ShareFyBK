@@ -26,4 +26,12 @@ class Publication extends Model
         return $this->belongsTo('App\User', 'id_user', 'id');
     }
 
+    /**
+     * Get the likes of the publication.
+    */
+    public function like()
+    {
+        return $this->hasMany('App\Like', 'id_publication', 'id');
+    }
+
 }
