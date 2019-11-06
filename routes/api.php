@@ -28,5 +28,6 @@ Route::get('user/{id_user}/publications','Api\PublicationController@list_publica
 Route::get('games','Api\GameController@index');
 
 // Like
+Route::get('like/user/{username}/publication/{id_publication}', 'Api\LikeController@is_like');
 Route::post('like/user/{username}/publication/{id_publication}', 'Api\LikeController@set_like');
 Route::delete('like/user/{username}/publication/{id_publication}', 'Api\LikeController@unset_like');

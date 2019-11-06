@@ -25,9 +25,36 @@
             }
         },
         "/api/like/user/{username}/publication/{id_publication}": {
+            "get": {
+                "tags": [
+                    "like"
+                ],
+                "summary": "Comproba si un usuario ha dado like a una publicación",
+                "description": "Dado un username y un id publicación retorna: 'true' o 'false', si el usuario ha dado like a esta publicación o no, respectivamente.",
+                "operationId": "App\\Http\\Controllers\\Api\\LikeDataController::is_like",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el value: 'true' o 'false'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'usuari no trobat a la base de dades'.'"
+                    }
+                }
+            },
             "post": {
                 "tags": [
-                    "publication"
+                    "like"
                 ],
                 "summary": "dado un username se crea la relacion like con la publicacion id_publicacion",
                 "description": "dado un username se crea la relacion like con la publicacion id_publicacion",
@@ -51,7 +78,7 @@
             },
             "delete": {
                 "tags": [
-                    "publication"
+                    "like"
                 ],
                 "summary": "dado un username se elimina la relacion like con la publicacion id_publicacion",
                 "description": "dado un username se elimina la relacion like con la publicacion id_publicacion",
@@ -296,7 +323,7 @@
                     "200": {
                         "description": "Operació correcta i mail enviat"
                     },
-                    "400": {
+                    "404": {
                         "description": "Operació incorrecta, no existeix l'usuari amb el mail indicat"
                     }
                 }
@@ -462,7 +489,7 @@
                     "200": {
                         "description": "Retorna json 'message' : 'Configuració guardada conrrectament.'"
                     },
-                    "400": {
+                    "404": {
                         "description": "Retorna json 'error' : usuari no trobat a la base de dades.'"
                     },
                     "401": {
@@ -488,7 +515,7 @@
                     }
                 ],
                 "responses": {
-                    "400": {
+                    "404": {
                         "description": "'error' => 'usuari no trobat a la base de dades'"
                     },
                     "200": {
@@ -666,6 +693,10 @@
         {
             "name": "game",
             "description": "Operations about games"
+        },
+        {
+            "name": "like",
+            "description": "Operations about likes"
         }
     ]
 }

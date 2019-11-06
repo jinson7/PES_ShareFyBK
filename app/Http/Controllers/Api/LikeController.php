@@ -12,12 +12,21 @@ use App\User;
 
 class LikeController extends Controller
 {
-
     protected $like_data;
 
     public function __construct(){
         //$this->middleware('jwt');
         $this->like_data = new LikeDataController();
+    }
+
+    public function is_like($username, $id_publication){
+        if($username !== null && $username !== "" && $id_publication!== null && $id_publication!== ""){
+            return $this->like_data->is_like($username, $id_publication);
+        }else{
+            return response()->json([
+                'error' => 'error en els paràmetres'
+            ], 400);
+        }
     }
 
     public function set_like($username, $id_publication){
