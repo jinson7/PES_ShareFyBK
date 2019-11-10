@@ -42,3 +42,9 @@ namespace App\Http\Controllers;
  *     description="Operations about likes"
  * )
  */
+/**
+ * @OA\Tag(
+ *     name="comment",
+ *     description="Operations about comments"
+ * )
+ */

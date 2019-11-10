@@ -31,3 +31,6 @@ Route::get('games','Api\GameController@index');
 Route::get('like/user/{username}/publication/{id_publication}', 'Api\LikeController@is_like');
 Route::post('like/user/{username}/publication/{id_publication}', 'Api\LikeController@set_like');
 Route::delete('like/user/{username}/publication/{id_publication}', 'Api\LikeController@unset_like');
+
+// Comment
+Route::post('comment/user/{username}/publication/{id_publication}', 'Api\CommentController@create');
