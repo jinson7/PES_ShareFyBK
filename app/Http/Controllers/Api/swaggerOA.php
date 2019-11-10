@@ -36,3 +36,9 @@ namespace App\Http\Controllers;
  *     description="Operations about games"
  * )
  */
+/**
+ * @OA\Tag(
+ *     name="comment",
+ *     description="Operations about comments"
+ * )
+ */
