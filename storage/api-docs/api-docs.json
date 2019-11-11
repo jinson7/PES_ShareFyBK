@@ -10,14 +10,59 @@
     },
     "paths": {
         "/api/comment/user/{username}/publication/{id_publication}": {
+            "get": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Obté un comentari de una publicació",
+                "description": "Dado un username, un id publicació, la data de quan es va fer el comentari, retorna les dades del comentari",
+                "operationId": "App\\Http\\Controllers\\Api\\CommentDataController::get",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Data en la que es va fer el comentari",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json amb les dades del comentari."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'Usuari no trobat'."
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "comment"
                 ],
                 "summary": "Crea un comentari a una publicació",
-                "description": "dado un username, un id publicació, un texto del comentari y la data actual del comentari, es crea un comentari",
+                "description": "Dado un username, un id publicació, un texto del comentari y la data actual del comentari, es crea un comentari",
                 "operationId": "App\\Http\\Controllers\\Api\\CommentDataController::create",
                 "parameters": [
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "Text del comentari a fer.",
+                        "required": true
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Data actual en la que se ha fet el comentari",
+                        "required": true
+                    },
                     {
                         "name": "token",
                         "in": "query",
