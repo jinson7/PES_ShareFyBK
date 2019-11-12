@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Publication;
+use App\User;
+use App\Like;
 
 class PublicationController extends Controller
 {
@@ -44,7 +46,9 @@ class PublicationController extends Controller
      * )
       */
     public function list_publication_user($id_user){
-        $publications = Publication::where('id_user', $id_user)->get();
+        $publications = Publication::with('game', 'user:id,username,photo_path')
+                        ->withCount('like AS num_likes')
+                        ->where('id_user', $id_user)->get();
         return response()->json([
             'value' => $publications
         ], 200);
@@ -156,14 +160,22 @@ class PublicationController extends Controller
      * )
       */
     public function show($id) {
-        $publication = Publication::with('game')->select('*')->where('id', $id)->first();
+        $publication = Publication::with('game', 'user:id,username,photo_path')->where('id', $id)->first();
+        //$publication->user = User::select('username', 'photo_path')->where('id', $publication->id_user)->first();
+        $likes = Like::with('user:id,username')->where('id_publication', $publication->id)->get();
+        $list_usernames_like = $likes->implode('user.username', ',');
+        $publication->num_likes = $likes->count();
+        $publication->likes = explode(',', $list_usernames_like);
         return response()->json([
             'value' => $publication
         ], 200);
     }
 
-    /** @OA\GET(
-    *     path="/api/publication/{id}/edit",
+    public function edit(Request $request, $id) {
+    }
+
+    /** @OA\Put(
+    *     path="/api/publication/{id}",
     *     tags={"publication"},
     *     summary="Dado un id de publicación existente, edita dicha publicación.",
     *     description="Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
@@ -178,7 +190,7 @@ class PublicationController extends Controller
     *     @OA\Parameter(
     *         name="game",
     *         in="query",
-    *         description="Nombre del juego",
+    *         description="Id del juego",
     *     ),
     *     @OA\Parameter(
     *         name="text",
@@ -193,10 +205,11 @@ class PublicationController extends Controller
     *     )
     * )
      */
-    public function edit(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $publication = Publication::find($id);
         if ($publication !== null) {
-            if ($request->game !== null) $publication->game = $request->game;
+            if ($request->game !== null) $publication->id_game = $request->game;
             if ($request->text !== null) $publication->text = $request->text;
             $publication->save();
             return response()->json([
@@ -206,18 +219,6 @@ class PublicationController extends Controller
         return response()->json([
             'error' => 'No existe la publicación a editar.'
         ], 400);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /** @OA\DELETE(

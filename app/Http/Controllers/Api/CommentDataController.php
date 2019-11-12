@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Comment;
 use App\User;
 
-class CommentDataController
+class CommentDataController extends Controller
 {
 
     /** @OA\Post(
@@ -64,10 +65,10 @@ class CommentDataController
     }
 
     /** @OA\Get(
-     *     path="/api/comment/user/{username}/publication/{id_publication}",
+     *     path="/api/comment/{id}",
      *     tags={"comment"},
      *     summary="Obté un comentari de una publicació",
-     *     description="Dado un username, un id publicació, la data de quan es va fer el comentari, retorna les dades del comentari",
+     *     description="Dado un id publicació existent retorna les dades del comentari, cas contrari retorna un error.",
      *     @OA\Response(
      *         response=200,
      *         description="Devuelve un json amb les dades del comentari."
@@ -78,13 +79,7 @@ class CommentDataController
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Devuelve un json con el error: 'Usuari no trobat'."
-     *     ),
-     *     @OA\Parameter(
-     *         name="date",
-     *         in="query",
-     *         description="Data en la que es va fer el comentari",
-     *         required=true
+     *         description="Devuelve un json con el error: 'No existeix cap publicació amb l'id introduit'."
      *     ),
      *     @OA\Parameter(
      *         name="token",
@@ -94,20 +89,18 @@ class CommentDataController
      *     )
      * )
     **/
-    public function get($request, $username, $id_publication){
-        $user = User::where('username', $username)->first();
-        if ($user !== null) {
-            $comment = Comment::select('id_user', 'id_publication', 'date')
-                                ->where('id_user', $user->id)
-                                ->where('id_publication', $id_publication)
-                                ->where('date', '=', $request->date)
-                                ->get();
+    public function get($id_publication){
+        //dd($id_publication);
+        $comment = Comment::find($id_publication);
+        if ($comment !== null) {
             return response()->json([
                 'value' => $comment
             ], 200);
         }
-        return response()->json([
-            'error' => 'Usuari no trobat.'
-        ], 404);
+        else {
+            return response()->json([
+                'error' => "No existeix cap publicació amb l'id introduit."
+            ], 404);
+        }
     }
 }
