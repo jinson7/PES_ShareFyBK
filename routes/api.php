@@ -35,3 +35,4 @@ Route::delete('like/user/{username}/publication/{id_publication}', 'Api\LikeCont
 // Comment
 Route::post('comment/user/{username}/publication/{id_publication}', 'Api\CommentController@create');
 Route::get('comment/{id}', 'Api\CommentController@get');
+Route::delete('comment/{id}', 'Api\CommentController@delete');
