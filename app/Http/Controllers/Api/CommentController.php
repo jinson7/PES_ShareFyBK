@@ -28,15 +28,13 @@ class CommentController extends Controller
         }
     }
 
-    public function get(Request $request, $username, $id_publication){
-        if($username !== null && $username !== "" && $id_publication!== null && $id_publication!== "" &&
-            $request->date !== null){
-            return $this->comment->get($request, $username, $id_publication);
+    public function get($id_publication){
+        if($id_publication!== null && $id_publication!== ""){
+            return $this->comment->get($id_publication);
         }else{
             return response()->json([
                 'error' => 'error en els paràmetres'
             ], 400);
         }
     }
-
 }

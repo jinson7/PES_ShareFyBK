@@ -190,7 +190,7 @@ class PublicationController extends Controller
     *     @OA\Parameter(
     *         name="game",
     *         in="query",
-    *         description="Nombre del juego",
+    *         description="Id del juego",
     *     ),
     *     @OA\Parameter(
     *         name="text",
@@ -209,7 +209,7 @@ class PublicationController extends Controller
     {
         $publication = Publication::find($id);
         if ($publication !== null) {
-            if ($request->game !== null) $publication->game = $request->game;
+            if ($request->game !== null) $publication->id_game = $request->game;
             if ($request->text !== null) $publication->text = $request->text;
             $publication->save();
             return response()->json([
