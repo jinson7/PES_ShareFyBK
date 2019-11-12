@@ -37,4 +37,14 @@ class CommentController extends Controller
             ], 400);
         }
     }
+
+    public function delete($id_publication){
+        if($id_publication!== null && $id_publication!== ""){
+            return $this->comment->delete($id_publication);
+        }else{
+            return response()->json([
+                'error' => 'error en els paràmetres'
+            ], 400);
+        }
+    }
 }

@@ -68,7 +68,7 @@ class CommentDataController extends Controller
      *     path="/api/comment/{id}",
      *     tags={"comment"},
      *     summary="Obté un comentari de una publicació",
-     *     description="Dado un id publicació existent retorna les dades del comentari, cas contrari retorna un error.",
+     *     description="Dado un id comentari existent retorna les dades del comentari, cas contrari retorna un error.",
      *     @OA\Response(
      *         response=200,
      *         description="Devuelve un json amb les dades del comentari."
@@ -79,7 +79,7 @@ class CommentDataController extends Controller
      *     ),
      *     @OA\Response(
      *         response=404,
-     *         description="Devuelve un json con el error: 'No existeix cap publicació amb l'id introduit'."
+     *         description="Devuelve un json con el error: 'No existeix cap comentari amb l'id introduit'."
      *     ),
      *     @OA\Parameter(
      *         name="token",
@@ -90,7 +90,6 @@ class CommentDataController extends Controller
      * )
     **/
     public function get($id_publication){
-        //dd($id_publication);
         $comment = Comment::find($id_publication);
         if ($comment !== null) {
             return response()->json([
@@ -99,7 +98,47 @@ class CommentDataController extends Controller
         }
         else {
             return response()->json([
-                'error' => "No existeix cap publicació amb l'id introduit."
+                'error' => "No existeix cap comentari amb l'id introduit."
+            ], 404);
+        }
+    }
+
+    /** @OA\Delete(
+     *     path="/api/comment/{id}",
+     *     tags={"comment"},
+     *     summary="Elimina un comentari de una publicació",
+     *     description="Dado id comentari existent elimina el comentari de la base de dades, cas contrari retorna un error.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json amb el messaje: Comentari eliminat correctament."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Devuelve un json con el error: 'No existeix cap comentari amb l'id introduit'."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    **/
+    public function delete($id_publication){
+        $comment = Comment::find($id_publication);
+        if ($comment !== null) {
+            $comment->delete();
+            return response()->json([
+                'message' => "Comentari eliminat correctament."
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'error' => "No existeix cap comentari amb l'id introduit."
             ], 404);
         }
     }

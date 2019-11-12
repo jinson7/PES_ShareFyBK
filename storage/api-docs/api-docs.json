@@ -10,39 +10,6 @@
     },
     "paths": {
         "/api/comment/user/{username}/publication/{id_publication}": {
-            "get": {
-                "tags": [
-                    "comment"
-                ],
-                "summary": "Obté un comentari de una publicació",
-                "description": "Dado un username, un id publicació, la data de quan es va fer el comentari, retorna les dades del comentari",
-                "operationId": "App\\Http\\Controllers\\Api\\CommentDataController::get",
-                "parameters": [
-                    {
-                        "name": "date",
-                        "in": "query",
-                        "description": "Data en la que es va fer el comentari",
-                        "required": true
-                    },
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "Valor del token_access",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Devuelve un json amb les dades del comentari."
-                    },
-                    "400": {
-                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
-                    },
-                    "404": {
-                        "description": "Devuelve un json con el error: 'Usuari no trobat'."
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "comment"
@@ -79,6 +46,62 @@
                     },
                     "404": {
                         "description": "Devuelve un json con el error: 'Usuari no trobat'."
+                    }
+                }
+            }
+        },
+        "/api/comment/{id}": {
+            "get": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Obté un comentari de una publicació",
+                "description": "Dado un id comentari existent retorna les dades del comentari, cas contrari retorna un error.",
+                "operationId": "App\\Http\\Controllers\\Api\\CommentDataController::get",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json amb les dades del comentari."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'No existeix cap comentari amb l'id introduit'."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Elimina un comentari de una publicació",
+                "description": "Dado id comentari existent elimina el comentari de la base de dades, cas contrari retorna un error.",
+                "operationId": "App\\Http\\Controllers\\Api\\CommentDataController::delete",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json amb el messaje: Comentari eliminat correctament."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'No existeix cap comentari amb l'id introduit'."
                     }
                 }
             }
@@ -192,21 +215,19 @@
                         "description": "Devuelve un json con la información de la publicación."
                     }
                 }
-            }
-        },
-        "/api/publication/{id}/edit": {
-            "get": {
+            },
+            "put": {
                 "tags": [
                     "publication"
                 ],
                 "summary": "Dado un id de publicación existente, edita dicha publicación.",
                 "description": "Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::edit",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::update",
                 "parameters": [
                     {
                         "name": "game",
                         "in": "query",
-                        "description": "Nombre del juego"
+                        "description": "Id del juego"
                     },
                     {
                         "name": "text",
