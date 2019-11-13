@@ -33,12 +33,6 @@ class CommentDataController extends Controller
      *         required=true
      *     ),
      *     @OA\Parameter(
-     *         name="date",
-     *         in="query",
-     *         description="Data actual en la que se ha fet el comentari",
-     *         required=true
-     *     ),
-     *     @OA\Parameter(
      *         name="token",
      *         in="query",
      *         description="Valor del token_access",
@@ -52,7 +46,6 @@ class CommentDataController extends Controller
             Comment::create([
                 'id_user' => $user->id,
                 'id_publication' => $id_publication,
-                'date' => $request->date,
                 'text' => $request->text,
             ]);
             return response()->json([

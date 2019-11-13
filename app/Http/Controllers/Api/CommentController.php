@@ -19,7 +19,7 @@ class CommentController extends Controller
 
     public function create(Request $request, $username, $id_publication){
         if($username !== null && $username !== "" && $id_publication!== null && $id_publication!== "" &&
-            $request->text !== null && $request->text !== "" && $request->date !== null){
+            $request->text !== null && $request->text !== ""){
             return $this->comment->create($request, $username, $id_publication);
         }else{
             return response()->json([
