@@ -39,7 +39,7 @@ class Publication extends Model
     */
     public function comments()
     {
-        return $this->hasMany('App\Comment', 'id_publication', 'id');
+        return $this->hasMany('App\Comment', 'id_publication', 'id')->orderBy('created_at', 'desc');
     }
 
 }
