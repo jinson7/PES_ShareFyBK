@@ -160,7 +160,10 @@ class PublicationController extends Controller
      * )
       */
     public function show($id) {
-        $publication = Publication::with('game', 'user:id,username,photo_path')->where('id', $id)->first();
+        $publication = Publication::with(['game', 
+                                        'user:id,username,photo_path', 
+                                        'comments.user:id,username,photo_path'])
+                                    ->where('id', $id)->first();
         //$publication->user = User::select('username', 'photo_path')->where('id', $publication->id_user)->first();
         $likes = Like::with('user:id,username')->where('id_publication', $publication->id)->get();
         $list_usernames_like = $likes->implode('user.username', ',');

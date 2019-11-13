@@ -34,4 +34,12 @@ class Publication extends Model
         return $this->hasMany('App\Like', 'id_publication', 'id');
     }
 
+    /**
+     * Get the likes of the publication.
+    */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'id_publication', 'id')->orderBy('created_at', 'desc');
+    }
+
 }
