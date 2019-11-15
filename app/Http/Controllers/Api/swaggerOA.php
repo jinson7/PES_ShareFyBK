@@ -48,3 +48,9 @@ namespace App\Http\Controllers;
  *     description="Operations about comments"
  * )
  */
+/**
+ * @OA\Tag(
+ *     name="follow",
+ *     description="Operations about followers"
+ * )
+ */

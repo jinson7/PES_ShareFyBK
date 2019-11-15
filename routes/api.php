@@ -36,3 +36,7 @@ Route::delete('like/user/{username}/publication/{id_publication}', 'Api\LikeCont
 Route::post('comment/user/{username}/publication/{id_publication}', 'Api\CommentController@create');
 Route::get('comment/{id}', 'Api\CommentController@get');
 Route::delete('comment/{id}', 'Api\CommentController@delete');
+
+// Follower
+Route::post('follow/user/{username}', 'Api\FollowerController@create');
+Route::delete('follow/user/{follower}/user/{followed}', 'Api\FollowerController@delete');

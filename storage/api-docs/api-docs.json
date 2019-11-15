@@ -100,6 +100,76 @@
                 }
             }
         },
+        "/api/follow/user/{username}": {
+            "post": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Seguir a un usuari",
+                "description": "Dado un username del usuari a seguir, es crea la relació en la taula followers.",
+                "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::create",
+                "parameters": [
+                    {
+                        "name": "user_follower",
+                        "in": "query",
+                        "description": "Username del usuari que fa l'acció de seguir a un altre usuari.",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el mensaje: 'Has començat a seguir a {username} =P'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "401": {
+                        "description": "Devuelve un json con el error: 'Restricció: un usuari no pot seguir-se a ell mateix'."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'Usuari no trobat'."
+                    }
+                }
+            }
+        },
+        "/api/follow/user/{follower}/user/{followed}": {
+            "delete": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Deixar de seguir a un usuari",
+                "description": "Dado un username del seguidor {follower} i un username d'usuari que seguix {followed}, s'esborra la relació de followers.",
+                "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::delete",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el mensaje: 'Has deixat de seguir a {username} =G'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "401": {
+                        "description": "Devuelve un json con el error: 'Restricció: un usuari no pot deixar de seguir-se a ell mateix."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'Usuari no trobat'."
+                    }
+                }
+            }
+        },
         "/api/games": {
             "get": {
                 "tags": [
@@ -798,6 +868,10 @@
         {
             "name": "comment",
             "description": "Operations about comments"
+        },
+        {
+            "name": "follow",
+            "description": "Operations about followers"
         }
     ]
 }
