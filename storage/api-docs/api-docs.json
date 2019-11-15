@@ -139,6 +139,36 @@
             }
         },
         "/api/follow/user/{follower}/user/{followed}": {
+            "get": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Comprova si un usuari segueix a un altre.",
+                "description": "Dado un username del seguidor {follower} i un altre username {followed}, comprova si el segueix o no.",
+                "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::is_following",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con el value: 'true' o 'false'."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "401": {
+                        "description": "Devuelve un json con el error: 'Restricció: un usuari no pot seguir-se a ell mateix."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el error: 'Usuari no trobat'."
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "follow"
@@ -162,7 +192,10 @@
                         "description": "Devuelve un json con el error: 'error en els paràmetres'."
                     },
                     "401": {
-                        "description": "Devuelve un json con el error: 'Restricció: un usuari no pot deixar de seguir-se a ell mateix."
+                        "description": "Devuelve un json con el error: 'Restricció: un usuari no pot deixar de seguir-se a ell mateix'."
+                    },
+                    "402": {
+                        "description": "Devuelve un json con el error: 'No pots deixar de seguir a cap usuari que encara no segueix'."
                     },
                     "404": {
                         "description": "Devuelve un json con el error: 'Usuari no trobat'."
