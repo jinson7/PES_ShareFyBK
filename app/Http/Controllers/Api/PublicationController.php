@@ -72,7 +72,7 @@ class PublicationController extends Controller
      *     description="Es crea la publicació amb la informació enviada.",
      *     @OA\Response(
      *         response=200,
-     *         description="Retorna un json amb el missatge 'operació correcta' "
+     *         description="Retorna un json amb el identificador de la publicació"
      *     ),
      *     @OA\Response(
      *         response=401,
@@ -131,7 +131,7 @@ class PublicationController extends Controller
             $publication->video_path = '/storage'.$path.$name_file;
             $publication->save();
             return response()->json([
-                'message' => 'Publicació creada correctament.'
+                'value' => $publication->id
             ], 200);
         }else{
             return response()->json([
