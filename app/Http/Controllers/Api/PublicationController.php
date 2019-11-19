@@ -14,7 +14,7 @@ class PublicationController extends Controller
 {
     
     public function __construct(){
-        //$this->middleware('jwt');
+        //$this->middleware('jwt', [ 'except' => ['store', 'show']]);
     }
 
     /**
@@ -115,7 +115,8 @@ class PublicationController extends Controller
         // agafar el video
         $file = $request->file('video');
         $ext = $file->getClientOriginalExtension();
-        if ( $ext === 'mp4' ) {
+        $ext = strtolower($ext);
+        if( $ext === 'mp4' || $ext === 'jpg' || $ext === 'png' ){
             // crear publicació
             $publication = Publication::create([
                 'id_user' => $request->id_user,
