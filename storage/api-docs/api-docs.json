@@ -360,7 +360,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Retorna un json amb el missatge 'operació correcta' "
+                        "description": "Retorna un json amb el identificador de la publicació"
                     },
                     "401": {
                         "description": "El vídeo no té un format vàlid, format suportat .mp4"
@@ -703,6 +703,38 @@
                 "parameters": [
                     {
                         "name": "token",
+                        "in": "query",
+                        "description": "string amb el valor del token a ficar a l'usuari",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "'error' => 'usuari no trobat a la base de dades'"
+                    },
+                    "200": {
+                        "description": "'message' => 'Configuració guardada conrrectament.'"
+                    }
+                }
+            }
+        },
+        "/api/user/{username}/token_notification": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "set token_notification per als usuaris",
+                "description": "set token_notification per als usuaris",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_token_notification",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "valor del token_access per poder utilitzar el endpoint",
+                        "required": true
+                    },
+                    {
+                        "name": "token_notification",
                         "in": "query",
                         "description": "string amb el valor del token a ficar a l'usuari",
                         "required": true

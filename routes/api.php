@@ -19,6 +19,7 @@ Route::post('user/{username}/configuration', 'Api\UserController@set_configurati
 Route::get('user/{username}', 'Api\UserController@get_info_user');
 Route::put('user/{username}', 'Api\UserController@update_info_user');
 Route::post('user/{username}/token_password', 'Api\UserController@set_token');
+Route::post('user/{username}/token_notification', 'Api\UserController@set_token_notification');
 
 // Publication
 Route::resource('publication', 'Api\PublicationController');
