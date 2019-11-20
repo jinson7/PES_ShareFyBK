@@ -10,6 +10,11 @@ class Publication extends Model
         'id_user', 'id_game', 'text', 'video_path',
     ];
 
+    public function scopePublicationsFromGame($query, $id_game)
+    {
+        return $query->where('id_game', $id_game);
+    }
+
     /**
      * Get the game of the publication.
     */

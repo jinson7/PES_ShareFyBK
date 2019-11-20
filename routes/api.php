@@ -26,6 +26,8 @@ Route::get('user/{id_user}/publications','Api\PublicationController@list_publica
 
 // Games
 Route::get('games','Api\GameController@index');
+Route::get('game/{id}/publications','Api\GameController@game_publications');
+Route::get('game/{id}/lang/{lang}','Api\GameController@game_info_lang');
 
 // Like
 Route::get('like/user/{username}/publication/{id_publication}', 'Api\LikeController@is_like');
