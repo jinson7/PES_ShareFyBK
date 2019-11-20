@@ -218,6 +218,36 @@
                 }
             }
         },
+        "/api/game/{id}/publications": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Retrona un llistat amb totes les publicacions del joc amb la id indicada a la url",
+                "description": "Retrona un llistat amb totes les publicacions del joc amb la id indicada a la url",
+                "operationId": "App\\Http\\Controllers\\Api\\GameController::game_publications",
+                "responses": {
+                    "200": {
+                        "description": "Retrona un json amb la llista de publicacions d'un game"
+                    }
+                }
+            }
+        },
+        "/api/game/{id}/lang/{lang}": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Retrona un llistat amb la info del joc {id} en l'idioma {lang} (ca, es, en)",
+                "description": "Retrona un llistat amb la info del joc {id} en l'idioma {lang} (ca, es, en)",
+                "operationId": "App\\Http\\Controllers\\Api\\GameController::game_info_lang",
+                "responses": {
+                    "200": {
+                        "description": "Retrona un json amb la info de un game"
+                    }
+                }
+            }
+        },
         "/api/like/user/{username}/publication/{id_publication}": {
             "get": {
                 "tags": [
@@ -360,7 +390,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Retorna un json amb el missatge 'operació correcta' "
+                        "description": "Retorna un json amb el identificador de la publicació"
                     },
                     "401": {
                         "description": "El vídeo no té un format vàlid, format suportat .mp4"
