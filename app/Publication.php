@@ -10,6 +10,9 @@ class Publication extends Model
         'id_user', 'id_game', 'text', 'video_path',
     ];
 
+    protected $with = ['game', 'user:id,username,photo_path', 'comments.user:id,username,photo_path'];
+    protected $withCount = ['like AS num_likes'];
+
     public function scopePublicationsFromGame($query, $id_game)
     {
         return $query->where('id_game', $id_game);

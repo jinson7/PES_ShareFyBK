@@ -46,9 +46,7 @@ class PublicationController extends Controller
      * )
       */
     public function list_publication_user($id_user){
-        $publications = Publication::with('game', 'user:id,username,photo_path')
-                        ->withCount('like AS num_likes')
-                        ->where('id_user', $id_user)->get();
+        $publications = Publication::where('id_user', $id_user)->get();
         return response()->json([
             'value' => $publications
         ], 200);
@@ -161,14 +159,11 @@ class PublicationController extends Controller
      * )
       */
     public function show($id) {
-        $publication = Publication::with(['game', 
-                                        'user:id,username,photo_path', 
-                                        'comments.user:id,username,photo_path'])
-                                    ->where('id', $id)->first();
+        $publication = Publication::where('id', $id)->first();
         //$publication->user = User::select('username', 'photo_path')->where('id', $publication->id_user)->first();
         $likes = Like::with('user:id,username')->where('id_publication', $publication->id)->get();
         $list_usernames_like = $likes->implode('user.username', ',');
-        $publication->num_likes = $likes->count();
+        //$publication->num_likes = $likes->count();
         $publication->likes = explode(',', $list_usernames_like);
         return response()->json([
             'value' => $publication
