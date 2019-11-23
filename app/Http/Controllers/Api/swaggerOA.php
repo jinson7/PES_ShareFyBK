@@ -54,3 +54,10 @@ namespace App\Http\Controllers;
  *     description="Operations about followers"
  * )
  */
+/**
+ * @OA\Tag(
+ *     name="app",
+ *     description="Operations about app"
+ * )
+ */
+/**

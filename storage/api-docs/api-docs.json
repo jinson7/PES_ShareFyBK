@@ -9,6 +9,32 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/search/{data}": {
+            "get": {
+                "tags": [
+                    "app"
+                ],
+                "summary": "Cerca en la aplicació d'usuaris i publicaciones",
+                "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text}.",
+                "operationId": "App\\Http\\Controllers\\Api\\AppDataController::search",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text} ] }"
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    }
+                }
+            }
+        },
         "/api/comment/user/{username}/publication/{id_publication}": {
             "post": {
                 "tags": [
@@ -935,6 +961,10 @@
         {
             "name": "follow",
             "description": "Operations about followers"
+        },
+        {
+            "name": "app",
+            "description": "Operations about app"
         }
     ]
 }
