@@ -203,6 +203,35 @@
                 }
             }
         },
+        "/api/user/{id}/followers": {
+            "get": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Dado un id d'un usuari et retorna els seus seguidors.",
+                "description": "Dado un id usuari et retorna un json amb les dades dels seus seguidors {id, username, photo_path}.",
+                "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::get_followers",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json: followers: [ {id, username, photo_path} ]"
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    },
+                    "404": {
+                        "description": "Devuelve un json con el missage: 'Aquest usuari no existeix o no té cap seguidor'."
+                    }
+                }
+            }
+        },
         "/api/games": {
             "get": {
                 "tags": [
