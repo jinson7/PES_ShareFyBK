@@ -42,3 +42,4 @@ Route::post('follow/user/{username}', 'Api\FollowerController@create');
 Route::delete('follow/user/{follower}/user/{followed}', 'Api\FollowerController@delete');
 Route::get('follow/user/{follower}/user/{followed}', 'Api\FollowerController@is_following');
 Route::get('user/{id}/followers', 'Api\FollowerController@get_followers');
+Route::get('user/{id}/followed', 'Api\FollowerController@get_followed');
