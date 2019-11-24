@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use App\Publication;
+use App\Like;
 
 class AppDataController extends Controller
 {
@@ -13,10 +14,10 @@ class AppDataController extends Controller
      *     path="/api/search/{data}",
      *     tags={"app"},
      *     summary="Cerca en la aplicació d'usuaris i publicaciones",
-     *     description="Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text}.",
+     *     description="Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
      *     @OA\Response(
      *         response=200,
-     *         description="Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text} ] }"
+     *         description="Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text, likes, created_at} ] }"
      *     ),
      *     @OA\Response(
      *         response=400,
@@ -35,8 +36,11 @@ class AppDataController extends Controller
         $publications = Publication::where('text', 'like', '%'.$data.'%')->orderBy('text')->get(['id','text']);
         $data_users = $users->toArray();
         $data_publicacions = array();
-        foreach ($publications as $publication) 
-            $data_publicacions [] = ['id' => $publication->id, 'text' => $publication->text];
+        foreach ($publications as $publication) {
+            $likes = Like::where('id_publication', $publication->id)->count();
+            $data_publicacions [] = ['id' => $publication->id, 'text' => $publication->text, 
+                                    'likes' => $likes, 'created_at' => $publication->created_at];
+        }
         $data = ['users' => $data_users,
                 'publications' => $data_publicacions];
         return json_encode($data, JSON_PRETTY_PRINT);
