@@ -15,7 +15,7 @@
                     "app"
                 ],
                 "summary": "Cerca en la aplicació d'usuaris i publicaciones",
-                "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text}.",
+                "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
                 "operationId": "App\\Http\\Controllers\\Api\\AppDataController::search",
                 "parameters": [
                     {
@@ -27,7 +27,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text} ] }"
+                        "description": "Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text, likes, created_at} ] }"
                     },
                     "400": {
                         "description": "Devuelve un json con el error: 'error en els paràmetres'."
