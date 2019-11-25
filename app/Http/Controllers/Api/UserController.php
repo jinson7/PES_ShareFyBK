@@ -13,6 +13,7 @@ use App\User;
 class UserController extends Controller
 {
     public function __construct(){
+        
         $this->middleware('jwt', ['except' => ['check_username',
                                                'check_email',
                                                'reset_password',
@@ -20,6 +21,7 @@ class UserController extends Controller
                                                'list_all_emails',
                                                'set_token'
                                                ]]);
+        
     }
 
     /**
@@ -147,6 +149,7 @@ class UserController extends Controller
     public function get_info_user($username){
         $user = User::select('id', 'username', 'email', 'photo_path', 'birth_date', 
                             'first_name', 'last_name', 'notification', 'public', 'language')
+        ->withCount('publications', 'followers', 'followed')
         ->where('username', $username)->get();
         return response()->json([
             'value' => $user
