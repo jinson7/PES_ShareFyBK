@@ -8,7 +8,7 @@ use App\User;
 use App\Publication;
 use App\Like;
 
-class AppDataController extends Controller
+class SearchDataController extends Controller
 {
     /** @OA\Get(
      *     path="/api/search/{data}",
@@ -33,16 +33,14 @@ class AppDataController extends Controller
     **/
     public function search($data) {
         $users = User::where('username', 'like', '%'.$data.'%')->orderBy('username')->get(['id','username','photo_path']);
-        $publications = Publication::where('text', 'like', '%'.$data.'%')->orderBy('text')->get(['id','text']);
+        $publications = Publication::select('id','text', 'created_at')
+            ->without('game', 'user', 'comments')
+            ->withCount('like as likes')
+            ->where('text', 'like', '%'.$data.'%')
+            ->orderBy('text')->get();
         $data_users = $users->toArray();
-        $data_publicacions = array();
-        foreach ($publications as $publication) {
-            $likes = Like::where('id_publication', $publication->id)->count();
-            $data_publicacions [] = ['id' => $publication->id, 'text' => $publication->text, 
-                                    'likes' => $likes, 'created_at' => $publication->created_at];
-        }
         $data = ['users' => $data_users,
-                'publications' => $data_publicacions];
+                'publications' => $publications->toArray()];
         return json_encode($data, JSON_PRETTY_PRINT);
     }
 }

@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\AppDataController;
+use App\Http\Controllers\Api\SearchDataController;
 
-class AppController extends Controller
+class SearchController extends Controller
 {
     public function __construct(){
         //$this->middleware('jwt');
-        $this->app = new AppDataController();
+        $this->app = new SearchDataController();
     }
 
     public function search($data) {

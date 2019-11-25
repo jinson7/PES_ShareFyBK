@@ -44,5 +44,5 @@ Route::post('follow/user/{username}', 'Api\FollowerController@create');
 Route::delete('follow/user/{follower}/user/{followed}', 'Api\FollowerController@delete');
 Route::get('follow/user/{follower}/user/{followed}', 'Api\FollowerController@is_following');
 
-// App
-Route::get('search/{data}', 'Api\AppController@search');
+// Search
+Route::get('search/{data}', 'Api\SearchController@search');
