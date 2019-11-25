@@ -24,7 +24,6 @@ class NotificationController extends Controller
     public function sendNotification($type = 'like'){
         $type_notification = new $this->type_notifications[$type];
         $notification = new SendNotification($type_notification);
-        $notification->send();
         return $notification->send();
     }
 }
