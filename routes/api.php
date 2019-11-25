@@ -46,5 +46,5 @@ Route::get('follow/user/{follower}/user/{followed}', 'Api\FollowerController@is_
 Route::get('user/{id}/followers', 'Api\FollowerController@get_followers');
 Route::get('user/{id}/followed', 'Api\FollowerController@get_followed');
 
-// App
+// Search
 Route::get('search/{data}', 'Api\AppController@search');

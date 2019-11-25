@@ -14,6 +14,7 @@ class LikeDataController extends Controller
     public function __construct(){
         //$this->middleware('jwt');
     }
+    
     /** @OA\Get(
      *     path="/api/like/user/{username}/publication/{id_publication}",
      *     tags={"like"},
