@@ -17,7 +17,7 @@ class CreatePublicationsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user')->anullable();
             $table->string('video_path')->nullable();
-            $table->unsignedBigInteger('id_game')->anullable();
+            $table->unsignedBigInteger('id_game')->nullable();
             $table->text('text');
             $table->timestamps();
             $table->foreign('id_game')
