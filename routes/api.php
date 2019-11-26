@@ -19,6 +19,7 @@ Route::post('user/{username}/configuration', 'Api\UserController@set_configurati
 Route::get('user/{username}', 'Api\UserController@get_info_user');
 Route::put('user/{username}', 'Api\UserController@update_info_user');
 Route::post('user/{username}/token_password', 'Api\UserController@set_token');
+Route::post('user/{username}/token_notification', 'Api\UserController@set_token_notification');
 
 // Publication
 Route::resource('publication', 'Api\PublicationController');
@@ -48,3 +49,11 @@ Route::get('user/{id}/followed', 'Api\FollowerController@get_followed');
 
 // Search
 Route::get('search/{data}', 'Api\SearchController@search');
+
+//Notification
+Route::get('notification/create', 'Api\NotificationController@testFirebase');
+Route::get('notification/like/', 'Api\NotificationController@sendNotification');
+Route::get('notification/comment/', 'Api\NotificationController@sendNotification');
+Route::get('notification/invite/', 'Api\NotificationController@sendNotification');
+Route::get('notification/follow/', 'Api\NotificationController@sendNotification');
+Route::get('notification/share/', 'Api\NotificationController@sendNotification');

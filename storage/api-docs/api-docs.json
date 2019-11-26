@@ -9,32 +9,6 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/search/{data}": {
-            "get": {
-                "tags": [
-                    "app"
-                ],
-                "summary": "Cerca en la aplicació d'usuaris i publicaciones",
-                "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
-                "operationId": "App\\Http\\Controllers\\Api\\AppDataController::search",
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "Valor del token_access",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text, likes, created_at} ] }"
-                    },
-                    "400": {
-                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
-                    }
-                }
-            }
-        },
         "/api/comment/user/{username}/publication/{id_publication}": {
             "post": {
                 "tags": [
@@ -565,6 +539,32 @@
                 }
             }
         },
+        "/api/search/{data}": {
+            "get": {
+                "tags": [
+                    "app"
+                ],
+                "summary": "Cerca en la aplicació d'usuaris i publicaciones",
+                "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
+                "operationId": "App\\Http\\Controllers\\Api\\SearchDataController::search",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json: { users: [ {id, username, photo_path} ], publications: [ {id, text, likes, created_at} ] }"
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    }
+                }
+            }
+        },
         "/api/user/username": {
             "post": {
                 "tags": [
@@ -817,6 +817,38 @@
                 "parameters": [
                     {
                         "name": "token",
+                        "in": "query",
+                        "description": "string amb el valor del token a ficar a l'usuari",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "'error' => 'usuari no trobat a la base de dades'"
+                    },
+                    "200": {
+                        "description": "'message' => 'Configuració guardada conrrectament.'"
+                    }
+                }
+            }
+        },
+        "/api/user/{username}/token_notification": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "set token_notification per als usuaris",
+                "description": "set token_notification per als usuaris",
+                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_token_notification",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "valor del token_access per poder utilitzar el endpoint",
+                        "required": true
+                    },
+                    {
+                        "name": "token_notification",
                         "in": "query",
                         "description": "string amb el valor del token a ficar a l'usuari",
                         "required": true

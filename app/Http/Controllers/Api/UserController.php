@@ -379,4 +379,44 @@ class UserController extends Controller
         ], 200);
 
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/user/{username}/token_notification",
+     *     tags={"user"},
+     *     summary="set token_notification per als usuaris",
+     *     description="set token_notification per als usuaris",
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="valor del token_access per poder utilitzar el endpoint",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token_notification",
+     *         in="query",
+     *         description="string amb el valor del token a ficar a l'usuari",
+     *         required=true
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="'error' => 'usuari no trobat a la base de dades'"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="'message' => 'Configuració guardada conrrectament.'"
+     *     )
+     * )
+    */
+    public function set_token_notification(Request $request, $username){
+        
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 404);
+        $user->token_notification = $request->token_notification;
+        $user->save();
+        return response()->json([
+            'message' => 'Configuració guardada conrrectament.'
+        ], 200);
+
+    }
 }
