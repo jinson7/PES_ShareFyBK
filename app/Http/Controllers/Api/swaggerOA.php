@@ -56,8 +56,8 @@ namespace App\Http\Controllers;
  */
 /**
  * @OA\Tag(
- *     name="app",
- *     description="Operations about app"
+ *     name="search",
+ *     description="Operations about search"
  * )
  */
 /**

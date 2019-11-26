@@ -12,7 +12,7 @@ class SearchDataController extends Controller
 {
     /** @OA\Get(
      *     path="/api/search/{data}",
-     *     tags={"app"},
+     *     tags={"search"},
      *     summary="Cerca en la aplicació d'usuaris i publicaciones",
      *     description="Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
      *     @OA\Response(

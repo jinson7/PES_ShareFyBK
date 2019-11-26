@@ -542,7 +542,7 @@
         "/api/search/{data}": {
             "get": {
                 "tags": [
-                    "app"
+                    "search"
                 ],
                 "summary": "Cerca en la aplicació d'usuaris i publicaciones",
                 "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
@@ -1053,8 +1053,8 @@
             "description": "Operations about followers"
         },
         {
-            "name": "app",
-            "description": "Operations about app"
+            "name": "search",
+            "description": "Operations about search"
         }
     ]
 }
