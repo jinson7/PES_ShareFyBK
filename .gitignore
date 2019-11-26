@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 .DS_Store
 sharefy_fb.json
+public/media
