@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('public')->default(true);
             $table->boolean('notification')->default(true);
             $table->string('language')->default('cat');
-            $table->string('photo_path')->nullable();
+            $table->string('photo_path')->nullable()->default('/media/profiles/default.png');
             $table->text('token_notification')->nullable();
             $table->text('token_password')->nullable();
             $table->rememberToken();
