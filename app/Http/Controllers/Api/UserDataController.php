@@ -359,7 +359,8 @@ class UserDataController extends Controller
         $user->token_expire = $request->token_expire;
         $user->save();
         return response()->json([
-            'message' => 'Configuració guardada conrrectament.'
+            'message' => 'Configuració guardada conrrectament.',
+            'token' => $user->token_password
         ], 200);
     }
 
