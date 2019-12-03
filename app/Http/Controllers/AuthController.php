@@ -158,8 +158,8 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/login/google",
      *     tags={"auth"},
-     *     summary="Torna un access_token i el username si l'usuari fa login correctament",
-     *     description="Torna un access_token i el username si l'usuari fa login correctament",
+     *     summary="login per als usuaris de google",
+     *     description="login per als usuaris de google",
      *     @OA\Response(
      *         response=200,
      *         description="operació correcta"

@@ -955,6 +955,35 @@
                 }
             }
         },
+        "/api/login/google": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "login per als usuaris de google",
+                "description": "login per als usuaris de google",
+                "operationId": "App\\Http\\Controllers\\AuthController::login_google",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "string amb el valor del email",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "operació correcta"
+                    },
+                    "400": {
+                        "description": "operació incorrecta"
+                    },
+                    "401": {
+                        "description": "Dades no valides"
+                    }
+                }
+            }
+        },
         "/api/logout": {
             "post": {
                 "tags": [
