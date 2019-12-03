@@ -268,7 +268,7 @@
                 ],
                 "summary": "Retrona un llistat amb tots els games existents a la base de dades",
                 "description": "Retrona un llistat amb tots els games existents a la base de dades",
-                "operationId": "App\\Http\\Controllers\\Api\\GameController::index",
+                "operationId": "App\\Http\\Controllers\\Api\\GameDataController::all",
                 "responses": {
                     "200": {
                         "description": "Retrona un json amb la llista de games"
@@ -283,7 +283,7 @@
                 ],
                 "summary": "Retrona un llistat amb totes les publicacions del joc amb la id indicada a la url",
                 "description": "Retrona un llistat amb totes les publicacions del joc amb la id indicada a la url",
-                "operationId": "App\\Http\\Controllers\\Api\\GameController::game_publications",
+                "operationId": "App\\Http\\Controllers\\Api\\GameDataController::publications",
                 "responses": {
                     "200": {
                         "description": "Retrona un json amb la llista de publicacions d'un game"
@@ -298,7 +298,7 @@
                 ],
                 "summary": "Retrona un llistat amb la info del joc {id} en l'idioma {lang} (ca, es, en)",
                 "description": "Retrona un llistat amb la info del joc {id} en l'idioma {lang} (ca, es, en)",
-                "operationId": "App\\Http\\Controllers\\Api\\GameController::game_info_lang",
+                "operationId": "App\\Http\\Controllers\\Api\\GameDataController::info_lang",
                 "responses": {
                     "200": {
                         "description": "Retrona un json amb la info de un game"
@@ -390,7 +390,7 @@
                 ],
                 "summary": "Dado un id de usuario existente, devuelve todas sus publicaciones",
                 "description": "Dado un id de usuario existente, devuelve todas sus publicaciones",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::list_publication_user",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::list_user",
                 "parameters": [
                     {
                         "name": "token",
@@ -413,7 +413,7 @@
                 ],
                 "summary": "Es crea la publicació amb la informació enviada.",
                 "description": "Es crea la publicació amb la informació enviada.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::store",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::create",
                 "parameters": [
                     {
                         "name": "id_user",
@@ -463,7 +463,7 @@
                 ],
                 "summary": "Dado un id de publicación existente, devuelve su información.",
                 "description": "Dado un id de publicación existente, devuelve su información.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::show",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::show",
                 "parameters": [
                     {
                         "name": "token",
@@ -484,7 +484,7 @@
                 ],
                 "summary": "Dado un id de publicación existente, edita dicha publicación.",
                 "description": "Dado un id de publicación existente, y los campos a modificados guarda la dicha informacioón.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::update",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::update",
                 "parameters": [
                     {
                         "name": "game",
@@ -520,7 +520,7 @@
                 ],
                 "summary": "Dado un id de publicación existente, elimina dicha publicación.",
                 "description": "Dado un id de publicación existente, elimina dicha publicación.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationController::destroy",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::delete",
                 "parameters": [
                     {
                         "name": "token",
@@ -542,7 +542,11 @@
         "/api/search/{data}": {
             "get": {
                 "tags": [
+<<<<<<< HEAD
                     "search"
+=======
+                    "app"
+>>>>>>> sprint_5/Issue#219
                 ],
                 "summary": "Cerca en la aplicació d'usuaris i publicaciones",
                 "description": "Donat una o unes paraules, es cerca en la aplicació usuaris i publicacions que coincideixen amb la o les paraules introduïdes, retornan un json amb dades d'usuaris {id,username,photo_path} i publicacions {id, text, likes, created_at}.",
@@ -572,7 +576,7 @@
                 ],
                 "summary": "Retorna si username es troba disponible",
                 "description": "Retorna si username es troba disponible",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::check_username",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::check_username",
                 "parameters": [
                     {
                         "name": "username",
@@ -595,7 +599,7 @@
                 ],
                 "summary": "Retorna si email es troba disponible",
                 "description": "Retorna si email es troba disponible",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::check_email",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::check_email",
                 "parameters": [
                     {
                         "name": "email",
@@ -618,7 +622,7 @@
                 ],
                 "summary": "Envia la password a l'usuari per mail",
                 "description": "Envia la password a l'usuari per mail",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::reset_password",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::reset_password",
                 "parameters": [
                     {
                         "name": "email",
@@ -644,7 +648,7 @@
                 ],
                 "summary": "Dado un username existente, devuelve su información.",
                 "description": "Dado un username existente, devuelve su información.",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::get_info_user",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::get_info",
                 "parameters": [
                     {
                         "name": "username",
@@ -671,7 +675,7 @@
                 ],
                 "summary": "S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
                 "description": "S'actualitza la informació de l'usuari, només l'usuari propietari de les dades pot modificar-les.",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::update_info_user",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::update_info",
                 "parameters": [
                     {
                         "name": "username",
@@ -689,6 +693,12 @@
                         "name": "last_name",
                         "in": "query",
                         "description": "string amb el valor del last_name",
+                        "required": true
+                    },
+                    {
+                        "name": "birth_date",
+                        "in": "query",
+                        "description": "string amb el valor del birth_date",
                         "required": true
                     },
                     {
@@ -736,7 +746,7 @@
                 ],
                 "summary": "Retrona un llistat dels usernames existents a la base de dades",
                 "description": "Retrona un llistat dels usernames existents a la base de dades",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_users",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::list_all",
                 "responses": {
                     "200": {
                         "description": "Retrona un json amb la llista de usernames dels usuaris"
@@ -751,7 +761,7 @@
                 ],
                 "summary": "Retrona un llistat dels emails existents a la base de dades",
                 "description": "Retrona un llistat dels emails existents a la base de dades",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::list_all_emails",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::list_all_emails",
                 "responses": {
                     "200": {
                         "description": "Retrona un json amb la llista de usernames dels usuaris"
@@ -766,7 +776,7 @@
                 ],
                 "summary": "Configuracions de privacitat, notificació i idioma.",
                 "description": "Configuracions de privacitat, notificació i idioma.",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_configurations",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::set_configurations",
                 "parameters": [
                     {
                         "name": "privacy",
@@ -813,7 +823,7 @@
                 ],
                 "summary": "set token_password per als usuaris que han fet login amb google",
                 "description": "set token_password per als usuaris que han fet login amb google",
-                "operationId": "App\\Http\\Controllers\\Api\\UserController::set_token",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::set_token",
                 "parameters": [
                     {
                         "name": "token",
