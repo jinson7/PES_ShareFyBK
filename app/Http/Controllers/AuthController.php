@@ -185,7 +185,7 @@ class AuthController extends Controller
 
         $email = request()->input('email');
         $user = User::where('email', $email)->first();
-        if($user === null || $user->email !== ""){
+        if($user === null || $user->password !== ""){
             return response()->json(
                 [
                     'error' => 'user amb el mail: '.$email.' no trobat',
