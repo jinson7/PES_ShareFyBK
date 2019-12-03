@@ -31,7 +31,7 @@ class PublicationDataController extends Controller
      * )
       */
     public function list_user($id_user){
-        $publications = Publication::where('id_user', $id_user)->get();
+        $publications = Publication::where('id_user', $id_user)->orderBy('created_at', 'DESC')->get();
         return response()->json([
             'value' => $publications
         ], 200);
