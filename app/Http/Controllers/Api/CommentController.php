@@ -38,6 +38,12 @@ class CommentController extends Controller
         }
     }
 
+    public function get_comments($id) {
+        if ($id !== null && $id !== "")
+            return $this->comment->get_comments($id);
+        return $this->req_contr->message_error();
+    }
+
     public function delete($id_publication){
         if($id_publication!== null && $id_publication!== ""){
             return $this->comment->delete($id_publication);
