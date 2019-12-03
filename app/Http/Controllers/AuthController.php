@@ -192,13 +192,16 @@ class AuthController extends Controller
                 ], 401
             );
         }
-        auth()->login($user);
+        $token = auth()->login($user);
+        return $this->respondWithToken($token);
+        /*
         return response()->json(
             [
                 'message' => 'Successfully logged google user',
-                'user_logged' => auth()->user(),
+                'token' => auth()->user(),
             ], 200
         );
+        */
     }
 
     /**
