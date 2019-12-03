@@ -6,6 +6,7 @@ use Closure;
 
 use JWTAuth;
 use App\Http\Controllers\FirebaseController;
+use Carbon\Carbon;
 
 use App\User;
 
@@ -23,6 +24,16 @@ class JWT
         $user = \App\User::where('token_password', $request->token)->first();
         if($user !== null){
             if($user->password===null || $user->password===""){
+                $actual_date = now();
+                $token_expire = Carbon::createFromTimestamp($user->token_expire);
+                if($token_expire->greaterThanOrEqualTo($actual_date)){
+                    return $next($request);
+                }
+                return response()->json([
+                    'error' => 'token is invalid'
+                ], 200);
+                //dd($timestamp, $date, $test);
+                /*
                 $client = new \Google_Client();
                 if ($client->verifyIdToken($request->token)) {
                     return $next($request);
@@ -31,6 +42,7 @@ class JWT
                         'error' => 'token is invalid'
                     ], 200);
                 }
+                */
             }else{
                 JWTAuth::parseToken()->authenticate();
                 return $next($request);
