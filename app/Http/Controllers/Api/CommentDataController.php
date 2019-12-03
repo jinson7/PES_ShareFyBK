@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 use App\Comment;
 use App\User;
 
@@ -94,6 +96,36 @@ class CommentDataController extends Controller
                 'error' => "No existeix cap comentari amb l'id introduit."
             ], 404);
         }
+    }
+
+    /** @OA\Get(
+     *     path="/api/comments/publication/{id}",
+     *     tags={"comment"},
+     *     summary="Devuelve los comentarios de una publicación.",
+     *     description="Dado un id publicación, retorna un json con los comentarios y datos del usuario la publicación",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json comments: [ {'id_comment', 'text', 'created_at', 'id_user', 'username',  'first_name', 'photo_path'} ]."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    **/
+    public function get_comments($id_publication){
+        $comments = DB::table('comments')->join('users', 'comments.id_user', '=', 'users.id')
+                    ->select('comments.id as id_comment', 'comments.text', 'comments.created_at', 'users.id as id_user', 
+                            'users.username', 'users.first_name', 'users.photo_path')
+                    ->where('id_publication', $id_publication)->orderBy('comments.created_at', 'DESC')->get();
+        $data = ['comments' => $comments->toArray()];
+        return $data;
     }
 
     /** @OA\Delete(

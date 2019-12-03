@@ -100,6 +100,32 @@
                 }
             }
         },
+        "/api/comments/publication/{id}": {
+            "get": {
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Devuelve los comentarios de una publicación.",
+                "description": "Dado un id publicación, retorna un json con los comentarios y datos del usuario la publicación",
+                "operationId": "App\\Http\\Controllers\\Api\\CommentDataController::get_comments",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json comments: [ {'id_comment', 'text', 'created_at', 'id_user', 'username',  'first_name', 'photo_path'} ]."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    }
+                }
+            }
+        },
         "/api/follow/user/{username}": {
             "post": {
                 "tags": [
