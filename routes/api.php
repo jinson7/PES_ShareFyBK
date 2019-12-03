@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 // Login, Register and Logout
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
+Route::post('login/google', 'AuthController@login_google');
 Route::post('logout', 'AuthController@logout');
 
 // User

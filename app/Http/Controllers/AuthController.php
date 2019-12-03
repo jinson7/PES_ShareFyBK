@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('jwt', ['except' => ['login', 'register']]);
+        $this->middleware('jwt', ['except' => ['login', 'register', 'login_google']]);
     }
 
     /**
@@ -152,6 +152,53 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/api/login/google",
+     *     tags={"auth"},
+     *     summary="Torna un access_token i el username si l'usuari fa login correctament",
+     *     description="Torna un access_token i el username si l'usuari fa login correctament",
+     *     @OA\Response(
+     *         response=200,
+     *         description="operació correcta"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="operació incorrecta"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Dades no valides"
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         description="string amb el valor del email",
+     *         required=true
+     *     )
+     * )
+    */
+
+    public function login_google(Request $request){
+
+        $email = request()->input('email');
+        $user = User::where('email', $email)->first();
+        if($user === null || $user->email !== ""){
+            return response()->json(
+                [
+                    'error' => 'user amb el mail: '.$email.' no trobat',
+                ], 401
+            );
+        }
+        auth()->login($user);
+        return response()->json(
+            [
+                'message' => 'Successfully logged google user',
+                'user_logged' => auth()->user(),
+            ], 200
+        );
     }
 
     /**
