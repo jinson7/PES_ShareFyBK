@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('photo_path')->nullable()->default('/media/profiles/default.png');
             $table->text('token_notification')->nullable();
             $table->text('token_password')->nullable();
+            $table->text('token_expire')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

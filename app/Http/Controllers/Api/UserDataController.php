@@ -355,7 +355,8 @@ class UserDataController extends Controller
     public function set_token(Request $request, $username) {
         $user = User::where('username', $username)->first();
         if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 404);
-        $user->token_password = $request->token;
+        $user->token_password = sha1(time());
+        $user->token_expire = $request->token_expire;
         $user->save();
         return response()->json([
             'message' => 'Configuració guardada conrrectament.'
