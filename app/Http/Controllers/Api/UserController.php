@@ -80,4 +80,11 @@ class UserController extends Controller
             return $this->user->set_token($request, $username);
         return $result;
     }
+
+    public function set_token_notification(Request $request, $username) {
+        $result = $this->req_contr->username($username);
+        if ( $result === 'ok' )
+            return $this->user->set_token_notification($request, $username);
+        return $result;
+    }
 }
