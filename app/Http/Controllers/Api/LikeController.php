@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Like;
 use App\Http\Controllers\Api\LikeDataController;
-use App\User;
+use App\Http\Controllers\Api\RequestController;
 
 
 class LikeController extends Controller
@@ -17,16 +16,20 @@ class LikeController extends Controller
     public function __construct(){
         //$this->middleware('jwt');
         $this->like_data = new LikeDataController();
+        $this->req_contr = new RequestController();
     }
 
-    public function is_like($username, $id_publication){
-        if($username !== null && $username !== "" && $id_publication!== null && $id_publication!== ""){
+    public function get_info_user($id) {
+        if ($id !== null && $id !== "")
+            return $this->like_data->get_info_user($id);
+        return $this->req_contr->message_error();
+    }
+
+    public function is_like($username, $id_publication) {
+        $result = $this->req_contr->username($username);
+        if ( $result === 'ok' && $id_publication!== null && $id_publication!== "")
             return $this->like_data->is_like($username, $id_publication);
-        }else{
-            return response()->json([
-                'error' => 'error en els paràmetres'
-            ], 400);
-        }
+        return $result;
     }
 
     public function set_like($username, $id_publication){

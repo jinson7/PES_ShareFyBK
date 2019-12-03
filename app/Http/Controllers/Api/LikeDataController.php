@@ -16,6 +16,35 @@ class LikeDataController extends Controller
     }
     
     /** @OA\Get(
+     *     path="/api/publication/{id}/likes",
+     *     tags={"like"},
+     *     summary="Devuelve los usuarios que han dado like a una publicación.",
+     *     description="Dado un id publicación, retorna un json con la información de los usuarios que han dado like a una publicación",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json users: [ {'id', 'username',  'first_name', 'photo_path'} ]."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    **/
+    public function get_info_user($id_publication){
+        $likes = DB::table('likes')->join('users', 'likes.id_user', '=', 'users.id')
+                    ->select('users.id', 'users.username', 'users.first_name', 'users.photo_path')
+                    ->where('id_publication', $id_publication)->get();
+        $data = ['users' => $likes->toArray()];
+        return $data;
+    }
+
+    /** @OA\Get(
      *     path="/api/like/user/{username}/publication/{id_publication}",
      *     tags={"like"},
      *     summary="Comproba si un usuario ha dado like a una publicación",
@@ -105,7 +134,6 @@ class LikeDataController extends Controller
     **/
     public function unset_like($username, $id_publication){
         $user = User::where('username', $username)->first();
-        //$like = Like::where([['id_user', $user->id],['id_publication', $id_publication]])->first();
         DB::table('likes')->where([['id_user', $user->id],['id_publication', $id_publication]])->delete();
         return response()->json([
             'message' => 'relació eliminada correctament'
