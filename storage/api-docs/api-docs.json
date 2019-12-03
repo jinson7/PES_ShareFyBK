@@ -874,7 +874,7 @@
                 "operationId": "App\\Http\\Controllers\\Api\\UserDataController::set_token",
                 "parameters": [
                     {
-                        "name": "token",
+                        "name": "token_expire",
                         "in": "query",
                         "description": "string amb el valor del token a ficar a l'usuari",
                         "required": true

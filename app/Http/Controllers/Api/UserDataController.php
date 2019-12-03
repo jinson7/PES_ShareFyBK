@@ -337,7 +337,7 @@ class UserDataController extends Controller
      *     summary="set token_password per als usuaris que han fet login amb google",
      *     description="set token_password per als usuaris que han fet login amb google",
      *     @OA\Parameter(
-     *         name="token",
+     *         name="token_expire",
      *         in="query",
      *         description="string amb el valor del token a ficar a l'usuari",
      *         required=true
