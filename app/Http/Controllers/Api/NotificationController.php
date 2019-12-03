@@ -13,6 +13,10 @@ class NotificationController extends Controller
 {
     protected $type_notifications = [
         'like' =>  NotificationLike::class,
+        'comment' =>  NotificationLike::class,
+        'invite' =>  NotificationLike::class,
+        'follow' =>  NotificationLike::class,
+        'share' =>  NotificationLike::class,
     ];
 
     public function testFirebase(){
