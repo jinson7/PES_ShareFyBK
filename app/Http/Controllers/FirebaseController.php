@@ -18,26 +18,16 @@ class FirebaseController extends Controller
             ->withServiceAccount(__DIR__.'/sharefy_fb.json');
     }
 
-    public function createNotificatoin(){
-        $title = 'My Notification Title';
-        $body = 'My Notification Body';
-        $imageUrl = 'http://lorempixel.com/400/200/';
-
-        $notification = Notification::create()
-                            ->withTitle($title)
-                            ->withBody($body)
-                            ->withImageUrl($imageUrl);
+    public function createNotificatoin($title, $body, $imageUrl){
+        $notification = Notification::create($title, $body, $imageUrl);
         return $notification;
     }
 
-    public function createMessaging($to_deviceToken){
-        
-        $notification = $this->createNotificatoin();
-        $to_deviceToken = '...';
+    public function createMessaging($to_deviceToken, $notification){
         $messaging = $this->firebase->createMessaging();
         $message = CloudMessage::withTarget('token', $to_deviceToken)
-            ->withNotification($notification)
-            ->withData(['key' => 'value']);
+            ->withNotification($notification);
+            //->withData(['key' => 'value']);
         $messaging->send($message);
     }
 

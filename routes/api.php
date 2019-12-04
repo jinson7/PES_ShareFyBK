@@ -44,9 +44,4 @@ Route::delete('follow/user/{follower}/user/{followed}', 'Api\FollowerController@
 Route::get('follow/user/{follower}/user/{followed}', 'Api\FollowerController@is_following');
 
 //Notification
-Route::get('notification/{type}', 'Api\NotificationController@testFirebase');
-Route::post('notification/{type}/', 'Api\NotificationController@sendNotification');
-Route::post('notification/{type}/', 'Api\NotificationController@sendNotification');
-Route::get('notification/{type}/{from_user}/{game}/{to_user}', 'Api\NotificationController@sendNotification');
-Route::post('notification/{type}/', 'Api\NotificationController@sendNotification');
-Route::post('notification/{type}/', 'Api\NotificationController@sendNotification');
+Route::get('notification/{type}/{param1}/{param2}/{param3?}', 'Api\NotificationController@sendNotification');
