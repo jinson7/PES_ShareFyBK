@@ -435,6 +435,132 @@
                 }
             }
         },
+        "/api/notification/follow/{from_username}/{to_username}": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "Envia una notificació follow a {to_username}.",
+                "description": "Envia una notificació follow a {to_username}.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json : {'message' => 'Notificació enviada correctament'}"
+                    },
+                    "400": {
+                        "description": "Retorna un json : {'error' => 'Destinatari no te les notificacions activades'} o {'error' => 'to_user no trobat'} o {'error' => 'from_user no trobat'}"
+                    }
+                }
+            }
+        },
+        "/api/notification/share/{from_username}/{to_username}": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "Envia una notificació share a {to_username}.",
+                "description": "Envia una notificació share a {to_username}.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json : {'message' => 'Notificació enviada correctament'}"
+                    },
+                    "400": {
+                        "description": "Retorna un json : {'error' => 'Destinatari no te les notificacions activades'} o {'error' => 'to_user no trobat'} o {'error' => 'from_user no trobat'}"
+                    }
+                }
+            }
+        },
+        "/api/notification/comment/{from_username}/{to_username}": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "Envia una notificació comment a {to_username}.",
+                "description": "Envia una notificació comment a {to_username}.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json : {'message' => 'Notificació enviada correctament'}"
+                    },
+                    "400": {
+                        "description": "Retorna un json : {'error' => 'Destinatari no te les notificacions activades'} o {'error' => 'to_user no trobat'} o {'error' => 'from_user no trobat'}"
+                    }
+                }
+            }
+        },
+        "/api/notification/like/{from_username}/{to_username}": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "Envia una notificació like a {to_username}.",
+                "description": "Envia una notificació like a {to_username}.",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json : {'message' => 'Notificació enviada correctament'}"
+                    },
+                    "400": {
+                        "description": "Retorna un json : {'error' => 'Destinatari no te les notificacions activades'} o {'error' => 'to_user no trobat'} o {'error' => 'from_user no trobat'}"
+                    }
+                }
+            }
+        },
+        "/api/notification/invite/{from_username}/{game->name_en}/{to_username}": {
+            "post": {
+                "tags": [
+                    "notification"
+                ],
+                "summary": "Envia una notificació invite a {to_username}.",
+                "description": "Envia una notificació invite a {to_username}.",
+                "operationId": "App\\Http\\Controllers\\Api\\NotificationController::sendNotification",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json : {'message' => 'Notificació enviada correctament'}"
+                    },
+                    "400": {
+                        "description": "Retorna un json : {'error' => 'Destinatari no te les notificacions activades'} o {'error' => 'to_user no trobat'} o {'error' => 'from_user no trobat'} o {'error' => 'game no trobat'}"
+                    }
+                }
+            }
+        },
         "/api/user/{id_user}/publications": {
             "get": {
                 "tags": [
@@ -1142,6 +1268,10 @@
         {
             "name": "search",
             "description": "Operations about search"
+        },
+        {
+            "name": "notification",
+            "description": "Operations about notifications"
         }
     ]
 }

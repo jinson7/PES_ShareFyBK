@@ -61,3 +61,9 @@ namespace App\Http\Controllers;
  * )
  */
 /**
+ * @OA\Tag(
+ *     name="notification",
+ *     description="Operations about notifications"
+ * )
+ */
+/**
