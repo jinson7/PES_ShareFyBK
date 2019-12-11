@@ -10,6 +10,7 @@ use App\Http\Controllers\FirebaseController;
 
 use App\User;
 use App\Game;
+use App\Notification;
 
 class NotificationInvite implements NotificationInterface
 {
@@ -37,9 +38,10 @@ class NotificationInvite implements NotificationInterface
     }
 
     public function createNotification(){
-        $title = "T'han invitat a un joc!!";
-        $body = "En ".$this->from_user->username." t'ha invitat a fer una partida al joc: ".$this->game->name_en;
-        $imageUrl = "http://sharefy.tk/images/logojusto.png";
+        $notification_message = Notification::where('type', 'invite')->where('lang', $this->to_user->language)->first();
+        $title = $notification_message->title;
+        $body = $this->from_user->username." ".$notification_message->description." ".$this->game->name_en;
+        $imageUrl = $this->game->image_url;
         return $this->firebase->createNotificatoin($title, $body, $imageUrl);
     }
 
@@ -54,7 +56,15 @@ class NotificationInvite implements NotificationInterface
         if($this->from_user === null) return response()->json(['error' => 'from_user no trobat'], 400);
         if($this->to_user === null) return response()->json(['error' => 'to_user no trobat'], 400);
         if($this->game === null) return response()->json(['error' => 'game no trobat'], 400);
-        $notification = $this->createNotification();
-        return $this->createMessaging($notification);
+        if($this->to_user->isNotificationsActive()){
+            $notification = $this->createNotification();
+            $this->createMessaging($notification);
+            return response()->json([
+                'message' => 'Notificació enviada correctament'
+            ], 200);
+        }
+        return response()->json([
+            'error' => 'Destinatari no te les notificacions activades'
+        ], 200);
     }
 }

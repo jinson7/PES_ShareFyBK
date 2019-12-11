@@ -50,4 +50,7 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
     
+    public function isNotificationsActive(){
+        return ($this->notification === 1 ? true : false);
+    }
 }

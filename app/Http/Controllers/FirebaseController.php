@@ -15,7 +15,7 @@ class FirebaseController extends Controller
 
     public function __construct(){
         $this->firebase = (new Factory())
-            ->withServiceAccount(__DIR__.'/sharefy_fb.json');
+            ->withServiceAccount(__DIR__.'/sharefy-login.json');
     }
 
     public function createNotificatoin($title, $body, $imageUrl){
@@ -27,7 +27,6 @@ class FirebaseController extends Controller
         $messaging = $this->firebase->createMessaging();
         $message = CloudMessage::withTarget('token', $to_deviceToken)
             ->withNotification($notification);
-            //->withData(['key' => 'value']);
         $messaging->send($message);
     }
 
