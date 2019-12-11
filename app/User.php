@@ -74,4 +74,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Follower', 'id_follower', 'id');
     }
     
+    public function isNotificationsActive(){
+        return ($this->notification === 1 ? true : false);
+    }
 }

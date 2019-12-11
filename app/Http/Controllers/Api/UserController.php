@@ -18,7 +18,8 @@ class UserController extends Controller
                                                'reset_password',
                                                'list_all_users',
                                                'list_all_emails',
-                                               'set_token'
+                                               'set_token',
+                                               'set_token_notification'
                                                ]]);
         $this->user = new UserDataController();
         $this->req_contr = new RequestController();

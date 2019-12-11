@@ -54,9 +54,4 @@ Route::get('user/{id}/followed', 'Api\FollowerController@get_followed');
 Route::get('search/{data}', 'Api\SearchController@search');
 
 //Notification
-Route::get('notification/create', 'Api\NotificationController@testFirebase');
-Route::get('notification/like/', 'Api\NotificationController@sendNotification');
-Route::get('notification/comment/', 'Api\NotificationController@sendNotification');
-Route::get('notification/invite/', 'Api\NotificationController@sendNotification');
-Route::get('notification/follow/', 'Api\NotificationController@sendNotification');
-Route::get('notification/share/', 'Api\NotificationController@sendNotification');
+Route::post('notification/{type}/{param1}/{param2}/{param3?}', 'Api\NotificationController@sendNotification');

@@ -11,7 +11,7 @@ use App\Http\Controllers\FirebaseController;
 use App\User;
 use App\Notification;
 
-class NotificationLike implements NotificationInterface
+class NotificationComment implements NotificationInterface
 {
     private $from_user;
     private $to_user;
@@ -31,7 +31,7 @@ class NotificationLike implements NotificationInterface
     }
 
     public function createNotification(){
-        $notification_message = Notification::where('type', 'like')->where('lang', $this->to_user->language)->first();
+        $notification_message = Notification::where('type', 'comment')->where('lang', $this->to_user->language)->first();
         $title = $notification_message->title;
         $body = $this->from_user->username." ".$notification_message->description;
         $imageUrl = "";
