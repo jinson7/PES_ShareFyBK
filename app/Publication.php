@@ -10,7 +10,7 @@ class Publication extends Model
         'id_user', 'id_game', 'text', 'video_path',
     ];
 
-    protected $with = ['game', 'user:id,username,photo_path', 'comments.user:id,username,photo_path'];
+    protected $with = ['game', 'user:id,username,photo_path', 'comments.user:id,username,photo_path', 'like.user:id,username,photo_path'];
     protected $withCount = ['like AS num_likes'];
 
     public function scopePublicationsFromGame($query, $id_game)
@@ -39,7 +39,7 @@ class Publication extends Model
     */
     public function like()
     {
-        return $this->hasMany('App\Like', 'id_publication', 'id');
+        return $this->hasMany('App\Like', 'id_publication', 'id')->orderBy('created_at', 'desc');
     }
 
     /**

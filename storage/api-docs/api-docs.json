@@ -561,79 +561,6 @@
                 }
             }
         },
-        "/api/user/{id_user}/publications": {
-            "get": {
-                "tags": [
-                    "publication"
-                ],
-                "summary": "Dado un id de usuario existente, devuelve todas sus publicaciones",
-                "description": "Dado un id de usuario existente, devuelve todas sus publicaciones",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::list_user",
-                "parameters": [
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "Valor del token_access",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Devuelve un json con la información de la publicación."
-                    }
-                }
-            }
-        },
-        "/api/publication": {
-            "post": {
-                "tags": [
-                    "publication"
-                ],
-                "summary": "Es crea la publicació amb la informació enviada.",
-                "description": "Es crea la publicació amb la informació enviada.",
-                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::create",
-                "parameters": [
-                    {
-                        "name": "id_user",
-                        "in": "query",
-                        "description": "string amb el id de l'usuari",
-                        "required": true
-                    },
-                    {
-                        "name": "game",
-                        "in": "query",
-                        "description": "id del game",
-                        "required": true
-                    },
-                    {
-                        "name": "video",
-                        "in": "query",
-                        "description": "valor del video en el form",
-                        "required": true
-                    },
-                    {
-                        "name": "text",
-                        "in": "query",
-                        "description": "string amb el text de la publicació",
-                        "required": true
-                    },
-                    {
-                        "name": "token",
-                        "in": "query",
-                        "description": "Valor del token_access",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Retorna un json amb el identificador de la publicació"
-                    },
-                    "401": {
-                        "description": "El vídeo no té un format vàlid, format suportat .mp4"
-                    }
-                }
-            }
-        },
         "/api/publication/{id}": {
             "get": {
                 "tags": [
@@ -687,6 +614,102 @@
                     },
                     "400": {
                         "description": "Devuelve un json con el error: 'No existe la publicación a editar'."
+                    }
+                }
+            }
+        },
+        "/api/user/{id_user}/publications": {
+            "get": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de usuario existente, devuelve todas sus publicaciones",
+                "description": "Dado un id de usuario existente, devuelve todas sus publicaciones",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::list_user",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información de la publicación."
+                    }
+                }
+            }
+        },
+        "/api/user/{id}/wall": {
+            "get": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Dado un id de usuario existente, devuelve las publicaciones más recientes de todos sus seguidos y las suyas (Muro).",
+                "description": "Dado un id de usuario, devuelve toda la información de todas las publicaciones recientes que han hecho los usuarios al cual sigue y las suyas propias",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::wall",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con la información de la publicación, users, likes, comentarios, game"
+                    }
+                }
+            }
+        },
+        "/api/publication": {
+            "post": {
+                "tags": [
+                    "publication"
+                ],
+                "summary": "Es crea la publicació amb la informació enviada.",
+                "description": "Es crea la publicació amb la informació enviada.",
+                "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::create",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "query",
+                        "description": "string amb el id de l'usuari",
+                        "required": true
+                    },
+                    {
+                        "name": "game",
+                        "in": "query",
+                        "description": "id del game",
+                        "required": true
+                    },
+                    {
+                        "name": "video",
+                        "in": "query",
+                        "description": "valor del video en el form",
+                        "required": true
+                    },
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "string amb el text de la publicació",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json amb el identificador de la publicació"
+                    },
+                    "401": {
+                        "description": "El vídeo no té un format vàlid, format suportat .mp4"
                     }
                 }
             }

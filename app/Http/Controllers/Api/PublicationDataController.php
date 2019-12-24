@@ -12,8 +12,39 @@ use App\Like;
 
 class PublicationDataController extends Controller
 {
+
     /**
-     * @OA\Get(
+      * @OA\Get(
+      *     path="/api/publication/{id}",
+      *     tags={"publication"},
+      *     summary="Dado un id de publicación existente, devuelve su información.",
+      *     description="Dado un id de publicación existente, devuelve su información.",
+      *     @OA\Response(
+      *         response=200,
+      *         description="Devuelve un json con la información de la publicación."
+      *     ),
+      *     @OA\Parameter(
+      *         name="token",
+      *         in="query",
+      *         description="Valor del token_access",
+      *         required=true
+      *     )
+      * )
+    */
+    public function show($id) {
+        $publication = Publication::where('id', $id)->first();
+        if ($publication !== null) {
+            $likes = Like::with('user:id,username')->where('id_publication', $publication->id)->get();
+            $list_usernames_like = $likes->implode('user.username', ',');
+            $publication->likes = explode(',', $list_usernames_like);
+        }
+        return response()->json([
+            'value' => $publication
+        ], 200);
+    }
+
+    /**
+      * @OA\Get(
       *     path="/api/user/{id_user}/publications",
       *     tags={"publication"},
       *     summary="Dado un id de usuario existente, devuelve todas sus publicaciones",
@@ -28,8 +59,8 @@ class PublicationDataController extends Controller
       *         description="Valor del token_access",
       *         required=true
       *     )
-     * )
-      */
+      * )
+    */
     public function list_user($id_user){
         $publications = Publication::where('id_user', $id_user)->orderBy('created_at', 'DESC')->get();
         return response()->json([
@@ -38,7 +69,32 @@ class PublicationDataController extends Controller
     }
 
     /**
-     * @OA\Post(
+      * @OA\Get(
+      *     path="/api/user/{id}/wall",
+      *     tags={"publication"},
+      *     summary="Dado un id de usuario existente, devuelve las publicaciones más recientes de todos sus seguidos y las suyas (Muro).",
+      *     description="Dado un id de usuario, devuelve toda la información de todas las publicaciones recientes que han hecho los usuarios al cual sigue y las suyas propias",
+      *     @OA\Response(
+      *         response=200,
+      *         description="Devuelve un json con la información de la publicación, users, likes, comentarios, game"
+      *     ),
+      *     @OA\Parameter(
+      *         name="token",
+      *         in="query",
+      *         description="Valor del token_access",
+      *         required=true
+      *     )
+      * )
+    */
+    public function wall($followed) {
+        $wall = Publication::whereIn('id_user', $followed)->orderBy('created_at','desc')->get();
+        return response()->json([
+            'value' => $wall
+        ], 200);
+    }
+
+    /**
+      * @OA\Post(
       *     path="/api/publication",
       *     tags={"publication"},
       *     summary="Es crea la publicació amb la informació enviada.",
@@ -81,7 +137,7 @@ class PublicationDataController extends Controller
       *         description="Valor del token_access",
       *         required=true
       *     )
-     * )
+      * )
     */
     public function create(Request $request, $file, $ext) {
         $publication = Publication::create([
@@ -102,36 +158,8 @@ class PublicationDataController extends Controller
         ], 200);
     }
 
-    /**
-     * @OA\Get(
-      *     path="/api/publication/{id}",
-      *     tags={"publication"},
-      *     summary="Dado un id de publicación existente, devuelve su información.",
-      *     description="Dado un id de publicación existente, devuelve su información.",
-      *     @OA\Response(
-      *         response=200,
-      *         description="Devuelve un json con la información de la publicación."
-      *     ),
-      *     @OA\Parameter(
-      *         name="token",
-      *         in="query",
-      *         description="Valor del token_access",
-      *         required=true
-      *     )
-     * )
-      */
-    public function show($id) {
-        $publication = Publication::where('id', $id)->first();
-        $likes = Like::with('user:id,username')->where('id_publication', $publication->id)->get();
-        $list_usernames_like = $likes->implode('user.username', ',');
-        $publication->likes = explode(',', $list_usernames_like);
-        return response()->json([
-            'value' => $publication
-        ], 200);
-    }
-
     /** 
-     * @OA\Put(
+      * @OA\Put(
       *     path="/api/publication/{id}",
       *     tags={"publication"},
       *     summary="Dado un id de publicación existente, edita dicha publicación.",
@@ -161,7 +189,7 @@ class PublicationDataController extends Controller
       *         required=true
       *     )
       * )
-     */
+    */
     public function update(Request $request, $id)
     {
         $publication = Publication::find($id);
@@ -178,7 +206,8 @@ class PublicationDataController extends Controller
         ], 400);
     }
 
-    /** @OA\DELETE(
+    /** 
+     * @OA\DELETE(
      *     path="/api/publication/{publication_id}",
      *     tags={"publication"},
      *     summary="Dado un id de publicación existente, elimina dicha publicación.",
@@ -198,7 +227,7 @@ class PublicationDataController extends Controller
      *         required=true
      *     )
      * )
-     */
+    */
     public function delete($id)
     {
         $publication = Publication::find($id);

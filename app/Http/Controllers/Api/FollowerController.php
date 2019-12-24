@@ -77,4 +77,12 @@ class FollowerController extends Controller
             'error' => 'error en els paràmetres'
         ], 400);
     }
+
+    public function get_id_followed($id_user) {
+        if ($id_user !== null && $id_user !== "")
+            return $this->follow->get_id_followed($id_user);
+        return response()->json([
+            'error' => 'error en els paràmetres'
+        ], 400);
+    }
 }

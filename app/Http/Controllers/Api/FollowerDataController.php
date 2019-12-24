@@ -239,4 +239,8 @@ class FollowerDataController extends Controller
             'missage' => 'Aquest usuari no existeix o no segueix a cap usuari.'
         ], 404);
     }
+
+    public function get_id_followed($id_user) {
+        return Follower::where('id_follower', $id_user)->get('id_followed');
+    }
 }

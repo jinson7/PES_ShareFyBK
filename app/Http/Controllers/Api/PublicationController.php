@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\PublicationDataController;
+use App\Http\Controllers\Api\FollowerController;
 
 class PublicationController extends Controller
 {
     protected $publication;
+    protected $followed;
 
     public function __construct(){
         //$this->middleware('jwt', [ 'except' => ['store', 'show']]);
         $this->publication = new PublicationDataController();
+        $this->followed = new FollowerController();
     }
 
     /**
@@ -46,6 +49,13 @@ class PublicationController extends Controller
 
     public function show($id) {
         return $this->publication->show($id);
+    }
+
+    public function wall($id) {
+        $followed = $this->followed->get_id_followed($id);
+        $my_publications = collect(['id_followed' => (int)$id]);
+        $followed->push($my_publications);
+        return $this->publication->wall($followed);
     }
 
     public function edit(Request $request, $id) {
