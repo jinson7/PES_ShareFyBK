@@ -79,6 +79,33 @@ class LikeDataController extends Controller
         ], 200);
     }
 
+
+    /** @OA\Get(
+     *     path="/api/likes/user/{id}/publications",
+     *     tags={"like"},
+     *     summary="Dado un id usuario devuelve las publicaciones a las que el usuario ha dado like.",
+     *     description="Devuelve todas las publicaciones con toda su información, a las que un usuario a ha dado like.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Devuelve un json con todos los datos de una publicación."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Devuelve un json con el error: 'error en els paràmetres'."
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+    */
+    public function get_id_publications_by_user($id_user) {
+        $likes = Like::where('id_user', $id_user)->get('id_publication');
+        return $likes;
+    }
+
     /** @OA\Post(
      *     path="/api/like/user/{username}/publication/{id_publication}",
      *     tags={"like"},

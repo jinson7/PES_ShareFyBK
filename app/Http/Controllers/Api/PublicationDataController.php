@@ -93,6 +93,13 @@ class PublicationDataController extends Controller
         ], 200);
     }
 
+    public function get_publications($id_publications) {
+        $publications = Publication::whereIn('id', $id_publications)->without('like', 'comments')->orderBy('created_at', 'DESC')->get();
+        return response()->json([
+            'value' => $publications
+        ], 200);
+    }
+
     /**
       * @OA\Post(
       *     path="/api/publication",

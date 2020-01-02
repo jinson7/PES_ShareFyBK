@@ -58,6 +58,10 @@ class PublicationController extends Controller
         return $this->publication->wall($followed);
     }
 
+    public function get_publications($id_publications) {
+        return $this->publication->get_publications($id_publications);;
+    }
+
     public function edit(Request $request, $id) {
     }
 
