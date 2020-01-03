@@ -31,7 +31,7 @@ class FollowerDataController extends Controller
      *         description="Devuelve un json con el error: 'Usuari no trobat'."
      *     ),
      *     @OA\Parameter(
-     *         name="user_follower",
+     *         name="follower_username",
      *         in="query",
      *         description="Username del usuari que fa l'acció de seguir a un altre usuari.",
      *         required=true
@@ -48,9 +48,12 @@ class FollowerDataController extends Controller
         $user_follower  = User::where('username', $request->follower_username)->first();
         $user_to_follow = User::where('username', $username)->first();
         if ($user_follower !== null && $user_to_follow !== null) {
+            $pending = 0;
+            if(!$user_to_follow->public) $pending = 1; 
             Follower::create([
-                'id_follower' => $user_follower->id,
-                'id_followed' => $user_to_follow->id,
+                'id_follower'   => $user_follower->id,
+                'id_followed'   => $user_to_follow->id,
+                'pending'       => $pending
             ]);
             return response()->json([
                 'message' => 'Has començat a seguir a ' . $username . ' XP'
@@ -152,7 +155,7 @@ class FollowerDataController extends Controller
             $follow = Follower::where('id_follower', $user_follower->id)
                             ->where('id_followed', $user_followed->id)->first();
             return response()->json([
-                'value' => ($follow !== null ? 'true' : 'false')
+                'value' => ($follow !== null && !$follow->pending ? 'true' : 'false')
             ], 200);
         }
         return response()->json([
@@ -242,5 +245,46 @@ class FollowerDataController extends Controller
 
     public function get_id_followed($id_user) {
         return Follower::where('id_follower', $id_user)->get('id_followed');
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/api/user/{username}/follow/request",
+     *     tags={"follow"},
+     *     summary="Acceptar la sol·licitud de l'usuari",
+     *     description="Acceptar la sol·licitud de l'usuari",
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="valor del token_access per poder utilitzar el endpoint",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="follower_username",
+     *         in="query",
+     *         description="Username del usuari que fa l'acció de seguir a un altre usuari.",
+     *         required=true
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="'error' => 'usuari no trobat a la base de dades'"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="'message' => 'Configuració guardada conrrectament.'"
+     *     )
+     * )
+    */
+    public function accept_follow_requests(Request $request, $username){
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 404);
+        $user_follower = User::where('username', $request->follower_username)->first();
+        if($user_follower === null ) return response()->json(['error' => 'user_follower no trobat a la base de dades'], 404);
+        $follow = Follower::where('id_follower', $user_follower->id)->where('id_followed', $user->id)->first();
+        if($follow === null ) return response()->json(['error' => 'relació no trobat a la base de dades'], 404);
+        Follower::where('id_follower', $user_follower->id)->where('id_followed', $user->id)->update(['pending' => 0]);
+        return response()->json([
+            'message' => 'Sol·licitud acceptada correctament'
+        ], 200);
     }
 }

@@ -85,4 +85,20 @@ class FollowerController extends Controller
             'error' => 'error en els paràmetres'
         ], 400);
     }
+
+    public function accept_follow_requests(Request $request, $username) {
+        if($username !== null && $username !== "" && $request->follower_username != null &&
+            $request->follower_username != ""){
+            if ($username !== $request->follower_username)
+                return $this->follow->accept_follow_requests($request, $username);
+            else {
+                return response()->json([
+                    'error' => 'Restricció: un usuari no pot seguir-se a ell mateix.'
+                ], 401);
+            }
+        }
+        return response()->json([
+            'error' => 'error en els paràmetres'
+        ], 400);
+    }
 }

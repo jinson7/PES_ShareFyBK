@@ -22,6 +22,10 @@ Route::put('user/{username}', 'Api\UserController@update_info_user');
 Route::post('user/{username}/token_password', 'Api\UserController@set_token');
 Route::post('user/{username}/token_notification', 'Api\UserController@set_token_notification');
 
+Route::get('user/{username}/follow/request', 'Api\UserController@follow_requests');
+Route::put('user/{username}/follow/request', 'Api\FollowerController@accept_follow_requests');
+
+
 // Publication
 Route::resource('publication', 'Api\PublicationController');
 Route::get('user/{id_user}/publications','Api\PublicationController@list_publication_user');

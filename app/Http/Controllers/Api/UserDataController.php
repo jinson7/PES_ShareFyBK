@@ -402,4 +402,44 @@ class UserDataController extends Controller
             'message' => 'Configuració guardada conrrectament.'
         ], 200);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/user/{username}/follow/request",
+     *     tags={"user"},
+     *     summary="Obtenir el llistat de sol·licituds de follow pendents d'acceptar de l'usuari",
+     *     description="Obtenir el llistat de sol·licituds de follow pendents d'acceptar de l'usuari",
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="valor del token_access per poder utilitzar el endpoint",
+     *         required=true
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="'error' => 'usuari no trobat a la base de dades'"
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="'message' => 'Configuració guardada conrrectament.'"
+     *     )
+     * )
+    */
+    public function follow_requests(Request $request, $username){
+        $user = User::where('username', $username)->first();
+        if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 404);
+        $users_follow_request = User::with('followers.user_follower')->where('username', $username)->first();
+        $users_follow_request = collect($users_follow_request->followers)->map(function ($value, $key) {
+            if($value->pending === 1){
+                return $value;
+            }
+        });
+        $users_follow_request = $users_follow_request->filter(function ($value, $key) {
+            return $value !== null;
+        });
+        //dd($users_follow_request, $users_follow_request->toArray());
+        return response()->json([
+            'value' => $users_follow_request
+        ], 200);
+    }
 }

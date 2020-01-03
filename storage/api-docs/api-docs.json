@@ -136,7 +136,7 @@
                 "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::create",
                 "parameters": [
                     {
-                        "name": "user_follower",
+                        "name": "follower_username",
                         "in": "query",
                         "description": "Username del usuari que fa l'acció de seguir a un altre usuari.",
                         "required": true
@@ -283,6 +283,62 @@
                     },
                     "404": {
                         "description": "Devuelve un json con el missage: 'Aquest usuari no existeix o no segueix a cap usuari'."
+                    }
+                }
+            }
+        },
+        "/api/user/{username}/follow/request": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Obtenir el llistat de sol·licituds de follow pendents d'acceptar de l'usuari",
+                "description": "Obtenir el llistat de sol·licituds de follow pendents d'acceptar de l'usuari",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::follow_requests",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "valor del token_access per poder utilitzar el endpoint",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "'error' => 'usuari no trobat a la base de dades'"
+                    },
+                    "200": {
+                        "description": "'message' => 'Configuració guardada conrrectament.'"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Acceptar la sol·licitud de l'usuari",
+                "description": "Acceptar la sol·licitud de l'usuari",
+                "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::accept_follow_requests",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "valor del token_access per poder utilitzar el endpoint",
+                        "required": true
+                    },
+                    {
+                        "name": "follower_username",
+                        "in": "query",
+                        "description": "Username del usuari que fa l'acció de seguir a un altre usuari.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "'error' => 'usuari no trobat a la base de dades'"
+                    },
+                    "200": {
+                        "description": "'message' => 'Configuració guardada conrrectament.'"
                     }
                 }
             }

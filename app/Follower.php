@@ -12,6 +12,14 @@ class Follower extends Model
      * @var array
      */
     protected $fillable = [
-        'id_follower', 'id_followed',
+        'id_follower', 'id_followed', 'pending'
     ];
+
+    /**
+     * Get the user of the publication.
+    */
+    public function user_follower()
+    {
+        return $this->belongsTo('App\User', 'id_follower', 'id');
+    }
 }
