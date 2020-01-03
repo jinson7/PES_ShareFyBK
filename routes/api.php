@@ -41,6 +41,7 @@ Route::get('game/{id}/lang/{lang}','Api\GameController@game_info_lang');
 // Like
 Route::get('publication/{id}/likes', 'Api\LikeController@get_info_user');
 Route::get('like/user/{username}/publication/{id_publication}', 'Api\LikeController@is_like');
+Route::get('likes/user/{id}/publications', 'Api\LikeController@get_publications_by_user');
 Route::post('like/user/{username}/publication/{id_publication}', 'Api\LikeController@set_like');
 Route::delete('like/user/{username}/publication/{id_publication}', 'Api\LikeController@unset_like');
 

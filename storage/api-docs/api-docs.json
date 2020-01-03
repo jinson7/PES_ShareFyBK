@@ -491,6 +491,32 @@
                 }
             }
         },
+        "/api/likes/user/{id}/publications": {
+            "get": {
+                "tags": [
+                    "like"
+                ],
+                "summary": "Dado un id usuario devuelve las publicaciones a las que el usuario ha dado like.",
+                "description": "Devuelve todas las publicaciones con toda su información, a las que un usuario a ha dado like.",
+                "operationId": "App\\Http\\Controllers\\Api\\LikeDataController::get_id_publications_by_user",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Devuelve un json con todos los datos de una publicación."
+                    },
+                    "400": {
+                        "description": "Devuelve un json con el error: 'error en els paràmetres'."
+                    }
+                }
+            }
+        },
         "/api/notification/follow/{from_username}/{to_username}": {
             "post": {
                 "tags": [
