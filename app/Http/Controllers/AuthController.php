@@ -186,7 +186,7 @@ class AuthController extends Controller
         $idToken = request()->input('idToken');
 
         $client = new \Google_Client();
-        if (!$client->verifyIdToken($request->token)) {
+        if (!$client->verifyIdToken($idToken)) {
             return response()->json([
                 'error' => 'idToken is invalid'
             ], 401);
