@@ -71,6 +71,14 @@ class UserController extends Controller
         return $this->user->list_all_emails();
     }
 
+    public function update_password(Request $request, $username) {
+        $result = $this->req_contr->update_password($request);
+        if ( $result === 'ok' ) {
+            return $this->user->update_password($request, $username);
+        }
+        return $result;
+    }
+
     public function update_info_user(Request $request, $username) {
         $result = $this->req_contr->update_info_user($request, $username);
         if ( $result === 'ok' )

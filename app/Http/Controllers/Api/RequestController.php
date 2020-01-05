@@ -39,6 +39,14 @@ class RequestController extends Controller
         else return $this->message_error();
     }
 
+    public function update_password(Request $request) {
+        if ($request->password !== null && $request->password !== "" && 
+            $request->new_password !== null && $request->new_password !== "" && 
+            $request->token !== null && $request->token !== "")
+            return "ok";
+        return $this->message_error();
+    }
+
     public function update_info_user(Request $request, $username) {
         if ($this->username($username) === "ok" && $this->username_req($request) === "ok" &&
             $request->first_name !== null && $request->first_name !== "" && $request->last_name !== null &&
