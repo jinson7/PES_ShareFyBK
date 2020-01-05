@@ -183,22 +183,35 @@ class AuthController extends Controller
 
     public function login_google(Request $request){
 
+        $idToken = request()->input('idToken');
+
+        $client = new \Google_Client();
+        if (!$client->verifyIdToken($request->token)) {
+            return response()->json([
+                'error' => 'idToken is invalid'
+            ], 401);
+        }
+
         $email = request()->input('email');
         $user = User::where('email', $email)->first();
-        if($user === null || $user->password !== ""){
-            return response()->json(
-                [
-                    'error' => 'user amb el mail: '.$email.' no trobat',
-                ], 401
-            );
+
+        //primera vez entra
+        if($user === null){
+            $user = User::create([
+                'username' => $request->username,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+            ]);
         }
-        auth()->login($user);
-        return response()->json(
-            [
-                'message' => 'Successfully logged google user',
-                'user_logged' => auth()->user(),
-            ], 200
-        );
+        
+        //segunda vez
+        $token = auth()->login($user);
+        
+        $user->token_password = $token;
+        $user->save();
+
+        return $this->respondWithToken($token);
     }
 
     /**

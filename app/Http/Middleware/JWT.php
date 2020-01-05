@@ -21,6 +21,9 @@ class JWT
      */
     public function handle($request, Closure $next)
     {
+        JWTAuth::parseToken()->authenticate();
+        return $next($request);
+        /*
         $user = \App\User::where('token_password', $request->token)->first();
         if($user !== null){
             if($user->password===null || $user->password===""){
@@ -43,6 +46,7 @@ class JWT
                     ], 200);
                 }
                 */
+                /*
             }else{
                 JWTAuth::parseToken()->authenticate();
                 return $next($request);
@@ -52,5 +56,6 @@ class JWT
                 'error' => 'token is invalid'
             ], 200);
         }
+        */
     }
 }
