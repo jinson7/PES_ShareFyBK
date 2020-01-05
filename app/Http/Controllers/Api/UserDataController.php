@@ -176,6 +176,71 @@ class UserDataController extends Controller
         ], 200);
     }
 
+    public function check_password($password, $req_password) {
+        return Hash::check($req_password, $password);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/api/user/{username}/password",
+     *     tags={"user"},
+     *     summary="Cambia el password de un usuario.",
+     *     description="Dado el username de un usuario, la contraseña actual a cambiar y la nueva contraseña, se cambia la contraseña de dicho usuario.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Retorna un json amb el 'message' : 'Operació correcta'."
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Retorna un json amb el 'error' 'Paràmetres incorrectes.'"
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Retorna un json amb el 'error' 'El password actual no coincideix amb el password introduït.'"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Retorna un json amb el 'error' : 'Usuari no trobat a la base de dades.'"
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="query",
+     *         description="string amb el valor del password actual del usuario con el que se logea.",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="new_password",
+     *         in="query",
+     *         description="string amb el valor del nou password a cambiar, debe de contener almenos 8 carácteres, mayusculas, minusculas, y números.",
+     *         required=true
+     *     ),
+     *     @OA\Parameter(
+     *         name="token",
+     *         in="query",
+     *         description="Valor del token_access",
+     *         required=true
+     *     )
+     * )
+     */
+    public function update_password(Request $request, $username) {
+        $user = User::where('username', $username)->first();
+        if($user !== null ) {
+            if( $this->check_password($user->password, $request->password) ) {
+                $user->password = bcrypt($request->new_password);
+                $user->save();
+                return response()->json([
+                    'message' => 'operació correcta.'
+                ], 200);
+            }
+            return response()->json([
+                'error' => 'El password actual no coincideix amb el password introduït.'
+            ], 403);
+        }
+        return response()->json([
+            'error' => 'usuari no trobat a la base de dades'
+        ], 404);
+    }
+
     /**
      * @OA\Put(
      *     path="/api/user/{username}?token=valor",
@@ -187,7 +252,7 @@ class UserDataController extends Controller
      *         description="Retorna un json amb el missatge 'operació correcta' "
      *     ),
      *     @OA\Response(
-     *         response=400,
+     *         response=404,
      *         description="Retorna un json amb el missatge 'usuari no trobat a la base de dades' "
      *     ),
      *     @OA\Response(
@@ -225,28 +290,16 @@ class UserDataController extends Controller
      *         required=true
      *     ),
      *     @OA\Parameter(
-     *         name="old_password",
-     *         in="query",
-     *         description="string amb el valor del old_password",
-     *         required=true
-     *     ),
-     *     @OA\Parameter(
-     *         name="password",
-     *         in="query",
-     *         description="string amb el valor del password",
-     *         required=true
-     *     ),
-     *     @OA\Parameter(
      *         name="token",
      *         in="query",
      *         description="Valor del token_access",
      *         required=true
      *     )
      * )
-    */
+     */
     public function update_info(Request $request, $username) {
         $user = User::where('username', $username)->first();
-        if($user === null ) return response()->json(['message' => 'usuari no trobat a la base de dades'], 400);
+        if($user === null ) return response()->json(['message' => 'usuari no trobat a la base de dades'], 404);
         if($user->token_password !== $request->token) return response()->json(['error' => 'no pots modificar dades d\'un altre usuari'], 401);
         
         $user->username = $request->username;
@@ -254,17 +307,7 @@ class UserDataController extends Controller
         $user->last_name = $request->last_name;
         $user->birth_date = $request->birth_date;
         $user->email = $request->email;
-        if ( $request->password !== null ) {
-            if( Hash::check($request->old_password, $user->password) ) {
-                $user->password = bcrypt($request->password);
-            }else {
-                return response()->json([
-                    'error' => 'old_password no coincideix'
-                ], 401);
-            }
-        }
         $user->save();
-
         return response()->json([
             'message' => 'operació correcta'
         ], 200);

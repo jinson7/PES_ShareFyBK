@@ -990,18 +990,6 @@
                         "required": true
                     },
                     {
-                        "name": "old_password",
-                        "in": "query",
-                        "description": "string amb el valor del old_password",
-                        "required": true
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "description": "string amb el valor del password",
-                        "required": true
-                    },
-                    {
                         "name": "token",
                         "in": "query",
                         "description": "Valor del token_access",
@@ -1012,7 +1000,7 @@
                     "200": {
                         "description": "Retorna un json amb el missatge 'operació correcta' "
                     },
-                    "400": {
+                    "404": {
                         "description": "Retorna un json amb el missatge 'usuari no trobat a la base de dades' "
                     },
                     "401": {
@@ -1047,6 +1035,50 @@
                 "responses": {
                     "200": {
                         "description": "Retrona un json amb la llista de usernames dels usuaris"
+                    }
+                }
+            }
+        },
+        "/api/user/{username}/password": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Cambia el password de un usuario.",
+                "description": "Dado el username de un usuario, la contraseña actual a cambiar y la nueva contraseña, se cambia la contraseña de dicho usuario.",
+                "operationId": "App\\Http\\Controllers\\Api\\UserDataController::update_password",
+                "parameters": [
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "string amb el valor del password actual del usuario con el que se logea.",
+                        "required": true
+                    },
+                    {
+                        "name": "new_password",
+                        "in": "query",
+                        "description": "string amb el valor del nou password a cambiar, debe de contener almenos 8 carácteres, mayusculas, minusculas, y números.",
+                        "required": true
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Valor del token_access",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un json amb el 'message' : 'Operació correcta'."
+                    },
+                    "400": {
+                        "description": "Retorna un json amb el 'error' 'Paràmetres incorrectes.'"
+                    },
+                    "403": {
+                        "description": "Retorna un json amb el 'error' 'El password actual no coincideix amb el password introduït.'"
+                    },
+                    "404": {
+                        "description": "Retorna un json amb el 'error' : 'Usuari no trobat a la base de dades.'"
                     }
                 }
             }
