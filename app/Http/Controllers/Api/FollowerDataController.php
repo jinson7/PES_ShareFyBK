@@ -244,7 +244,8 @@ class FollowerDataController extends Controller
     }
 
     public function get_id_followed($id_user) {
-        return Follower::where('id_follower', $id_user)->get('id_followed');
+        return Follower::where('id_follower', $id_user)->
+                        where('pending', "=" , 0)->get('id_followed');
     }
 
     /**
