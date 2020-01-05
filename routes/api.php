@@ -31,7 +31,7 @@ Route::resource('publication', 'Api\PublicationController');
 Route::get('user/{id_user}/publications','Api\PublicationController@list_publication_user');
 
 // Wall
-Route::get('user/{id}/wall', 'Api\PublicationController@wall');
+Route::get('user/{username}/wall', 'Api\PublicationController@wall');
 
 // Games
 Route::get('games','Api\GameController@index');

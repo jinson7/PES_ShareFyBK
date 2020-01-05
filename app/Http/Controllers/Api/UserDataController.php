@@ -12,6 +12,11 @@ use App\User;
 
 class UserDataController extends Controller
 {
+    
+    public function get_id($username) {
+        return User::where('username', $username)->first('id');
+    }
+
     /**
      * @OA\Post(
      *     path="/api/user/username",

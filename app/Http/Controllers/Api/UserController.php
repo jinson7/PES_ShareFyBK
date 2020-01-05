@@ -25,6 +25,16 @@ class UserController extends Controller
         $this->req_contr = new RequestController();
     }
 
+    /* 
+     * Pre: $username siempre es diferente de null
+     * Post: retorna el id corespondiente al username del usuario, si no existeix retorna -1;
+     */
+    public function get_id($username) {
+        $resposta = $this->user->get_id($username);
+        $id = ($resposta != null) ? $resposta->id : -1;
+        return $id;
+    }
+
     public function check_username(Request $request) {
         $result = $this->req_contr->username_req($request);
         if ( $result === 'ok' )

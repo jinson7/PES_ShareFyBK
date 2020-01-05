@@ -6,16 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\PublicationDataController;
 use App\Http\Controllers\Api\FollowerController;
+use App\Http\Controllers\Api\UserController;
 
 class PublicationController extends Controller
 {
     protected $publication;
     protected $followed;
+    protected $user;
 
     public function __construct(){
         //$this->middleware('jwt', [ 'except' => ['store', 'show']]);
         $this->publication = new PublicationDataController();
         $this->followed = new FollowerController();
+        $this->user = new UserController();
     }
 
     /**
@@ -51,11 +54,17 @@ class PublicationController extends Controller
         return $this->publication->show($id);
     }
 
-    public function wall($id) {
-        $followed = $this->followed->get_id_followed($id);
-        $my_publications = collect(['id_followed' => (int)$id]);
-        $followed->push($my_publications);
-        return $this->publication->wall($followed);
+    public function wall($username) {
+        $id = $this->user->get_id($username);
+        if ($id != -1) {
+            $followed = $this->followed->get_id_followed($id);
+            $my_publications = collect(['id_followed' => (int)$id]);
+            $followed->push($my_publications);
+            return $this->publication->wall($followed);
+        }
+        return response()->json([
+            'error' => "El username no existeix."
+        ], 404);
     }
 
     public function get_publications($id_publications) {

@@ -723,13 +723,13 @@
                 }
             }
         },
-        "/api/user/{id}/wall": {
+        "/api/user/{username}/wall": {
             "get": {
                 "tags": [
                     "publication"
                 ],
-                "summary": "Dado un id de usuario existente, devuelve las publicaciones más recientes de todos sus seguidos y las suyas (Muro).",
-                "description": "Dado un id de usuario, devuelve toda la información de todas las publicaciones recientes que han hecho los usuarios al cual sigue y las suyas propias",
+                "summary": "Dado un username de usuario existente, devuelve las publicaciones más recientes de todos sus seguidos y las suyas (Muro).",
+                "description": "Dado un username de usuario, devuelve toda la información de todas las publicaciones recientes que han hecho los usuarios al cual sigue y las suyas propias",
                 "operationId": "App\\Http\\Controllers\\Api\\PublicationDataController::wall",
                 "parameters": [
                     {
@@ -742,6 +742,9 @@
                 "responses": {
                     "200": {
                         "description": "Devuelve un json con la información de la publicación, users, likes, comentarios, game"
+                    },
+                    "404": {
+                        "description": "El username no existeix."
                     }
                 }
             }

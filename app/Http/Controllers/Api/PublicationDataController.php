@@ -70,13 +70,17 @@ class PublicationDataController extends Controller
 
     /**
       * @OA\Get(
-      *     path="/api/user/{id}/wall",
+      *     path="/api/user/{username}/wall",
       *     tags={"publication"},
-      *     summary="Dado un id de usuario existente, devuelve las publicaciones más recientes de todos sus seguidos y las suyas (Muro).",
-      *     description="Dado un id de usuario, devuelve toda la información de todas las publicaciones recientes que han hecho los usuarios al cual sigue y las suyas propias",
+      *     summary="Dado un username de usuario existente, devuelve las publicaciones más recientes de todos sus seguidos y las suyas (Muro).",
+      *     description="Dado un username de usuario, devuelve toda la información de todas las publicaciones recientes que han hecho los usuarios al cual sigue y las suyas propias",
       *     @OA\Response(
       *         response=200,
       *         description="Devuelve un json con la información de la publicación, users, likes, comentarios, game"
+      *     ),
+      *     @OA\Response(
+      *         response=404,
+      *         description="El username no existeix."
       *     ),
       *     @OA\Parameter(
       *         name="token",
