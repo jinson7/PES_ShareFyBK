@@ -122,17 +122,17 @@ class FollowerDataController extends Controller
      *     path="/api/follow/user/{follower}/user/{followed}",
      *     tags={"follow"},
      *     summary="Comprova si un usuari segueix a un altre.",
-     *     description="Dado un username del seguidor {follower} i un altre username {followed}, comprova si el segueix o no.",
+     *     description="Dado un username del seguidor {follower} i un altre username {followed} comprova si el segueix o no, retornando el estado de la acción a hacer state : [FOLLOW, IS_PENDING, FOLLOWING]",
      *     @OA\Response(
      *         response=200,
-     *         description="Devuelve un json con el value: 'true' o 'false'."
+     *         description="Devuelve un json { 'state': ['FOLLOW', 'FOLLOWIG', 'IS_PENDING'] }"
      *     ),
      *     @OA\Response(
      *         response=400,
      *         description="Devuelve un json con el error: 'error en els paràmetres'."
      *     ),
      *      @OA\Response(
-     *         response=401,
+     *         response=403,
      *         description="Devuelve un json con el error: 'Restricció: un usuari no pot seguir-se a ell mateix."
      *     ),
      *     @OA\Response(
@@ -154,8 +154,10 @@ class FollowerDataController extends Controller
         if ($user_follower !== null && $user_followed !== null) {
             $follow = Follower::where('id_follower', $user_follower->id)
                             ->where('id_followed', $user_followed->id)->first();
+            $state = 'FOLLOW';
+            if ($follow != null) $state = ( $follow->pending ) ? 'IS_PENDING' : 'FOLLOWING';
             return response()->json([
-                'value' => ($follow !== null && !$follow->pending ? 'true' : 'false')
+                'state' => $state
             ], 200);
         }
         return response()->json([

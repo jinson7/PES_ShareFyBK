@@ -132,7 +132,7 @@
                     "follow"
                 ],
                 "summary": "Seguir a un usuari",
-                "description": "Dado un username del usuari a seguir, es crea la relació de seguidor sigue a seguido y retorna el estado de la relación si el usuario es privado retorna 'IS_PENDIG', caso contrario 'FOLLOWING'.",
+                "description": "Dado un username del usuari a seguir, es crea la relació de seguidor sigue ha seguido y retorna el estado de la relación si el usuario es privado retorna 'IS_PENDIG', caso contrario 'FOLLOWING'.",
                 "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::create",
                 "parameters": [
                     {
@@ -170,7 +170,7 @@
                     "follow"
                 ],
                 "summary": "Comprova si un usuari segueix a un altre.",
-                "description": "Dado un username del seguidor {follower} i un altre username {followed}, comprova si el segueix o no.",
+                "description": "Dado un username del seguidor {follower} i un altre username {followed} comprova si el segueix o no, retornando el estado de la acción a hacer state : [FOLLOW, IS_PENDING, FOLLOWING]",
                 "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::is_following",
                 "parameters": [
                     {
@@ -182,12 +182,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Devuelve un json con el value: 'true' o 'false'."
+                        "description": "Devuelve un json { 'state': ['FOLLOW', 'FOLLOWIG', 'IS_PENDING'] }"
                     },
                     "400": {
                         "description": "Devuelve un json con el error: 'error en els paràmetres'."
                     },
-                    "401": {
+                    "403": {
                         "description": "Devuelve un json con el error: 'Restricció: un usuari no pot seguir-se a ell mateix."
                     },
                     "404": {
