@@ -63,7 +63,7 @@ class User extends Authenticatable implements JWTSubject
     */
     public function followers()
     {
-        return $this->hasMany('App\Follower', 'id_followed', 'id');
+        return $this->hasMany('App\Follower', 'id_followed', 'id')->where('pending', '=', 0);
     }
 
     /**
@@ -71,7 +71,7 @@ class User extends Authenticatable implements JWTSubject
     */
     public function followed()
     {
-        return $this->hasMany('App\Follower', 'id_follower', 'id');
+        return $this->hasMany('App\Follower', 'id_follower', 'id')->where('pending', '=', 0);;
     }
     
     public function isNotificationsActive(){
