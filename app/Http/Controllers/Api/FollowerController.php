@@ -24,7 +24,7 @@ class FollowerController extends Controller
             else {
                 return response()->json([
                     'error' => 'Restricció: un usuari no pot seguir-se a ell mateix.'
-                ], 401);
+                ], 403);
             }
         }
         return response()->json([

@@ -13,17 +13,17 @@ class FollowerDataController extends Controller
      *     path="/api/follow/user/{username}",
      *     tags={"follow"},
      *     summary="Seguir a un usuari",
-     *     description="Dado un username del usuari a seguir, es crea la relació en la taula followers.",
+     *     description="Dado un username del usuari a seguir, es crea la relació de seguidor sigue ha seguido y retorna el estado de la relación si el usuario es privado retorna 'IS_PENDIG', caso contrario 'FOLLOWING'.",
      *     @OA\Response(
      *         response=200,
-     *         description="Devuelve un json con el mensaje: 'Has començat a seguir a {username} =P'."
+     *         description="Devuelve un json { 'state': ['FOLLOWIG', 'IS_PENDING'] }"
      *     ),
      *     @OA\Response(
      *         response=400,
      *         description="Devuelve un json con el error: 'error en els paràmetres'."
      *     ),
      *      @OA\Response(
-     *         response=401,
+     *         response=403,
      *         description="Devuelve un json con el error: 'Restricció: un usuari no pot seguir-se a ell mateix'."
      *     ),
      *     @OA\Response(
@@ -49,14 +49,14 @@ class FollowerDataController extends Controller
         $user_to_follow = User::where('username', $username)->first();
         if ($user_follower !== null && $user_to_follow !== null) {
             $pending = 0;
-            if(!$user_to_follow->public) $pending = 1; 
+            if(!$user_to_follow->public) $pending = 1;
             Follower::create([
                 'id_follower'   => $user_follower->id,
                 'id_followed'   => $user_to_follow->id,
                 'pending'       => $pending
             ]);
             return response()->json([
-                'message' => 'Has començat a seguir a ' . $username . ' XP'
+                'state' => ($pending) ? 'IS_PENDING' : 'FOLLOWING'
             ], 200);
         }
         return response()->json([

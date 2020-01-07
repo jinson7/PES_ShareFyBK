@@ -132,7 +132,7 @@
                     "follow"
                 ],
                 "summary": "Seguir a un usuari",
-                "description": "Dado un username del usuari a seguir, es crea la relació en la taula followers.",
+                "description": "Dado un username del usuari a seguir, es crea la relació de seguidor sigue a seguido y retorna el estado de la relación si el usuario es privado retorna 'IS_PENDIG', caso contrario 'FOLLOWING'.",
                 "operationId": "App\\Http\\Controllers\\Api\\FollowerDataController::create",
                 "parameters": [
                     {
@@ -150,12 +150,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Devuelve un json con el mensaje: 'Has començat a seguir a {username} =P'."
+                        "description": "Devuelve un json { 'state': ['FOLLOWIG', 'IS_PENDING'] }"
                     },
                     "400": {
                         "description": "Devuelve un json con el error: 'error en els paràmetres'."
                     },
-                    "401": {
+                    "403": {
                         "description": "Devuelve un json con el error: 'Restricció: un usuari no pot seguir-se a ell mateix'."
                     },
                     "404": {
