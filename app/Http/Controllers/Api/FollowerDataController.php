@@ -192,7 +192,8 @@ class FollowerDataController extends Controller
     **/
     public function get_followers($id_user) {
         $users = null;
-        foreach (Follower::where('id_followed', $id_user)->cursor() as $follower) {
+        foreach (Follower::where('id_followed', $id_user)->
+                            where('pending', '=', 0)->cursor() as $follower) {
             $user = User::where('id', $follower->id_follower)->first();
             $users [] = ['id' => $user->id, 'username' => $user->username, 'photo_path' => $user->photo_path];
         }
@@ -232,7 +233,8 @@ class FollowerDataController extends Controller
     **/
     public function get_followed($id_user) {
         $users = null;
-        foreach (Follower::where('id_follower', $id_user)->cursor() as $followed) {
+        foreach (Follower::where('id_follower', $id_user)->
+                            where('pending', '=', 0)->cursor() as $followed) {
             $user = User::where('id', $followed->id_followed)->first();
             $users [] = ['id' => $user->id, 'username' => $user->username, 'photo_path' => $user->photo_path];
         }
