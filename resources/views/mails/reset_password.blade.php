@@ -7,7 +7,7 @@
     </style>
     @slot('header')
         @component('mail::header', ['url' => ''])
-            <img src="http://sharefy.tk/images/logojusto.png" width="80" /><br />
+            <img src="http://sharefy.tk/images/logojusto.png" alt="logojusto_reset_passord" width="80" /><br />
             Sharefy
         @endcomponent
     @endslot
