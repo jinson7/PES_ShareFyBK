@@ -476,7 +476,7 @@ class UserDataController extends Controller
     public function follow_requests(Request $request, $username){
         $user = User::where('username', $username)->first();
         if($user === null ) return response()->json(['error' => 'usuari no trobat a la base de dades'], 404);
-        $users_follow_request = User::with('followers.user_follower')->where('username', $username)->first();
+        $users_follow_request = User::with('followersAll.user_follower')->where('username', $username)->first();
         $users_follow_request = collect($users_follow_request->followers)->map(function ($value, $key) {
             if($value->pending === 1){
                 return $value;
