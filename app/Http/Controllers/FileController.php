@@ -60,8 +60,9 @@ class FileController extends Controller
         $file = $request->file('photo');
         $ext = $file->getClientOriginalExtension();
         if ($ext === 'jpg' || $ext === 'png') {
-            $file->move($pub_path, $username . '.' . $ext);
-            $user->photo_path = $path.$username.'.'.$ext;
+            $time_upload = time();
+            $file->move($pub_path, $username.$time_upload. '.' . $ext);
+            $user->photo_path = $path.$username.$time_upload.'.'.$ext;
             $user->save();
             return response()->json([
                 'message' => 'foto subida correctamente.'
